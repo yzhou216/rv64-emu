@@ -4,10 +4,19 @@
 #include "bits.h"
 
 /*
- * Signed remainder as RISC-V defines it.  Unlike C, it defines the
- * result of dividing by zero and of dividing the most negative value by
- * -1, which overflows.
+ * Signed division and remainder as RISC-V defines them.  Unlike C, it
+ * defines the results of dividing by zero and of dividing the most
+ * negative value by -1, which overflows.
  */
+static uint64_t emu_div(int64_t dividend, int64_t divisor)
+{
+	if (divisor == 0)
+		return UINT64_MAX;
+	if (dividend == INT64_MIN && divisor == -1)
+		return dividend;
+	return dividend / divisor;
+}
+
 static uint64_t emu_rem(int64_t dividend, int64_t divisor)
 {
 	if (divisor == 0)
@@ -40,6 +49,13 @@ void emu_r_type(struct rv_state *state, uint32_t word)
 		if (funct7 == 0b0000000) /* SLL */
 			state->regs[rd] = state->regs[rs1] <<
 				  (state->regs[rs2] & 63);
+		else
+			unsupported("R-type funct7", funct7);
+		break;
+	case 0b100:
+		if (funct7 == 0b0000001) /* DIV */
+			state->regs[rd] = emu_div(state->regs[rs1],
+					  state->regs[rs2]);
 		else
 			unsupported("R-type funct7", funct7);
 		break;
