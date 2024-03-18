@@ -39,6 +39,7 @@ uint64_t rv_emulate(struct rv_state *state)
 {
 	while (state->pc != RV_STOP) {
 		rv_one(state);
+		state->analysis.insns++;
 	}
 	return state->regs[RV_A0];
 }

@@ -20,6 +20,8 @@ void emu_ucond_j(struct rv_state *state, uint32_t word)
 	int32_t offset = sign_extend(imm, 21);
 
 	state->pc += offset;
+
+	state->analysis.jumps++;
 }
 
 void emu_jalr(struct rv_state *state, uint32_t word)
@@ -33,6 +35,8 @@ void emu_jalr(struct rv_state *state, uint32_t word)
 	/* Compute the target before writing rd, which may be rs1 */
 	state->regs[rd] = state->pc + 4;
 	state->pc = target;
+
+	state->analysis.jumps++;
 }
 
 void emu_b_type(struct rv_state *state, uint32_t word)
@@ -72,8 +76,11 @@ void emu_b_type(struct rv_state *state, uint32_t word)
 		unsupported("B-type funct3", funct3);
 	}
 
-	if (taken)
+	if (taken) {
 		state->pc += offset;
-	else
+		state->analysis.taken++;
+	} else {
 		state->pc += 4; /* Next instruction */
+		state->analysis.not_taken++;
+	}
 }

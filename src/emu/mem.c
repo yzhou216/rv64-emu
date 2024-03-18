@@ -25,6 +25,8 @@ void emu_load(struct rv_state *state, uint32_t word)
 		unsupported("I-type funct3 (load)", funct3);
 	}
 	state->pc += 4; /* Next instruction */
+
+	state->analysis.loads++;
 }
 
 void emu_s_type(struct rv_state *state, uint32_t word)
@@ -51,4 +53,6 @@ void emu_s_type(struct rv_state *state, uint32_t word)
 		unsupported("S-type funct3", funct3);
 	}
 	state->pc += 4;
+
+	state->analysis.stores++;
 }

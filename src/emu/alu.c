@@ -84,6 +84,7 @@ void emu_r_type(struct rv_state *state, uint32_t word)
 	}
 
 	state->pc += 4; /* Next instruction */
+	state->analysis.alu++;
 }
 
 void emu_i_type(struct rv_state *state, uint32_t word)
@@ -104,4 +105,6 @@ void emu_i_type(struct rv_state *state, uint32_t word)
 	else
 		unsupported("I-type funct3", funct3);
 	state->pc += 4; /* Next instruction */
+
+	state->analysis.alu++;
 }
