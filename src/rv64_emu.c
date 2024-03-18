@@ -12,10 +12,12 @@ void usage()
 	exit(-1);
 }
 
-int parse_params(int argc, char **argv, struct rv_state * state)
+int parse_params(int argc, char **argv, struct rv_state *state)
 {
-	// Parse optional command line parameters which must precede
-	// the name of the emulated program and its parameters
+	/*
+	 * Parse optional command line parameters which must precede
+	 * the name of the emulated program and its parameters
+	 */
 	state->analyze = false;
 	state->simulate_cache = false;
 	state->icache.type = CACHE_NONE;
@@ -23,8 +25,10 @@ int parse_params(int argc, char **argv, struct rv_state * state)
 	int i;
 	for (i = 1; i < argc; i++) {
 		if (argv[i][0] != '-') {
-			// Return the index of the first non-optional parameter,
-			// which is the name of the emulated program
+			/*
+			 * Return the index of the first non-optional parameter,
+			 * which is the name of the emulated program
+			 */
 			break;
 		} else if (!strcmp(argv[i], "-a")) {
 			state->analyze = true;
@@ -52,24 +56,20 @@ int parse_params(int argc, char **argv, struct rv_state * state)
 
 int main(int argc, char **argv)
 {
-	if (argc == 1) {
+	if (argc == 1)
 		usage();
-	}
 
 	struct rv_state state;
 	int i = parse_params(argc, argv, &state);
 
-	if (!run_test(argv[i], i + 1, argc, argv, &state)) {
+	if (!run_test(argv[i], i + 1, argc, argv, &state))
 		usage();
-	}
 
-	if (state.analyze) {
+	if (state.analyze)
 		rv_print(&state.analysis);
-	}
 
-	if (state.simulate_cache) {
+	if (state.simulate_cache)
 		cache_print(&state.icache, "(I)");
-	}
 
 	return 0;
 }

@@ -9,21 +9,19 @@
 
 void copy_array(int *dst, int *src, int len)
 {
-	for (int i = 0; i < len; i++) {
+	for (int i = 0; i < len; i++)
 		dst[i] = src[i];
-	}
 }
 
 void print_array(char *prefix, int *values, int len)
 {
 	printf("%s", prefix);
-	for (int i = 0; i < len; i++) {
+	for (int i = 0; i < len; i++)
 		printf(" %d", values[i]);
-	}
 	printf("\n");
 }
 
-void fib_rec_test(int start_arg, char **argv, struct rv_state * state)
+void fib_rec_test(int start_arg, char **argv, struct rv_state *state)
 {
 	int result;
 	int n = atoi(argv[start_arg]);
@@ -34,12 +32,12 @@ void fib_rec_test(int start_arg, char **argv, struct rv_state * state)
 	result = fib_rec_s(n);
 	printf("Asm: %d\n", result);
 
-	rv_init(state, (uint32_t *) fib_rec_s, n, 0, 0, 0);
+	rv_init(state, (uint32_t *)fib_rec_s, n, 0, 0, 0);
 	result = rv_emulate(state);
 	printf("Emu: %d\n", result);
 }
 
-void get_bitseq_test(int start_arg, char **argv, struct rv_state * state)
+void get_bitseq_test(int start_arg, char **argv, struct rv_state *state)
 {
 	int result;
 	int n = atoi(argv[start_arg]);
@@ -52,12 +50,12 @@ void get_bitseq_test(int start_arg, char **argv, struct rv_state * state)
 	result = get_bitseq_s(n, start, end);
 	printf("Asm: %d\n", result);
 
-	rv_init(state, (uint32_t *) get_bitseq_s, n, start, end, 0);
+	rv_init(state, (uint32_t *)get_bitseq_s, n, start, end, 0);
 	result = rv_emulate(state);
 	printf("Emu: %d\n", result);
 }
 
-void pal_test(int start_arg, char **argv, struct rv_state * state)
+void pal_test(int start_arg, char **argv, struct rv_state *state)
 {
 	bool result;
 	char *str = argv[start_arg];
@@ -69,12 +67,12 @@ void pal_test(int start_arg, char **argv, struct rv_state * state)
 	result = pal_rec_s(str, 0, end);
 	printf("Asm: %s\n", result ? "is a palindrome" : "is not a palindrome");
 
-	rv_init(state, (uint32_t *) pal_rec_s, (uint64_t) str, 0, end, 0);
+	rv_init(state, (uint32_t *)pal_rec_s, (uint64_t)str, 0, end, 0);
 	result = rv_emulate(state);
 	printf("Emu: %s\n", result ? "is a palindrome" : "is not a palindrome");
 }
 
-void int_to_str_test(int start_arg, char **argv, struct rv_state * state)
+void int_to_str_test(int start_arg, char **argv, struct rv_state *state)
 {
 	char out[MAX_ARRAY];
 
@@ -92,13 +90,13 @@ void int_to_str_test(int start_arg, char **argv, struct rv_state * state)
 	printf("Asm: %s\n", out);
 
 	memset(out, 0, sizeof(out));
-	rv_init(state, (uint32_t *) int_to_str_s, value, (uint64_t) out,
+	rv_init(state, (uint32_t *)int_to_str_s, value, (uint64_t)out,
 		base, 0);
 	rv_emulate(state);
 	printf("Emu: %s\n", out);
 }
 
-void max3_test(int start_arg, char **argv, struct rv_state * state)
+void max3_test(int start_arg, char **argv, struct rv_state *state)
 {
 	int result;
 	int a = atoi(argv[start_arg]);
@@ -111,12 +109,12 @@ void max3_test(int start_arg, char **argv, struct rv_state * state)
 	result = max3_s(a, b, c);
 	printf("Asm: %d\n", result);
 
-	rv_init(state, (uint32_t *) max3_s, a, b, c, 0);
+	rv_init(state, (uint32_t *)max3_s, a, b, c, 0);
 	result = rv_emulate(state);
 	printf("Emu: %d\n", result);
 }
 
-void midpoint_test(int start_arg, char **argv, struct rv_state * state)
+void midpoint_test(int start_arg, char **argv, struct rv_state *state)
 {
 	int result;
 	int start = atoi(argv[start_arg]);
@@ -128,12 +126,12 @@ void midpoint_test(int start_arg, char **argv, struct rv_state * state)
 	result = midpoint_s(start, end);
 	printf("Asm: %d\n", result);
 
-	rv_init(state, (uint32_t *) midpoint_s, start, end, 0, 0);
+	rv_init(state, (uint32_t *)midpoint_s, start, end, 0, 0);
 	result = rv_emulate(state);
 	printf("Emu: %d\n", result);
 }
 
-void quadratic_test(int start_arg, char **argv, struct rv_state * state)
+void quadratic_test(int start_arg, char **argv, struct rv_state *state)
 {
 	int result;
 	int x = atoi(argv[start_arg]);
@@ -147,12 +145,12 @@ void quadratic_test(int start_arg, char **argv, struct rv_state * state)
 	result = quadratic_s(x, a, b, c);
 	printf("Asm: %d\n", result);
 
-	rv_init(state, (uint32_t *) quadratic_s, x, a, b, c);
+	rv_init(state, (uint32_t *)quadratic_s, x, a, b, c);
 	result = rv_emulate(state);
 	printf("Emu: %d\n", result);
 }
 
-void sort_test(int start_arg, int argc, char **argv, struct rv_state * state)
+void sort_test(int start_arg, int argc, char **argv, struct rv_state *state)
 {
 	int sorted[MAX_ARRAY];
 	int values[MAX_ARRAY] = { 0, };
@@ -172,13 +170,13 @@ void sort_test(int start_arg, int argc, char **argv, struct rv_state * state)
 	print_array("Asm:", sorted, len);
 
 	copy_array(sorted, values, len);
-	rv_init(state, (uint32_t *) sort_s, (uint64_t) sorted, len, 0, 0);
+	rv_init(state, (uint32_t *)sort_s, (uint64_t)sorted, len, 0, 0);
 	rv_emulate(state);
 	print_array("Emu:", sorted, len);
 
 }
 
-void str_to_int_test(int start_arg, int argc, char **argv, struct rv_state * state)
+void str_to_int_test(int start_arg, int argc, char **argv, struct rv_state *state)
 {
 	char *str = argv[start_arg];
 	int base = 10;
@@ -196,14 +194,14 @@ void str_to_int_test(int start_arg, int argc, char **argv, struct rv_state * sta
 	result = str_to_int_s(str, base);
 	printf("Asm: %d\n", result);
 
-	rv_init(state, (uint32_t *) str_to_int_s, (uint64_t) str, base, 0, 0);
+	rv_init(state, (uint32_t *)str_to_int_s, (uint64_t)str, base, 0, 0);
 	result = rv_emulate(state);
 	printf("Emu: %d\n", result);
 }
 
-void to_upper_test(int start_arg, char **argv, struct rv_state * state)
+void to_upper_test(int start_arg, char **argv, struct rv_state *state)
 {
-	// Make a copy of the string since we modify it in place
+	/* Make a copy of the string since we modify it in place */
 	char out[MAX_ARRAY];
 	char *str = argv[start_arg];
 
@@ -216,7 +214,7 @@ void to_upper_test(int start_arg, char **argv, struct rv_state * state)
 	printf("Asm: %s\n", out);
 
 	strncpy(out, str, MAX_ARRAY);
-	rv_init(state, (uint32_t *) to_upper_s, (uint64_t) str, (uint64_t) out,
+	rv_init(state, (uint32_t *)to_upper_s, (uint64_t)str, (uint64_t)out,
 		0, 0);
 	rv_emulate(state);
 	printf("Emu: %s\n", out);
@@ -229,28 +227,27 @@ void to_upper_test(int start_arg, char **argv, struct rv_state * state)
 bool run_test(const char *name, int start_arg, int argc, char **argv,
 	      struct rv_state *state)
 {
-	if (!strcmp(name, "fib_rec")) {
+	if (!strcmp(name, "fib_rec"))
 		fib_rec_test(start_arg, argv, state);
-	} else if (!strcmp(name, "get_bitseq")) {
+	else if (!strcmp(name, "get_bitseq"))
 		get_bitseq_test(start_arg, argv, state);
-	} else if (!strcmp(name, "int_to_str")) {
+	else if (!strcmp(name, "int_to_str"))
 		int_to_str_test(start_arg, argv, state);
-	} else if (!strcmp(name, "is_pal")) {
+	else if (!strcmp(name, "is_pal"))
 		pal_test(start_arg, argv, state);
-	} else if (!strcmp(name, "max3")) {
+	else if (!strcmp(name, "max3"))
 		max3_test(start_arg, argv, state);
-	} else if (!strcmp(name, "midpoint")) {
+	else if (!strcmp(name, "midpoint"))
 		midpoint_test(start_arg, argv, state);
-	} else if (!strcmp(name, "quadratic")) {
+	else if (!strcmp(name, "quadratic"))
 		quadratic_test(start_arg, argv, state);
-	} else if (!strcmp(name, "sort")) {
+	else if (!strcmp(name, "sort"))
 		sort_test(start_arg, argc, argv, state);
-	} else if (!strcmp(name, "str_to_int")) {
+	else if (!strcmp(name, "str_to_int"))
 		str_to_int_test(start_arg, argc, argv, state);
-	} else if (!strcmp(name, "to_upper")) {
+	else if (!strcmp(name, "to_upper"))
 		to_upper_test(start_arg, argv, state);
-	} else {
+	else
 		return false;
-	}
 	return true;
 }
