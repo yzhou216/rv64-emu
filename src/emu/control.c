@@ -55,6 +55,12 @@ void emu_b_type(struct rv_state *state, uint32_t word)
 	int32_t offset = sign_extend(imm, 13);
 
 	switch (funct3) {
+	case 0b000: /* BEQ */
+		if (rs1_val == rs2_val)
+			state->pc += offset; /* jump to label */
+		else
+			state->pc += 4; /* Next instruction */
+		break;
 	case 0b100: /* BLT */
 		if (rs1_val < rs2_val)
 			state->pc += offset; /* jump to label */
