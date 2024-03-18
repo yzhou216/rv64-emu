@@ -9,9 +9,10 @@
 
 void rv_exec(struct rv_state *state, uint32_t word);
 
-/* Instructions by major opcode, in alu.c and control.c */
+/* Instructions by major opcode, in alu.c, mem.c, and control.c */
 void emu_r_type(struct rv_state *state, uint32_t word);
 void emu_i_type(struct rv_state *state, uint32_t word);
+void emu_s_type(struct rv_state *state, uint32_t word);
 void emu_jalr(struct rv_state *state, uint32_t word);
 void emu_b_type(struct rv_state *state, uint32_t word);
 

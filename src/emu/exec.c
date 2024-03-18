@@ -22,6 +22,9 @@ void rv_exec(struct rv_state *state, uint32_t word)
 	case 0b0010011:
 		emu_i_type(state, word);
 		break;
+	case 0b0100011:
+		emu_s_type(state, word);
+		break;
 	case 0b1100111:
 		/* JALR (RET) is a variant of I-type instructions */
 		emu_jalr(state, word);
