@@ -54,32 +54,26 @@ void emu_b_type(struct rv_state *state, uint32_t word)
 	int64_t rs2_val = (int64_t)state->regs[rs2];
 	int32_t offset = sign_extend(imm, 13);
 
+	bool taken = false;
 	switch (funct3) {
 	case 0b000: /* BEQ */
-		if (rs1_val == rs2_val)
-			state->pc += offset; /* jump to label */
-		else
-			state->pc += 4; /* Next instruction */
+		taken = rs1_val == rs2_val;
 		break;
 	case 0b001: /* BNE */
-		if (rs1_val != rs2_val)
-			state->pc += offset;
-		else
-			state->pc += 4; /* Next instruction */
+		taken = rs1_val != rs2_val;
 		break;
 	case 0b100: /* BLT */
-		if (rs1_val < rs2_val)
-			state->pc += offset; /* jump to label */
-		else
-			state->pc += 4; /* Next instruction */
+		taken = rs1_val < rs2_val;
 		break;
 	case 0b101: /* BGE */
-		if (rs1_val >= rs2_val)
-			state->pc += offset; /* jump to label */
-		else
-			state->pc += 4; /* Next instruction */
+		taken = rs1_val >= rs2_val;
 		break;
 	default:
 		unsupported("B-type funct3", funct3);
 	}
+
+	if (taken)
+		state->pc += offset;
+	else
+		state->pc += 4; /* Next instruction */
 }
