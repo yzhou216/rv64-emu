@@ -61,15 +61,21 @@ void emu_b_type(struct rv_state *state, uint32_t word)
 		else
 			state->pc += 4; /* Next instruction */
 		break;
+	case 0b001: /* BNE */
+		if (rs1_val != rs2_val)
+			state->pc += offset;
+		else
+			state->pc += 4; /* Next instruction */
+		break;
 	case 0b100: /* BLT */
 		if (rs1_val < rs2_val)
 			state->pc += offset; /* jump to label */
 		else
 			state->pc += 4; /* Next instruction */
 		break;
-	case 0b001: /* BNE */
-		if (rs1_val != rs2_val)
-			state->pc += offset;
+	case 0b101: /* BGE */
+		if (rs1_val >= rs2_val)
+			state->pc += offset; /* jump to label */
 		else
 			state->pc += 4; /* Next instruction */
 		break;
