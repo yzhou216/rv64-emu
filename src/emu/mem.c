@@ -15,6 +15,9 @@ void emu_load(struct rv_state *state, uint32_t word)
 	case 0b000: /* LB */
 		state->regs[rd] = *((int8_t *)addr);
 		break;
+	case 0b010: /* LW */
+		state->regs[rd] = *((int32_t *)addr);
+		break;
 	case 0b011: /* LD */
 		state->regs[rd] = *((uint64_t *)addr);
 		break;
