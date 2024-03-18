@@ -41,6 +41,9 @@ void emu_s_type(struct rv_state *state, uint32_t word)
 	case 0b000: /* SB */
 		*((uint8_t *)addr) = state->regs[rs2];
 		break;
+	case 0b010: /* SW */
+		*((uint32_t *)addr) = state->regs[rs2];
+		break;
 	case 0b011: /* SD */
 		*((uint64_t *)addr) = state->regs[rs2];
 		break;
