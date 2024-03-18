@@ -13,6 +13,7 @@ void rv_exec(struct rv_state *state, uint32_t word);
 void emu_r_type(struct rv_state *state, uint32_t word);
 void emu_i_type(struct rv_state *state, uint32_t word);
 void emu_s_type(struct rv_state *state, uint32_t word);
+void emu_ucond_j(struct rv_state *state, uint32_t word);
 void emu_jalr(struct rv_state *state, uint32_t word);
 void emu_b_type(struct rv_state *state, uint32_t word);
 

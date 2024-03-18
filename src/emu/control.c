@@ -3,6 +3,25 @@
 #include "exec.h"
 #include "bits.h"
 
+void emu_ucond_j(struct rv_state *state, uint32_t word)
+{
+	uint32_t rd = get_bits(word, 7, 5);
+	if (rd != 0) /* jal, link ra, else j, ra remain unchanged  */
+		state->regs[rd] = (uint64_t)state->pc + 4;
+
+	uint32_t imm20 = get_bit(word, 31);
+	uint32_t imm10_1 = get_bits(word, 21, 10);
+	uint32_t imm11 = get_bit(word, 20);
+	uint32_t imm19_12 = get_bits(word, 12, 8);
+	uint32_t imm = (imm20 << 20) |
+		       (imm10_1 << 1) |
+		       (imm11 << 11) |
+		       (imm19_12 << 12);
+	int32_t offset = sign_extend(imm, 21);
+
+	state->pc += offset;
+}
+
 void emu_jalr(struct rv_state *state, uint32_t word)
 {
 	uint32_t rd = get_bits(word, 7, 5);
