@@ -8,8 +8,8 @@
 /* Fetch and execute the instruction at pc */
 static void rv_one(struct rv_state *state)
 {
-	uint32_t word = *((uint32_t *)state->pc);
-	//word = cache_lookup(&state->icache, (uint64_t) state->pc);
+	/* cache_lookup function hits memory bus if the word is not cached */
+	uint32_t word = cache_lookup(&state->icache, (uint64_t)state->pc);
 
 #if DEBUG
 	printf("iw: %x\n", word);

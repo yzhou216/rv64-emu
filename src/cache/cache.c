@@ -79,7 +79,9 @@ uint32_t cache_lookup_dm(struct cache *cache, uint64_t addr)
 	struct cache_slot *slot;
 	uint32_t data = 0;
 
-	offset = 0; /* TODO: Need to change for block size > 1 */
+	uint64_t addr_word = addr >> 2;
+	offset = addr_word & 0b11;  /* mask off 2 bits since block size is 4 */
+
 	index = (addr >> (cache->block_bits + 2)) & cache->index_mask;
 	tag = addr >> (cache->index_bits + cache->block_bits + 2);
 
@@ -110,8 +112,20 @@ uint32_t cache_lookup_dm(struct cache *cache, uint64_t addr)
 		slot->valid = 1;
 		slot->tag = tag;
 
-		/* TODO: Need to change for block size > 1 */
-		data = slot->block[offset];
+		uint64_t block_base = addr_word - offset;
+		/* Convert block base to a pointer to the word in memory */
+		uint32_t *src = (uint32_t *)(block_base << 2);
+
+		/*
+		 * Evict old data from the block and update with new data
+		 * retrieved from the memory bus
+		 */
+                for (int i = 0; i < CACHE_MAX_BLOCK_SIZE; i++) {
+                        slot->block[i] = *src;
+                        src++; /* Move pointer by 32 bits (next word) */
+                }
+		/* Word is now in the updated cache block */
+                data = slot->block[offset];
 	}
 
 	return data;
