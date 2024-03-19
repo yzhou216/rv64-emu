@@ -131,6 +131,17 @@ uint32_t cache_lookup_dm(struct cache *cache, uint64_t addr)
 	return data;
 }
 
+struct cache_slot *find_lru_slot_in_set(struct cache *cache, uint32_t set_base)
+{
+	struct cache_slot *lru = &cache->slots[set_base];
+	for (int i = 0; i < cache->ways; i++) {
+		struct cache_slot *slot = &cache->slots[set_base + i];
+		if (slot->timestamp < lru->timestamp)
+			lru = slot;
+	}
+	return lru;
+}
+
 uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
 {
 	bool hit = false;
@@ -151,9 +162,9 @@ uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
 
 	uint64_t tag = addr >> (cache->index_bits + cache->block_bits + 2);
 
-	uint64_t offset = 1;	/* Need to change for block size > 1 */
+	uint64_t addr_word = addr >> 2;
+	uint64_t offset = addr_word & 0b11;  /* mask off 2 bits since block size is 4 */
 
-	uint64_t base;
 	int set_index = (addr >> (cache->block_bits + 2)) & cache->index_mask;
 	int set_base = set_index * cache->ways;
 
@@ -162,7 +173,7 @@ uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
 	struct cache_slot *invalid = NULL;
 
 	/* Check each slot in the set */
-	for (int i = 0; i < 4; i += 1) {
+	for (int i = 0; i < cache->ways; i += 1) {
 		slot = &cache->slots[set_base + i];
 		if (slot->valid) {
 			if (tag == slot->tag) {
@@ -190,8 +201,8 @@ uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
 			/* Miss due to tag collision is a "hot" miss */
 			cache->misses_cold += 1;
 		} else {
-			/* Always pick first slot in set - CHANGE TO LRU */
-			slot = &(cache->slots[set_base]);
+			/* hot miss */
+			slot = find_lru_slot_in_set(cache, set_base);
 
 			verbose
 			    ("  cache tag (%X) miss for set %d tag %X addr %X (evict address %X)\n",
@@ -207,8 +218,20 @@ uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
 	}
 
 	if (!hit) {
-		/* Need to change for block size > 1 */
-		slot->block[offset] = *((uint32_t *)addr);
+		uint64_t block_base = addr_word - offset;
+		/* Convert block base to a pointer to the word in memory */
+		uint32_t *src = (uint32_t *)(block_base << 2);
+
+		/*
+		 * Evict old data from the block and update with new data
+		 * retrieved from the memory bus
+		 */
+                for (int i = 0; i < CACHE_MAX_BLOCK_SIZE; i++) {
+                        slot->block[i] = *src;
+                        src++; /* Move pointer by 32 bits (next word) */
+                }
+		/* Word is now in the updated cache block */
+
 		slot->tag = tag;
 		slot->valid = true;
 	}
