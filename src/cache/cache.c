@@ -246,11 +246,16 @@ uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
 uint32_t cache_lookup(struct cache *cache, uint64_t addr)
 {
 	uint32_t data;
-	if (cache->type == CACHE_DM)
+	switch (cache->type) {
+	case CACHE_DM:
 		data = cache_lookup_dm(cache, addr);
-	else if (cache->type == CACHE_SA)
+		break;
+	case CACHE_SA:
 		data = cache_lookup_sa(cache, addr);
-	else
+		break;
+	default:
 		data = *((uint32_t *)addr);
+		break;
+	}
 	return data;
 }
