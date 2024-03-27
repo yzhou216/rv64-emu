@@ -80,7 +80,7 @@ uint32_t cache_lookup_dm(struct cache *cache, uint64_t addr)
 	uint32_t data = 0;
 
 	uint64_t addr_word = addr >> 2;
-	offset = addr_word & 0b11;  /* mask off 2 bits since block size is 4 */
+	offset = addr_word % cache->block_size; /* mask off according to the block size */
 
 	index = (addr >> (cache->block_bits + 2)) & cache->index_mask;
 	tag = addr >> (cache->index_bits + cache->block_bits + 2);
@@ -120,7 +120,7 @@ uint32_t cache_lookup_dm(struct cache *cache, uint64_t addr)
 		 * Evict old data from the block and update with new data
 		 * retrieved from the memory bus
 		 */
-                for (int i = 0; i < CACHE_MAX_BLOCK_SIZE; i++) {
+                for (int i = 0; i < cache->block_size; i++) {
                         slot->block[i] = *src;
                         src++; /* Move pointer by 32 bits (next word) */
                 }
@@ -163,7 +163,7 @@ uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
 	uint64_t tag = addr >> (cache->index_bits + cache->block_bits + 2);
 
 	uint64_t addr_word = addr >> 2;
-	uint64_t offset = addr_word & 0b11;  /* mask off 2 bits since block size is 4 */
+	uint64_t offset = addr_word % cache->block_size; /* mask off according to the block size */
 
 	int set_index = (addr >> (cache->block_bits + 2)) & cache->index_mask;
 	int set_base = set_index * cache->ways;
@@ -226,7 +226,7 @@ uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
 		 * Evict old data from the block and update with new data
 		 * retrieved from the memory bus
 		 */
-                for (int i = 0; i < CACHE_MAX_BLOCK_SIZE; i++) {
+                for (int i = 0; i < cache->block_size; i++) {
                         slot->block[i] = *src;
                         src++; /* Move pointer by 32 bits (next word) */
                 }
