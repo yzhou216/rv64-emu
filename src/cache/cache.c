@@ -69,6 +69,27 @@ void cache_print(struct cache *cache, char *name)
 	       ((double)used / (double)cache->size) * 100.0);
 }
 
+uint32_t evict_data_in_cache_block(struct cache *cache, struct cache_slot *slot,
+				   uint64_t addr_word, uint64_t offset)
+{
+		uint64_t block_base = addr_word - offset;
+		/* Convert block base to a pointer to the word in memory */
+		uint32_t *src = (uint32_t *)(block_base << 2);
+
+		/*
+		 * Evict old data from the block and update with new data
+		 * retrieved from the memory bus
+		 */
+                for (int i = 0; i < cache->block_size; i++) {
+                        slot->block[i] = *src;
+                        src++; /* Move pointer by 32 bits (next word) */
+                }
+
+		/* Word is now in the updated cache block */
+		uint32_t data = slot->block[offset];
+		return data;
+}
+
 /* Direct mapped lookup */
 uint32_t cache_lookup_dm(struct cache *cache, uint64_t addr)
 {
@@ -112,20 +133,8 @@ uint32_t cache_lookup_dm(struct cache *cache, uint64_t addr)
 		slot->valid = 1;
 		slot->tag = tag;
 
-		uint64_t block_base = addr_word - offset;
-		/* Convert block base to a pointer to the word in memory */
-		uint32_t *src = (uint32_t *)(block_base << 2);
-
-		/*
-		 * Evict old data from the block and update with new data
-		 * retrieved from the memory bus
-		 */
-                for (int i = 0; i < cache->block_size; i++) {
-                        slot->block[i] = *src;
-                        src++; /* Move pointer by 32 bits (next word) */
-                }
-		/* Word is now in the updated cache block */
-                data = slot->block[offset];
+		data = evict_data_in_cache_block(cache, slot, addr_word,
+						 offset);
 	}
 
 	return data;
@@ -218,25 +227,13 @@ uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
 	}
 
 	if (!hit) {
-		uint64_t block_base = addr_word - offset;
-		/* Convert block base to a pointer to the word in memory */
-		uint32_t *src = (uint32_t *)(block_base << 2);
-
-		/*
-		 * Evict old data from the block and update with new data
-		 * retrieved from the memory bus
-		 */
-                for (int i = 0; i < cache->block_size; i++) {
-                        slot->block[i] = *src;
-                        src++; /* Move pointer by 32 bits (next word) */
-                }
-		/* Word is now in the updated cache block */
-
+		value = evict_data_in_cache_block(cache, slot, addr_word,
+						  offset);
 		slot->tag = tag;
 		slot->valid = true;
+	} else {
+		value = slot->block[offset];
 	}
-
-	value = slot->block[offset];
 
 	slot->timestamp = cache->refs;
 	return value;
