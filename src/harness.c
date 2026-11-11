@@ -28,6 +28,14 @@ static void print_array(const char *prefix, const int *values, int len)
 	printf("\n");
 }
 
+static void print_results(const char *prefix, const uint64_t *results, int n)
+{
+	printf("%s", prefix);
+	for (int i = 0; i < n; i++)
+		printf(" %w64x", results[i]);
+	printf("\n");
+}
+
 static void fib_rec_test([[maybe_unused]] int argc, char **argv,
 				struct rv_state *state)
 {
@@ -242,6 +250,25 @@ static void to_upper_test([[maybe_unused]] int argc, char **argv,
 	printf("Emu: %s\n", out);
 }
 
+/*
+ * insn_s has no C version, so compare its native results with the
+ * emulated ones only.
+ */
+static void insn_test([[maybe_unused]] int argc, [[maybe_unused]] char **argv,
+		      struct rv_state *state)
+{
+	uint64_t results[64] = {};
+	int n;
+
+	n = insn_s(results);
+	print_results("Asm:", results, n);
+
+	memset(results, 0, sizeof(results));
+	rv_init(state, (uint32_t *)insn_s, (uint64_t)results, 0, 0, 0);
+	n = rv_emulate(state);
+	print_results("Emu:", results, n);
+}
+
 /* Test programs by the name that selects them on the command line */
 static const struct test {
 	const char *name;
@@ -249,6 +276,7 @@ static const struct test {
 } tests[] = {
 	{ "fib_rec", fib_rec_test },
 	{ "get_bitseq", get_bitseq_test },
+	{ "insn", insn_test },
 	{ "int_to_str", int_to_str_test },
 	{ "is_pal", pal_test },
 	{ "max3", max3_test },

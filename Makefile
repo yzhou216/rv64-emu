@@ -13,11 +13,13 @@ PROG = rv64_emu
 TESTS = fib_rec find_max_index get_bitseq is_pal_rec max3 str_to_int \
 	int_to_str midpoint quadratic sort to_upper
 
-# Link the assembly versions first and next to each other.  The cache
-# statistics depend on where they end up, so this keeps them independent
-# of the size of the C code.
-OBJS = $(TESTS:=_s.o) rv64_emu.o harness.o rv_emu.o decode.o exec.o alu.o \
-       mem.o control.o analysis.o bits.o cache.o verbose.o $(TESTS:=_c.o)
+# Link the assembly versions first and next to each other, followed by
+# insn_s, which has no C version.  The cache statistics depend on where
+# the assembly ends up, so this keeps them independent of the size of
+# the C code.
+OBJS = $(TESTS:=_s.o) insn_s.o rv64_emu.o harness.o rv_emu.o decode.o \
+       exec.o alu.o mem.o control.o analysis.o bits.o cache.o verbose.o \
+       $(TESTS:=_c.o)
 
 # Find the sources under src and the test programs in progs
 VPATH = src src/emu src/cache progs

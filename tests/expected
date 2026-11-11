@@ -5369,6 +5369,53 @@ Misses (cold) = 13
 Misses (hot)  = 0
 % Used        = 20.31%
 [exit 0]
+$ insn
+Asm: fffffffffffffb2e ffffffffffffffb3 fffffffffffffffb fffffffffffffb2e 4 8 30000000000 6 c 3 c ffffffffffffffff 7 8000000000000000 0 fffffffffffffffd ffffffffffffffff 0 0
+Emu: fffffffffffffb2e ffffffffffffffb3 fffffffffffffffb fffffffffffffb2e 4 8 30000000000 6 c 3 c ffffffffffffffff 7 8000000000000000 0 fffffffffffffffd ffffffffffffffff 0 0
+[exit 0]
+$ -a insn
+Asm: fffffffffffffb2e ffffffffffffffb3 fffffffffffffffb fffffffffffffb2e 4 8 30000000000 6 c 3 c ffffffffffffffff 7 8000000000000000 0 fffffffffffffffd ffffffffffffffff 0 0
+Emu: fffffffffffffb2e ffffffffffffffb3 fffffffffffffffb fffffffffffffb2e 4 8 30000000000 6 c 3 c ffffffffffffffff 7 8000000000000000 0 fffffffffffffffd ffffffffffffffff 0 0
+=== Analysis
+Instructions Executed  = 82
+R-type + I-type        = 45 (54.88%)
+Loads                  = 5 (6.10%)
+Stores                 = 23 (28.05%)
+Jumps/JAL/JALR         = 5 (6.10%)
+Conditional branches   = 4 (4.88%)
+  Branches taken       = 2 (50.00%)
+  Branches not taken   = 2 (50.00%)
+[exit 0]
+$ -dm 16 1 insn
+Asm: fffffffffffffb2e ffffffffffffffb3 fffffffffffffffb fffffffffffffb2e 4 8 30000000000 6 c 3 c ffffffffffffffff 7 8000000000000000 0 fffffffffffffffd ffffffffffffffff 0 0
+Emu: fffffffffffffb2e ffffffffffffffb3 fffffffffffffffb fffffffffffffb2e 4 8 30000000000 6 c 3 c ffffffffffffffff 7 8000000000000000 0 fffffffffffffffd ffffffffffffffff 0 0
+=== Cache (I)
+Type          = direct mapped
+Size          = 16 slots
+Block size    = 1 words
+Ways          = 1
+References    = 82
+Hits          = 0 (0.00% hit ratio)
+Misses        = 82 (100.00% miss ratio)
+Misses (cold) = 16
+Misses (hot)  = 66
+% Used        = 100.00%
+[exit 0]
+$ -sa 32 2 2 insn
+Asm: fffffffffffffb2e ffffffffffffffb3 fffffffffffffffb fffffffffffffb2e 4 8 30000000000 6 c 3 c ffffffffffffffff 7 8000000000000000 0 fffffffffffffffd ffffffffffffffff 0 0
+Emu: fffffffffffffb2e ffffffffffffffb3 fffffffffffffffb fffffffffffffb2e 4 8 30000000000 6 c 3 c ffffffffffffffff 7 8000000000000000 0 fffffffffffffffd ffffffffffffffff 0 0
+=== Cache (I)
+Type          = set associative
+Size          = 32 slots
+Block size    = 2 words
+Ways          = 2
+References    = 82
+Hits          = 39 (47.56% hit ratio)
+Misses        = 43 (52.44% miss ratio)
+Misses (cold) = 16
+Misses (hot)  = 27
+% Used        = 50.00%
+[exit 0]
 $ 
 usage: rv64_emu <prog> [<arg1> ...]
 [exit 255]

@@ -39,6 +39,8 @@ void sort_s(int values[], int len);
 int str_to_int_c(const char *str, int base);
 int str_to_int_s(const char *str, int base);
 
+int insn_s(uint64_t *results);
+
 void to_upper_c(const char *src, char *dst);
 void to_upper_s(const char *src, char *dst);
 

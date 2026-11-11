@@ -26,6 +26,7 @@ while read -r args; do
 done <<CASES
 fib_rec 10
 get_bitseq 94116 12 15
+insn
 int_to_str 255 -o 2
 is_pal racecar
 max3 -5 -2 -9

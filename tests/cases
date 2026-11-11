@@ -367,5 +367,9 @@ to_upper already_UPPER
 -sa 64 1 8 to_upper hello
 -sa 64 1 8 to_upper Hello_World_123
 -sa 64 1 8 to_upper already_UPPER
+insn
+-a insn
+-dm 16 1 insn
+-sa 32 2 2 insn
 
 bogus 1 2
