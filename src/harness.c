@@ -182,7 +182,7 @@ void sort_test(int start_arg, int argc, char **argv, struct rv_state *state)
 
 }
 
-void str_to_int_test(int start_arg, int argc, char **argv, struct rv_state *state)
+void str_to_int_test(int start_arg, char **argv, struct rv_state *state)
 {
 	char *str = argv[start_arg];
 	int base = 10;
@@ -211,15 +211,21 @@ void to_upper_test(int start_arg, char **argv, struct rv_state *state)
 	char out[MAX_ARRAY];
 	char *str = argv[start_arg];
 
-	strncpy(out, str, MAX_ARRAY);
+	if (strlen(str) >= MAX_ARRAY) {
+		fprintf(stderr, "rv64_emu: to_upper takes at most %d characters\n",
+			MAX_ARRAY - 1);
+		exit(EXIT_FAILURE);
+	}
+
+	strcpy(out, str);
 	to_upper_c(str, out);
 	printf("C: %s\n", out);
 
-	strncpy(out, str, MAX_ARRAY);
+	strcpy(out, str);
 	to_upper_s(str, out);
 	printf("Asm: %s\n", out);
 
-	strncpy(out, str, MAX_ARRAY);
+	strcpy(out, str);
 	rv_init(state, (uint32_t *)to_upper_s, (uint64_t)str, (uint64_t)out,
 		0, 0);
 	rv_emulate(state);
@@ -250,7 +256,7 @@ bool run_test(const char *name, int start_arg, int argc, char **argv,
 	else if (!strcmp(name, "sort"))
 		sort_test(start_arg, argc, argv, state);
 	else if (!strcmp(name, "str_to_int"))
-		str_to_int_test(start_arg, argc, argv, state);
+		str_to_int_test(start_arg, argv, state);
 	else if (!strcmp(name, "to_upper"))
 		to_upper_test(start_arg, argv, state);
 	else

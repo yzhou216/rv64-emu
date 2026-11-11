@@ -102,7 +102,6 @@ uint32_t cache_lookup_dm(struct cache *cache, uint64_t addr)
 	uint64_t tag;
 	uint64_t index;
 	uint64_t offset;
-	uint64_t base;
 	struct cache_slot *slot;
 	uint32_t data = 0;
 

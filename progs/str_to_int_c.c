@@ -34,6 +34,8 @@ uint32_t char_to_digit(char ch, int base)
 		}
 		break;
 	}
+	/* Invalid digits count as zero */
+	return 0;
 }
 
 int str_to_int_c(char *str, int base)

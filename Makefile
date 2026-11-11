@@ -2,6 +2,10 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+CFLAGS = -std=c2y -g -Wall -Wextra
+ASFLAGS = -g -march=rv64g
+LDFLAGS =
+
 PROG = rv64_emu
 OBJS = rv64_emu.o harness.o rv_emu.o exec.o alu.o    \
        mem.o control.o analysis.o bits.o cache.o     \
@@ -21,16 +25,19 @@ OBJS = rv64_emu.o harness.o rv_emu.o exec.o alu.o    \
 # Find the sources under src and the test programs in progs
 VPATH = src src/emu src/cache progs
 
-HEADERS = analysis.h exec.h harness.h progs.h rv_emu.h
-
-%.o: %.c $(HEADERS)
-	$(CC) -g -Isrc -Iprogs -c -o $@ $<
+# The compiler lists the headers of each object in a .d file next to it
+%.o: %.c
+	$(CC) $(CFLAGS) -MMD -MP -Isrc -Iprogs -c -o $@ $<
 
 %.o: %.s
-	$(AS) -g -o $@ $<
+	$(AS) $(ASFLAGS) -o $@ $<
 
 $(PROG): $(OBJS)
-	$(CC) -g -o $@ $^
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 clean:
-	rm -rf $(PROG) $(OBJS)
+	rm -rf $(PROG) $(OBJS) $(OBJS:.o=.d)
+
+.PHONY: clean
+
+-include $(OBJS:.o=.d)
