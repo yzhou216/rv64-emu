@@ -12,7 +12,8 @@ Each test program comes in two versions, one in C and one in RISC-V
 assembly.  `rv64_emu` runs the C version, calls the assembly version
 natively, then runs that same assembly through the emulator and prints
 all three results.  It can also count the instructions it executes and
-simulate an instruction cache.
+simulate an instruction cache.  `insn` only has an assembly version and
+checks instruction corner cases.
 
 Since the emulator reads instructions straight out of its own binary,
 it only runs on 64-bit RISC-V GNU/Linux, natively or under
@@ -20,16 +21,26 @@ it only runs on 64-bit RISC-V GNU/Linux, natively or under
 
 ## Building
 
-On a RISC-V machine:
+The code uses C2y features, so it needs a recent toolchain, such as
+GCC 16 and glibc 2.39.  On a RISC-V machine:
 
     make
+    make check
 
-With Nix, 64-bit x86 and ARM GNU/Linux systems cross-build it as well:
+To cross-compile, point `CC` and `AS` at a RISC-V toolchain and set
+`RUN` to run the tests under QEMU:
+
+    make check CC=riscv64-linux-gnu-gcc AS=riscv64-linux-gnu-as \
+        RUN='qemu-riscv64 -L /usr/riscv64-linux-gnu'
+
+With Nix, 64-bit x86 and ARM GNU/Linux systems cross-build it as well,
+and `nix flake check` runs the tests under QEMU:
 
     nix build
+    nix flake check
 
 `nix develop` opens a shell in which `make` uses the same toolchain and
-`qemu-riscv64 ./rv64_emu` runs the result.
+`make check RUN=qemu-riscv64` runs the tests.
 
 ## Running
 
@@ -38,12 +49,7 @@ With Nix, 64-bit x86 and ARM GNU/Linux systems cross-build it as well:
     ./rv64_emu -dm 64 4 to_upper hello
     ./rv64_emu -sa 64 4 4 is_pal racecar
 
-`-a` prints the instruction mix, `-dm <size> <block size>` simulates a
-direct-mapped cache, and `-sa <size> <block size> <ways>` simulates a
-set-associative one.  The other programs are `get_bitseq`,
-`int_to_str`, `max3`, `midpoint`, `quadratic`, and `str_to_int`.
-
-The `c2y` branch reworks it in C2y and adds a test suite.
+Run `./rv64_emu` without arguments to list the options and programs.
 
 ## License
 
