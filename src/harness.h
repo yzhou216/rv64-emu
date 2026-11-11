@@ -11,7 +11,7 @@
 
 #include "emu/rv_emu.h"
 
-[[nodiscard]] bool run_test(const char *name, int start_arg, int argc,
-			    char **argv, struct rv_state *state);
+[[nodiscard]] bool run_test(const char *name, int argc, char **argv,
+			    struct rv_state *state);
 
 #endif /* HARNESS_H */

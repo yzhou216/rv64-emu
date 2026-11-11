@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,13 +14,13 @@
 
 constexpr int MAX_ARRAY = 1024;
 
-void copy_array(int *dst, int *src, int len)
+static void copy_array(int *dst, int *src, int len)
 {
 	for (int i = 0; i < len; i++)
 		dst[i] = src[i];
 }
 
-void print_array(char *prefix, int *values, int len)
+static void print_array(char *prefix, int *values, int len)
 {
 	printf("%s", prefix);
 	for (int i = 0; i < len; i++)
@@ -27,10 +28,11 @@ void print_array(char *prefix, int *values, int len)
 	printf("\n");
 }
 
-void fib_rec_test(int start_arg, char **argv, struct rv_state *state)
+static void fib_rec_test([[maybe_unused]] int argc, char **argv,
+				struct rv_state *state)
 {
 	int result;
-	int n = atoi(argv[start_arg]);
+	int n = atoi(argv[0]);
 
 	result = fib_rec_c(n);
 	printf("C: %d\n", result);
@@ -43,12 +45,13 @@ void fib_rec_test(int start_arg, char **argv, struct rv_state *state)
 	printf("Emu: %d\n", result);
 }
 
-void get_bitseq_test(int start_arg, char **argv, struct rv_state *state)
+static void get_bitseq_test([[maybe_unused]] int argc, char **argv,
+				struct rv_state *state)
 {
 	int result;
-	int n = atoi(argv[start_arg]);
-	int start = atoi(argv[start_arg + 1]);
-	int end = atoi(argv[start_arg + 2]);
+	int n = atoi(argv[0]);
+	int start = atoi(argv[1]);
+	int end = atoi(argv[2]);
 
 	result = get_bitseq_c(n, start, end);
 	printf("C: %d\n", result);
@@ -61,10 +64,11 @@ void get_bitseq_test(int start_arg, char **argv, struct rv_state *state)
 	printf("Emu: %d\n", result);
 }
 
-void pal_test(int start_arg, char **argv, struct rv_state *state)
+static void pal_test([[maybe_unused]] int argc, char **argv,
+				struct rv_state *state)
 {
 	bool result;
-	char *str = argv[start_arg];
+	char *str = argv[0];
 	int end = strlen(str) - 1;
 
 	result = pal_rec_c(str, 0, end);
@@ -78,14 +82,15 @@ void pal_test(int start_arg, char **argv, struct rv_state *state)
 	printf("Emu: %s\n", result ? "is a palindrome" : "is not a palindrome");
 }
 
-void int_to_str_test(int start_arg, char **argv, struct rv_state *state)
+static void int_to_str_test([[maybe_unused]] int argc, char **argv,
+				struct rv_state *state)
 {
 	char out[MAX_ARRAY];
 
-	int value = atoi(argv[start_arg]);
+	int value = atoi(argv[0]);
 	int base = 10;
-	if (!strncmp(argv[start_arg + 1], "-o", 2))
-		base = atoi(argv[start_arg + 2]);
+	if (!strncmp(argv[1], "-o", 2))
+		base = atoi(argv[2]);
 
 	memset(out, 0, sizeof(out));
 	int_to_str_c(value, out, base);
@@ -102,12 +107,13 @@ void int_to_str_test(int start_arg, char **argv, struct rv_state *state)
 	printf("Emu: %s\n", out);
 }
 
-void max3_test(int start_arg, char **argv, struct rv_state *state)
+static void max3_test([[maybe_unused]] int argc, char **argv,
+				struct rv_state *state)
 {
 	int result;
-	int a = atoi(argv[start_arg]);
-	int b = atoi(argv[start_arg + 1]);
-	int c = atoi(argv[start_arg + 2]);
+	int a = atoi(argv[0]);
+	int b = atoi(argv[1]);
+	int c = atoi(argv[2]);
 
 	result = max3_c(a, b, c);
 	printf("C: %d\n", result);
@@ -120,11 +126,12 @@ void max3_test(int start_arg, char **argv, struct rv_state *state)
 	printf("Emu: %d\n", result);
 }
 
-void midpoint_test(int start_arg, char **argv, struct rv_state *state)
+static void midpoint_test([[maybe_unused]] int argc, char **argv,
+				struct rv_state *state)
 {
 	int result;
-	int start = atoi(argv[start_arg]);
-	int end = atoi(argv[start_arg + 1]);
+	int start = atoi(argv[0]);
+	int end = atoi(argv[1]);
 
 	result = midpoint_c(start, end);
 	printf("C: %d\n", result);
@@ -137,13 +144,14 @@ void midpoint_test(int start_arg, char **argv, struct rv_state *state)
 	printf("Emu: %d\n", result);
 }
 
-void quadratic_test(int start_arg, char **argv, struct rv_state *state)
+static void quadratic_test([[maybe_unused]] int argc, char **argv,
+				struct rv_state *state)
 {
 	int result;
-	int x = atoi(argv[start_arg]);
-	int a = atoi(argv[start_arg + 1]);
-	int b = atoi(argv[start_arg + 2]);
-	int c = atoi(argv[start_arg + 3]);
+	int x = atoi(argv[0]);
+	int a = atoi(argv[1]);
+	int b = atoi(argv[2]);
+	int c = atoi(argv[3]);
 
 	result = quadratic_c(x, a, b, c);
 	printf("C: %d\n", result);
@@ -156,14 +164,14 @@ void quadratic_test(int start_arg, char **argv, struct rv_state *state)
 	printf("Emu: %d\n", result);
 }
 
-void sort_test(int start_arg, int argc, char **argv, struct rv_state *state)
+static void sort_test(int argc, char **argv, struct rv_state *state)
 {
 	int sorted[MAX_ARRAY];
 	int values[MAX_ARRAY] = {};
 	int len = 0;
 
-	for (int i = 0; i < argc - start_arg; i++) {
-		values[i] = atoi(argv[i + start_arg]);
+	for (int i = 0; i < argc; i++) {
+		values[i] = atoi(argv[i]);
 		len++;
 	}
 
@@ -182,9 +190,10 @@ void sort_test(int start_arg, int argc, char **argv, struct rv_state *state)
 
 }
 
-void str_to_int_test(int start_arg, char **argv, struct rv_state *state)
+static void str_to_int_test([[maybe_unused]] int argc, char **argv,
+				struct rv_state *state)
 {
-	char *str = argv[start_arg];
+	char *str = argv[0];
 	int base = 10;
 	if (!strncmp(str, "0b", 2)) {
 		base = 2;
@@ -205,15 +214,16 @@ void str_to_int_test(int start_arg, char **argv, struct rv_state *state)
 	printf("Emu: %d\n", result);
 }
 
-void to_upper_test(int start_arg, char **argv, struct rv_state *state)
+static void to_upper_test([[maybe_unused]] int argc, char **argv,
+				struct rv_state *state)
 {
 	/* Make a copy of the string since we modify it in place */
 	char out[MAX_ARRAY];
-	char *str = argv[start_arg];
+	char *str = argv[0];
 
-	if (strlen(str) >= MAX_ARRAY) {
-		fprintf(stderr, "rv64_emu: to_upper takes at most %d characters\n",
-			MAX_ARRAY - 1);
+	if (strlen(str) >= countof(out)) {
+		fprintf(stderr, "rv64_emu: to_upper takes at most %zu characters\n",
+			countof(out) - 1);
 		exit(EXIT_FAILURE);
 	}
 
@@ -232,34 +242,41 @@ void to_upper_test(int start_arg, char **argv, struct rv_state *state)
 	printf("Emu: %s\n", out);
 }
 
+/* Test programs by the name that selects them on the command line */
+static const struct test {
+	const char *name;
+	void (*run)(int argc, char **argv, struct rv_state *state);
+} tests[] = {
+	{ "fib_rec", fib_rec_test },
+	{ "get_bitseq", get_bitseq_test },
+	{ "int_to_str", int_to_str_test },
+	{ "is_pal", pal_test },
+	{ "max3", max3_test },
+	{ "midpoint", midpoint_test },
+	{ "quadratic", quadratic_test },
+	{ "sort", sort_test },
+	{ "str_to_int", str_to_int_test },
+	{ "to_upper", to_upper_test },
+};
+
+static const struct test *find_test(const char *name)
+{
+	for (size_t i = 0; i < countof(tests); i++)
+		if (!strcmp(tests[i].name, name))
+			return &tests[i];
+	return nullptr;
+}
+
 /*
- * Run the test program called name on the arguments in argv from
- * start_arg on, and return false if there is no such program.
+ * Run the test program called name with the argc arguments in argv, and
+ * return false if there is no such program.
  */
-bool run_test(const char *name, int start_arg, int argc, char **argv,
+bool run_test(const char *name, int argc, char **argv,
 	      struct rv_state *state)
 {
-	if (!strcmp(name, "fib_rec"))
-		fib_rec_test(start_arg, argv, state);
-	else if (!strcmp(name, "get_bitseq"))
-		get_bitseq_test(start_arg, argv, state);
-	else if (!strcmp(name, "int_to_str"))
-		int_to_str_test(start_arg, argv, state);
-	else if (!strcmp(name, "is_pal"))
-		pal_test(start_arg, argv, state);
-	else if (!strcmp(name, "max3"))
-		max3_test(start_arg, argv, state);
-	else if (!strcmp(name, "midpoint"))
-		midpoint_test(start_arg, argv, state);
-	else if (!strcmp(name, "quadratic"))
-		quadratic_test(start_arg, argv, state);
-	else if (!strcmp(name, "sort"))
-		sort_test(start_arg, argc, argv, state);
-	else if (!strcmp(name, "str_to_int"))
-		str_to_int_test(start_arg, argv, state);
-	else if (!strcmp(name, "to_upper"))
-		to_upper_test(start_arg, argv, state);
-	else
-		return false;
-	return true;
+	if (const struct test *test = find_test(name)) {
+		test->run(argc, argv, state);
+		return true;
+	}
+	return false;
 }

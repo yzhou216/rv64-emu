@@ -4,22 +4,19 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+#include <stdcountof.h>
 #include <stdio.h>
 
+#include "decode.h"
 #include "exec.h"
 
-constexpr bool DEBUG = false;
-
-/* Fetch and execute the instruction at pc */
+/* Fetch, decode, and execute the instruction at pc */
 static void rv_one(struct rv_state *state)
 {
-	/* cache_lookup function hits memory bus if the word is not cached */
-	uint32_t word = cache_lookup(&state->icache, (uint64_t)state->pc);
+	/* cache_lookup() reads the word from memory unless it is cached */
+	auto insn = rv_decode(cache_lookup(&state->icache, state->pc));
 
-	if (DEBUG)
-		printf("iw: %x\n", word);
-
-	rv_exec(state, word);
+	rv_exec(state, &insn);
 }
 
 void rv_init(struct rv_state *state, uint32_t *target,
@@ -33,7 +30,7 @@ void rv_init(struct rv_state *state, uint32_t *target,
 
 	state->regs[RV_ZERO] = 0; /* constant zero register */
 	state->regs[RV_RA] = RV_STOP;
-	state->regs[RV_SP] = (uint64_t)&state->stack[STACK_SIZE];
+	state->regs[RV_SP] = (uint64_t)&state->stack[countof(state->stack)];
 
 	state->analysis = (struct rv_analysis){};
 	cache_init(&state->icache);

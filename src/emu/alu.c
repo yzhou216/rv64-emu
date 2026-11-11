@@ -7,7 +7,6 @@
 #include <stdint.h>
 
 #include "exec.h"
-#include "bits.h"
 
 /* OP instructions, keyed by funct7 and funct3 split by a digit separator */
 enum rv_op : uint16_t {
@@ -51,69 +50,68 @@ static uint64_t emu_rem(int64_t dividend, int64_t divisor)
 	return dividend % divisor;
 }
 
-void emu_r_type(struct rv_state *state, uint32_t word)
+void emu_op(struct rv_state *state, const struct rv_insn *insn)
 {
-	uint32_t rd = get_bits(word, 7, 5);
-	uint32_t rs1 = get_bits(word, 15, 5);
-	uint32_t rs2 = get_bits(word, 20, 5);
-	uint32_t funct3 = get_bits(word, 12, 3);
-	uint32_t funct7 = get_bits(word, 25, 7);
+	uint64_t rs1_val = state->regs[insn->rs1];
+	uint64_t rs2_val = state->regs[insn->rs2];
+	uint64_t result;
 
-	switch (funct7 << 3 | funct3) {
+	/*
+	 * Bit-precise types are not promoted, so widen funct7 before the
+	 * shift instead of losing its high bits.
+	 */
+	switch ((unsigned int)insn->funct7 << 3 | insn->funct3) {
 	case OP_ADD:
-		state->regs[rd] = state->regs[rs1] + state->regs[rs2];
+		result = rs1_val + rs2_val;
 		break;
 	case OP_SUB:
-		state->regs[rd] = state->regs[rs1] - state->regs[rs2];
+		result = rs1_val - rs2_val;
 		break;
 	case OP_SLL:
-		state->regs[rd] = state->regs[rs1] <<
-				  (state->regs[rs2] & 63);
+		result = rs1_val << (rs2_val & 63);
 		break;
 	case OP_SRL:
-		state->regs[rd] = state->regs[rs1] >>
-				  (state->regs[rs2] & 63);
+		result = rs1_val >> (rs2_val & 63);
 		break;
 	case OP_AND:
-		state->regs[rd] = state->regs[rs1] & state->regs[rs2];
+		result = rs1_val & rs2_val;
 		break;
 	case OP_MUL:
-		state->regs[rd] = state->regs[rs1] * state->regs[rs2];
+		result = rs1_val * rs2_val;
 		break;
 	case OP_DIV:
-		state->regs[rd] = emu_div(state->regs[rs1],
-					  state->regs[rs2]);
+		result = emu_div(rs1_val, rs2_val);
 		break;
 	case OP_REM:
-		state->regs[rd] = emu_rem(state->regs[rs1],
-					  state->regs[rs2]);
+		result = emu_rem(rs1_val, rs2_val);
 		break;
 	default:
-		unsupported("R-type instruction", word);
+		unsupported("R-type instruction", insn->word);
 	}
 
+	set_rd(state, insn, result);
 	state->pc += 4; /* Next instruction */
 	state->analysis.alu++;
 }
 
-void emu_i_type(struct rv_state *state, uint32_t word)
+void emu_op_imm(struct rv_state *state, const struct rv_insn *insn)
 {
-	uint32_t rd = get_bits(word, 7, 5);
-	uint32_t rs1 = get_bits(word, 15, 5);
-	/* RV64 shift amounts have six bits, leaving six bits of funct6 */
-	uint32_t shamt = get_bits(word, 20, 6);
-	uint32_t funct3 = get_bits(word, 12, 3);
-	uint32_t funct6 = get_bits(word, 26, 6);
-	uint32_t imm = get_bits(word, 20, 12);
-	if (funct3 == OP_IMM_SRLI && funct6 == 0)
-		state->regs[rd] = state->regs[rs1] >> shamt;
-	else if (funct3 == OP_IMM_SLLI && funct6 == 0)
-		state->regs[rd] = state->regs[rs1] << shamt;
-	else if (funct3 == OP_IMM_ADDI)
-		state->regs[rd] = state->regs[rs1] + sign_extend(imm, 12);
-	else
-		unsupported("I-type funct3", funct3);
-	state->pc += 4; /* Next instruction */
+	uint64_t rs1_val = state->regs[insn->rs1];
+	/* RV64 shifts take six bits of shamt, leaving six bits of funct6 */
+	unsigned _BitInt(6) shamt = insn->word >> 20;
+	unsigned _BitInt(6) funct6 = insn->word >> 26;
+	uint64_t result;
 
+	if (insn->funct3 == OP_IMM_SRLI && funct6 == 0)
+		result = rs1_val >> shamt;
+	else if (insn->funct3 == OP_IMM_SLLI && funct6 == 0)
+		result = rs1_val << shamt;
+	else if (insn->funct3 == OP_IMM_ADDI)
+		result = rs1_val + imm_i(insn);
+	else
+		unsupported("I-type funct3", insn->funct3);
+
+	set_rd(state, insn, result);
+	state->pc += 4; /* Next instruction */
 	state->analysis.alu++;
 }

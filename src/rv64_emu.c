@@ -12,13 +12,13 @@
 
 extern bool verbose_on;
 
-[[noreturn]] void usage(void)
+[[noreturn]] static void usage(void)
 {
 	printf("usage: rv64_emu <prog> [<arg1> ...]\n");
 	exit(-1);
 }
 
-int parse_params(int argc, char **argv, struct rv_state *state)
+static int parse_params(int argc, char **argv, struct rv_state *state)
 {
 	/*
 	 * Parse optional command line parameters which must precede
@@ -64,7 +64,7 @@ int main(int argc, char **argv)
 	struct rv_state state = {};
 	int i = parse_params(argc, argv, &state);
 
-	if (!run_test(argv[i], i + 1, argc, argv, &state))
+	if (!run_test(argv[i], argc - i - 1, &argv[i + 1], &state))
 		usage();
 
 	if (state.analyze)

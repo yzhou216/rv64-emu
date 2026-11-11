@@ -8,7 +8,6 @@
 #include <stdlib.h>
 
 #include "exec.h"
-#include "bits.h"
 
 /*
  * Major opcodes.  The digit separators split each opcode into inst[6:5]
@@ -31,37 +30,40 @@ enum rv_opcode : uint8_t {
 	exit(-1);
 }
 
-/* Execute word, leaving pc at the instruction to run next */
-void rv_exec(struct rv_state *state, uint32_t word)
+/* Write rd, except that x0 is hardwired to zero */
+void set_rd(struct rv_state *state, const struct rv_insn *insn,
+	    uint64_t value)
 {
-	uint32_t opcode = get_bits(word, 0, 7);
+	if (insn->rd != RV_ZERO)
+		state->regs[insn->rd] = value;
+}
 
-	switch (opcode) {
+/* Execute insn, leaving pc at the instruction to run next */
+void rv_exec(struct rv_state *state, const struct rv_insn *insn)
+{
+	switch (insn->opcode) {
 	case OPCODE_OP:
-		emu_r_type(state, word);
+		emu_op(state, insn);
 		break;
 	case OPCODE_OP_IMM:
-		emu_i_type(state, word);
+		emu_op_imm(state, insn);
 		break;
 	case OPCODE_LOAD:
-		emu_load(state, word);
+		emu_load(state, insn);
 		break;
 	case OPCODE_STORE:
-		emu_s_type(state, word);
+		emu_store(state, insn);
 		break;
 	case OPCODE_JAL:
-		emu_ucond_j(state, word);
+		emu_jal(state, insn);
 		break;
 	case OPCODE_JALR:
-		emu_jalr(state, word);
+		emu_jalr(state, insn);
 		break;
 	case OPCODE_BRANCH:
-		emu_b_type(state, word);
+		emu_branch(state, insn);
 		break;
 	default:
-		unsupported("Unknown opcode", opcode);
+		unsupported("Unknown opcode", insn->opcode);
 	}
-
-	/* x0 is hardwired to zero, so discard any write to it */
-	state->regs[RV_ZERO] = 0;
 }

@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+#include <stdbit.h>
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,15 +20,10 @@ void cache_init(struct cache *cache)
 	cache->index_mask =
 		((cache->size / cache->block_size) / cache->ways) - 1;
 
-	cache->index_bits = 0;
-	while (cache->index_mask & (1 << cache->index_bits))
-		cache->index_bits++;
+	cache->index_bits = stdc_trailing_ones(cache->index_mask);
+	cache->block_bits = stdc_trailing_ones(cache->block_mask);
 
-	cache->block_bits = 0;
-	while (cache->block_mask & (1 << cache->block_bits))
-		cache->block_bits++;
-
-	for (int i = 0; i < CACHE_MAX_SLOTS; i++)
+	for (size_t i = 0; i < countof(cache->slots); i++)
 		cache->slots[i] = (struct cache_slot){};
 
 	cache->refs = 0;
