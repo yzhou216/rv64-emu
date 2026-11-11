@@ -20,13 +20,13 @@ VPATH = src src/emu src/cache progs
 HEADERS = analysis.h exec.h harness.h progs.h rv_emu.h
 
 %.o: %.c $(HEADERS)
-	gcc -g -Isrc -Iprogs -c -o $@ $<
+	$(CC) -g -Isrc -Iprogs -c -o $@ $<
 
 %.o: %.s
-	as -g -o $@ $<
+	$(AS) -g -o $@ $<
 
 $(PROG): $(OBJS)
-	gcc -g -o $@ $^
+	$(CC) -g -o $@ $^
 
 clean:
 	rm -rf $(PROG) $(OBJS)
