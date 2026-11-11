@@ -22,9 +22,9 @@ enum rv_opcode : uint8_t {
 	OPCODE_JAL = 0b11'011'11,
 };
 
-[[noreturn]] void unsupported(const char *what, uint32_t value)
+[[noreturn]] void unsupported(const struct rv_insn *insn)
 {
-	fatal("unsupported %s 0x%x", what, value);
+	fatal("unsupported instruction 0x%08x", insn->word);
 }
 
 /* Write rd, except that x0 is hardwired to zero */
@@ -61,6 +61,6 @@ void rv_exec(struct rv_state *state, const struct rv_insn *insn)
 		emu_branch(state, insn);
 		break;
 	default:
-		unsupported("Unknown opcode", insn->opcode);
+		unsupported(insn);
 	}
 }

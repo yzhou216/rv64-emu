@@ -31,7 +31,7 @@ void emu_load(struct rv_state *state, const struct rv_insn *insn)
 		result = *(uint64_t *)addr;
 		break;
 	default:
-		unsupported("I-type funct3 (load)", insn->funct3);
+		unsupported(insn);
 	}
 
 	set_rd(state, insn, result);
@@ -55,7 +55,7 @@ void emu_store(struct rv_state *state, const struct rv_insn *insn)
 		*(uint64_t *)addr = rs2_val;
 		break;
 	default:
-		unsupported("S-type funct3", insn->funct3);
+		unsupported(insn);
 	}
 
 	state->pc += 4;

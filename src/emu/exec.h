@@ -26,7 +26,7 @@ void emu_jalr(struct rv_state *state, const struct rv_insn *insn);
 void emu_branch(struct rv_state *state, const struct rv_insn *insn);
 
 /* Helpers of the instructions, in exec.c */
-[[noreturn]] void unsupported(const char *what, uint32_t value);
+[[noreturn]] void unsupported(const struct rv_insn *insn);
 void set_rd(struct rv_state *state, const struct rv_insn *insn,
 	    uint64_t value);
 

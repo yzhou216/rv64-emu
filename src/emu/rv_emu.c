@@ -20,16 +20,17 @@ static void rv_one(struct rv_state *state)
 	rv_exec(state, &insn);
 }
 
-void rv_init(struct rv_state *state, uint32_t *target,
+void rv_init(struct rv_state *state, const uint32_t *target,
 	     uint64_t a0, uint64_t a1, uint64_t a2, uint64_t a3)
 {
+	for (size_t i = 0; i < countof(state->regs); i++)
+		state->regs[i] = 0;
+
 	state->pc = (uint64_t)target;
 	state->regs[RV_A0] = a0;
 	state->regs[RV_A1] = a1;
 	state->regs[RV_A2] = a2;
 	state->regs[RV_A3] = a3;
-
-	state->regs[RV_ZERO] = 0; /* constant zero register */
 	state->regs[RV_RA] = RV_STOP;
 	state->regs[RV_SP] = (uint64_t)&state->stack[countof(state->stack)];
 
@@ -42,6 +43,13 @@ uint64_t rv_emulate(struct rv_state *state)
 	while (state->pc != RV_STOP) {
 		rv_one(state);
 		state->analysis.insns++;
+
+		/*
+		 * The registers lie below the stack, so stop as soon as sp
+		 * leaves it, before a store through sp can overwrite them.
+		 */
+		if (state->regs[RV_SP] < (uint64_t)state->stack)
+			fatal("emulated stack overflow");
 	}
 	return state->regs[RV_A0];
 }

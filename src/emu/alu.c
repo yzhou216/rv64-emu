@@ -86,7 +86,7 @@ void emu_op(struct rv_state *state, const struct rv_insn *insn)
 		result = emu_rem(rs1_val, rs2_val);
 		break;
 	default:
-		unsupported("R-type instruction", insn->word);
+		unsupported(insn);
 	}
 
 	set_rd(state, insn, result);
@@ -109,7 +109,7 @@ void emu_op_imm(struct rv_state *state, const struct rv_insn *insn)
 	else if (insn->funct3 == OP_IMM_ADDI)
 		result = rs1_val + imm_i(insn);
 	else
-		unsupported("I-type funct3", insn->funct3);
+		unsupported(insn);
 
 	set_rd(state, insn, result);
 	state->pc += 4; /* Next instruction */

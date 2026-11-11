@@ -55,7 +55,7 @@ void emu_branch(struct rv_state *state, const struct rv_insn *insn)
 		taken = rs1_val >= rs2_val;
 		break;
 	default:
-		unsupported("B-type funct3", insn->funct3);
+		unsupported(insn);
 	}
 
 	if (taken) {

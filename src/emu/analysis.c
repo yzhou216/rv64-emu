@@ -8,7 +8,7 @@
 
 #include "analysis.h"
 
-static void print_pct(const char *fmt, int count, int total)
+static void print_pct(const char *fmt, uint64_t count, uint64_t total)
 {
 	double percent = 0.0;
 
@@ -19,23 +19,23 @@ static void print_pct(const char *fmt, int count, int total)
 
 void rv_print(const struct rv_analysis *analysis)
 {
-	int branches = analysis->taken + analysis->not_taken;
+	uint64_t branches = analysis->taken + analysis->not_taken;
 
 	printf("=== Analysis\n");
-	print_pct("Instructions Executed  = %d\n", analysis->insns,
+	print_pct("Instructions Executed  = %w64u\n", analysis->insns,
 		  analysis->insns);
-	print_pct("R-type + I-type        = %d (%.2f%%)\n", analysis->alu,
+	print_pct("R-type + I-type        = %w64u (%.2f%%)\n", analysis->alu,
 		  analysis->insns);
-	print_pct("Loads                  = %d (%.2f%%)\n", analysis->loads,
+	print_pct("Loads                  = %w64u (%.2f%%)\n", analysis->loads,
 		  analysis->insns);
-	print_pct("Stores                 = %d (%.2f%%)\n", analysis->stores,
+	print_pct("Stores                 = %w64u (%.2f%%)\n", analysis->stores,
 		  analysis->insns);
-	print_pct("Jumps/JAL/JALR         = %d (%.2f%%)\n", analysis->jumps,
+	print_pct("Jumps/JAL/JALR         = %w64u (%.2f%%)\n", analysis->jumps,
 		  analysis->insns);
-	print_pct("Conditional branches   = %d (%.2f%%)\n", branches,
+	print_pct("Conditional branches   = %w64u (%.2f%%)\n", branches,
 		  analysis->insns);
-	print_pct("  Branches taken       = %d (%.2f%%)\n", analysis->taken,
+	print_pct("  Branches taken       = %w64u (%.2f%%)\n", analysis->taken,
 		  branches);
-	print_pct("  Branches not taken   = %d (%.2f%%)\n", analysis->not_taken,
-		  branches);
+	print_pct("  Branches not taken   = %w64u (%.2f%%)\n",
+		  analysis->not_taken, branches);
 }

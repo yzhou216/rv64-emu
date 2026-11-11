@@ -48,7 +48,7 @@ struct rv_state {
 	struct cache icache;
 };
 
-void rv_init(struct rv_state *state, uint32_t *target,
+void rv_init(struct rv_state *state, const uint32_t *target,
 	     uint64_t a0, uint64_t a1, uint64_t a2, uint64_t a3);
 uint64_t rv_emulate(struct rv_state *state);
 
