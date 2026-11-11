@@ -24,6 +24,13 @@ On a RISC-V machine:
 
     make
 
+With Nix, 64-bit x86 and ARM GNU/Linux systems cross-build it as well:
+
+    nix build
+
+`nix develop` opens a shell in which `make` uses the same toolchain and
+`qemu-riscv64 ./rv64_emu` runs the result.
+
 ## Running
 
     ./rv64_emu fib_rec 10
