@@ -7,7 +7,6 @@
 #include <stdbit.h>
 #include <stdcountof.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "cache.h"
 #include "log.h"
@@ -47,23 +46,22 @@ void cache_init(struct cache *cache)
 	for (size_t i = 0; i < countof(cache->slots); i++)
 		cache->slots[i] = (struct cache_slot){};
 
-	cache->refs = 0;
-	cache->hits = 0;
-	cache->misses = 0;
-	cache->misses_cold = 0;
-	cache->misses_hot = 0;
+	cache->stats = (struct cache_stats){};
 
 	verbose("Cache initialized.\n");
 }
 
 void cache_print(const struct cache *cache, const char *name)
 {
+	const struct cache_stats *stats = &cache->stats;
+	int slots = cache->size / cache->block_size;
+	uint64_t misses = stats->cold + stats->hot;
 	int used = 0;
-	int i;
 
-	for (i = 0; i < cache->size / cache->block_size; i++)
+	for (int i = 0; i < slots; i++) {
 		if (cache->slots[i].valid)
-			used += 1;
+			used++;
+	}
 
 	printf("=== Cache %s\n", name);
 	printf("Type          = ");
@@ -72,30 +70,50 @@ void cache_print(const struct cache *cache, const char *name)
 	else if (cache->type == CACHE_SA)
 		printf("set associative\n");
 
-	printf("Size          = %d slots\n", cache->size);
+	printf("Size          = %d words\n", cache->size);
 	printf("Block size    = %d words\n", cache->block_size);
 	printf("Ways          = %d\n", cache->ways);
-	printf("References    = %d\n", cache->refs);
-	printf("Hits          = %d (%.2f%% hit ratio)\n", cache->hits,
-	       ((double)cache->hits / (double)cache->refs) * 100.00);
-	printf("Misses        = %d (%.2f%% miss ratio)\n", cache->misses,
-	       ((double)cache->misses / (double)cache->refs) * 100.00);
-	printf("Misses (cold) = %d\n", cache->misses_cold);
-	printf("Misses (hot)  = %d\n", cache->misses_hot);
+	printf("References    = %w64u\n", stats->refs);
+	printf("Hits          = %w64u (%.2f%% hit ratio)\n", stats->hits,
+	       ((double)stats->hits / (double)stats->refs) * 100.00);
+	printf("Misses        = %w64u (%.2f%% miss ratio)\n", misses,
+	       ((double)misses / (double)stats->refs) * 100.00);
+	printf("Misses (cold) = %w64u\n", stats->cold);
+	printf("Misses (hot)  = %w64u\n", stats->hot);
 	/* The value lines up with the others because %% prints one character */
-	printf("%% Used        = %.2f%%\n",
-	       ((double)used / (double)cache->size) * 100.0);
+	printf("%% Used        = %.2f%%\n", (double)used / (double)slots * 100.0);
+}
+
+/*
+ * Where an address falls in the cache: the tag that identifies its block,
+ * the index of the slot or the set that holds the block, and the offset
+ * of the word within the block.
+ */
+struct cache_addr {
+	uint64_t tag;
+	uint64_t index;
+	uint64_t offset;
+};
+
+static struct cache_addr cache_split(const struct cache *cache, uint64_t addr)
+{
+	uint64_t word = addr >> 2;
+
+	return (struct cache_addr){
+		.tag = word >> (cache->block_bits + cache->index_bits),
+		.index = (word >> cache->block_bits) & cache->index_mask,
+		.offset = word & cache->block_mask,
+	};
 }
 
 /*
  * Replace the contents of a slot with the block of memory that holds the
- * word at addr_word, the address divided by four, and return that word,
- * which is word offset of the block.
+ * word at addr, which is word offset of the block, and return that word.
  */
 static uint32_t cache_fill_block(struct cache *cache, struct cache_slot *slot,
-				 uint64_t addr_word, uint64_t offset)
+				 uint64_t addr, uint64_t offset)
 {
-	const uint32_t *block = (const uint32_t *)((addr_word - offset) << 2);
+	const uint32_t *block = (const uint32_t *)addr - offset;
 
 	for (int i = 0; i < cache->block_size; i++)
 		slot->block[i] = block[i];
@@ -105,42 +123,39 @@ static uint32_t cache_fill_block(struct cache *cache, struct cache_slot *slot,
 /* Direct-mapped lookup */
 static uint32_t cache_lookup_dm(struct cache *cache, uint64_t addr)
 {
-	uint64_t addr_word = addr >> 2;
-	uint64_t offset = addr_word % cache->block_size;
-	uint64_t index = (addr >> (cache->block_bits + 2)) & cache->index_mask;
-	uint64_t tag = addr >> (cache->index_bits + cache->block_bits + 2);
-	struct cache_slot *slot = &cache->slots[index];
+	auto pos = cache_split(cache, addr);
+	struct cache_slot *slot = &cache->slots[pos.index];
 
-	cache->refs += 1;
-	if (slot->valid && slot->tag == tag) {
-		cache->hits += 1;
+	cache->stats.refs += 1;
+	if (slot->valid && slot->tag == pos.tag) {
+		cache->stats.hits += 1;
 		verbose("  cache tag hit for index %w64u tag %w64X addr %w64X\n",
-			index, tag, addr);
-		return slot->block[offset];
+			pos.index, pos.tag, addr);
+		return slot->block[pos.offset];
 	}
 
-	cache->misses += 1;
 	if (slot->valid) {
-		cache->misses_hot += 1;
+		cache->stats.hot += 1;
 		verbose("  cache tag (%w64X) miss for index %w64u tag %w64X addr %w64X (hot)\n",
-			slot->tag, index, tag, addr);
+			slot->tag, pos.index, pos.tag, addr);
 	} else {
-		cache->misses_cold += 1;
+		cache->stats.cold += 1;
 		verbose("  cache tag (%w64X) miss for index %w64u tag %w64X addr %w64X (cold)\n",
-			slot->tag, index, tag, addr);
+			slot->tag, pos.index, pos.tag, addr);
 	}
 	slot->valid = true;
-	slot->tag = tag;
-	return cache_fill_block(cache, slot, addr_word, offset);
+	slot->tag = pos.tag;
+	return cache_fill_block(cache, slot, addr, pos.offset);
 }
 
 /* Return the slot of a set that holds tag, or nullptr if none does */
 static struct cache_slot *cache_find_tag(struct cache_slot *set, int ways,
 					 uint64_t tag)
 {
-	for (int way = 0; way < ways; way++)
+	for (int way = 0; way < ways; way++) {
 		if (set[way].valid && set[way].tag == tag)
 			return &set[way];
+	}
 	return nullptr;
 }
 
@@ -149,9 +164,10 @@ static struct cache_slot *cache_find_invalid(struct cache_slot *set, int ways)
 {
 	struct cache_slot *invalid = nullptr;
 
-	for (int way = 0; way < ways; way++)
+	for (int way = 0; way < ways; way++) {
 		if (!set[way].valid)
 			invalid = &set[way];
+	}
 	return invalid;
 }
 
@@ -160,74 +176,61 @@ static struct cache_slot *cache_find_lru(struct cache_slot *set, int ways)
 {
 	struct cache_slot *lru = &set[0];
 
-	for (int way = 1; way < ways; way++)
+	for (int way = 1; way < ways; way++) {
 		if (set[way].timestamp < lru->timestamp)
 			lru = &set[way];
+	}
 	return lru;
 }
 
 /* Set-associative lookup with least recently used replacement */
 static uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
 {
-	/* A cache without slots misses every time */
-	if (cache->size == 0) {
-		cache->misses += 1;
-		return *((uint32_t *)addr);
+	auto pos = cache_split(cache, addr);
+	struct cache_slot *set = &cache->slots[pos.index * cache->ways];
+
+	cache->stats.refs += 1;
+	if (struct cache_slot *hit = cache_find_tag(set, cache->ways,
+						    pos.tag)) {
+		verbose("  cache tag hit for set %w64u way %td tag %w64X addr %w64X\n",
+			pos.index, hit - set, pos.tag, addr);
+		cache->stats.hits += 1;
+		hit->timestamp = cache->stats.refs;
+		return hit->block[pos.offset];
 	}
 
-	cache->refs += 1;
-
-	uint64_t tag = addr >> (cache->index_bits + cache->block_bits + 2);
-	uint64_t addr_word = addr >> 2;
-	uint64_t offset = addr_word % cache->block_size;
-	int set_index = (addr >> (cache->block_bits + 2)) & cache->index_mask;
-	int set_base = set_index * cache->ways;
-	struct cache_slot *set = &cache->slots[set_base];
-
-	if (struct cache_slot *hit = cache_find_tag(set, cache->ways, tag)) {
-		verbose("  cache tag hit for set %d way %td tag %w64X addr %w64X\n",
-			set_index, hit - set, tag, addr);
-		cache->hits++;
-		hit->timestamp = cache->refs;
-		return hit->block[offset];
-	}
-
-	cache->misses += 1;
 	struct cache_slot *victim = cache_find_invalid(set, cache->ways);
 	if (victim) {
-		cache->misses_cold += 1;
-		verbose("  cache tag (%w64X) miss for set %d tag %w64X addr %w64X (fill invalid slot)\n",
-			victim->tag, set_index, tag, addr);
+		cache->stats.cold += 1;
+		verbose("  cache tag (%w64X) miss for set %w64u tag %w64X addr %w64X (fill invalid slot)\n",
+			victim->tag, pos.index, pos.tag, addr);
 	} else {
 		victim = cache_find_lru(set, cache->ways);
-		cache->misses_hot += 1;
-		verbose("  cache tag (%w64X) miss for set %d tag %w64X addr %w64X (evict address %w64X)\n",
-			victim->tag, set_index, tag, addr,
-			victim->tag << (cache->index_bits + 2) |
-			set_index << 2);
+		cache->stats.hot += 1;
+		verbose("  cache tag (%w64X) miss for set %w64u tag %w64X addr %w64X (evict address %w64X)\n",
+			victim->tag, pos.index, pos.tag, addr,
+			victim->tag << (cache->index_bits +
+					cache->block_bits + 2) |
+			pos.index << (cache->block_bits + 2));
 	}
 
-	uint32_t value = cache_fill_block(cache, victim, addr_word, offset);
-	victim->tag = tag;
+	uint32_t value = cache_fill_block(cache, victim, addr, pos.offset);
+	victim->tag = pos.tag;
 	victim->valid = true;
-	victim->timestamp = cache->refs;
+	victim->timestamp = cache->stats.refs;
 	return value;
 }
 
-/* Cache lookup */
+/* Fetch the instruction word at addr through the simulated cache, if any */
 uint32_t cache_lookup(struct cache *cache, uint64_t addr)
 {
-	uint32_t data;
 	switch (cache->type) {
 	case CACHE_DM:
-		data = cache_lookup_dm(cache, addr);
-		break;
+		return cache_lookup_dm(cache, addr);
 	case CACHE_SA:
-		data = cache_lookup_sa(cache, addr);
-		break;
-	default:
-		data = *((uint32_t *)addr);
+		return cache_lookup_sa(cache, addr);
+	case CACHE_NONE:
 		break;
 	}
-	return data;
+	return *(const uint32_t *)addr;
 }
