@@ -18,7 +18,7 @@ TESTS = fib_rec find_max_index get_bitseq is_pal_rec max3 str_to_int \
 # the assembly ends up, so this keeps them independent of the size of
 # the C code.
 OBJS = $(TESTS:=_s.o) insn_s.o rv64_emu.o harness.o rv_emu.o decode.o \
-       exec.o alu.o mem.o control.o analysis.o bits.o cache.o verbose.o \
+       exec.o alu.o mem.o control.o analysis.o bits.o cache.o log.o \
        $(TESTS:=_c.o)
 
 # Find the sources under src and the test programs in progs

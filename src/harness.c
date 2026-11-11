@@ -10,6 +10,7 @@
 #include <string.h>
 
 #include "harness.h"
+#include "log.h"
 #include "progs.h"
 
 constexpr int MAX_ARRAY = 1024;
@@ -238,11 +239,8 @@ static bool to_upper_test([[maybe_unused]] int argc, char **argv,
 	char out[MAX_ARRAY];
 	const char *str = argv[0];
 
-	if (strlen(str) >= countof(out)) {
-		fprintf(stderr, "rv64_emu: to_upper takes at most %zu characters\n",
-			countof(out) - 1);
-		exit(EXIT_FAILURE);
-	}
+	if (strlen(str) >= countof(out))
+		fatal("to_upper takes at most %zu characters", countof(out) - 1);
 
 	strcpy(out, str);
 	to_upper_c(str, out);

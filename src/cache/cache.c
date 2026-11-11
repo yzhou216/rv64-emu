@@ -9,7 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "emu/rv_emu.h"
+#include "cache.h"
+#include "log.h"
 
 /*
  * Return whether the simulator can model the cache: size words in blocks

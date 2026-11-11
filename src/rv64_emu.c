@@ -10,6 +10,7 @@
 
 #include "harness.h"
 #include "emu/rv_emu.h"
+#include "log.h"
 
 [[noreturn]] static void usage(void)
 {
@@ -53,12 +54,10 @@ static int parse_params(int argc, char **argv, struct rv_state *state)
 		}
 	}
 
-	if (state->simulate_cache && !cache_valid(&state->icache)) {
-		fprintf(stderr, "rv64_emu: cannot simulate a %d-way cache of %d words in %d-word blocks\n",
-			state->icache.ways, state->icache.size,
-			state->icache.block_size);
-		exit(EXIT_FAILURE);
-	}
+	if (state->simulate_cache && !cache_valid(&state->icache))
+		fatal("cannot simulate a %d-way cache of %d words in %d-word blocks",
+		      state->icache.ways, state->icache.size,
+		      state->icache.block_size);
 	return i;
 }
 

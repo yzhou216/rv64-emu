@@ -5,11 +5,11 @@
  */
 
 #include <stdcountof.h>
-#include <stdio.h>
 
 #include "rv_emu.h"
 #include "decode.h"
 #include "exec.h"
+#include "log.h"
 
 /* Fetch, decode, and execute the instruction at pc */
 static void rv_one(struct rv_state *state)

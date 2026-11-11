@@ -4,10 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "exec.h"
+#include "log.h"
 
 /*
  * Major opcodes.  The digit separators split each opcode into inst[6:5]
@@ -26,8 +24,7 @@ enum rv_opcode : uint8_t {
 
 [[noreturn]] void unsupported(const char *what, uint32_t value)
 {
-	printf("unsupported %s 0x%x\n", what, value);
-	exit(-1);
+	fatal("unsupported %s 0x%x", what, value);
 }
 
 /* Write rd, except that x0 is hardwired to zero */

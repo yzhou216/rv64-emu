@@ -4,13 +4,11 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-/* verbose.c - Implement a logging function for debugging */
-
 #include <stdarg.h>
-#include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-#include "emu/rv_emu.h"
+#include "log.h"
 
 bool verbose_on = false;
 
@@ -22,4 +20,18 @@ void verbose(const char *fmt, ...)
 		vprintf(fmt, args);
 		va_end(args);
 	}
+}
+
+void fatal(const char *fmt, ...)
+{
+	va_list args;
+
+	/* Keep the output of the runs before the error in order */
+	fflush(stdout);
+	fputs("rv64_emu: ", stderr);
+	va_start(args, fmt);
+	vfprintf(stderr, fmt, args);
+	va_end(args);
+	fputc('\n', stderr);
+	exit(EXIT_FAILURE);
 }
