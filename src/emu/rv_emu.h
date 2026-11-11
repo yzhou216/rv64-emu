@@ -24,7 +24,9 @@ enum rv_reg : uint8_t {
 
 constexpr int RV_NUM_REGS = 32;
 
+/* The calling convention keeps sp 16-byte aligned */
 constexpr size_t STACK_SIZE = 8192;
+static_assert(STACK_SIZE % 16 == 0);
 
 /* Sentinel value for stopping the emulator */
 constexpr uint64_t RV_STOP = 0;
@@ -68,7 +70,7 @@ struct rv_state {
 	uint64_t regs[RV_NUM_REGS];
 	uint64_t pc;
 
-	uint8_t stack[STACK_SIZE];
+	alignas(16) uint8_t stack[STACK_SIZE];
 
 	bool analyze;
 	bool simulate_cache;
