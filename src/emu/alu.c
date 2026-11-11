@@ -9,6 +9,25 @@
 #include "exec.h"
 #include "bits.h"
 
+/* OP instructions, keyed by funct7 and funct3 split by a digit separator */
+enum rv_op : uint16_t {
+	OP_ADD = 0b0000000'000,
+	OP_SLL = 0b0000000'001,
+	OP_SRL = 0b0000000'101,
+	OP_AND = 0b0000000'111,
+	OP_SUB = 0b0100000'000,
+	OP_MUL = 0b0000001'000,
+	OP_DIV = 0b0000001'100,
+	OP_REM = 0b0000001'110,
+};
+
+/* OP-IMM instructions, keyed by funct3 */
+enum rv_op_imm : uint8_t {
+	OP_IMM_ADDI = 0b000,
+	OP_IMM_SLLI = 0b001,
+	OP_IMM_SRLI = 0b101,
+};
+
 /*
  * Signed division and remainder as RISC-V defines them.  Unlike C, it
  * defines the results of dividing by zero and of dividing the most
@@ -40,53 +59,37 @@ void emu_r_type(struct rv_state *state, uint32_t word)
 	uint32_t funct3 = get_bits(word, 12, 3);
 	uint32_t funct7 = get_bits(word, 25, 7);
 
-	switch (funct3) {
-	case 0b000:
-		if (funct7 == 0b0000000) /* ADD */
-			state->regs[rd] = state->regs[rs1] + state->regs[rs2];
-		else if (funct7 == 0b0100000) /* SUB */
-			state->regs[rd] = state->regs[rs1] - state->regs[rs2];
-		else if (funct7 == 0b0000001) /* MUL */
-			state->regs[rd] = state->regs[rs1] * state->regs[rs2];
-		else
-			unsupported("R-type funct7", funct7);
+	switch (funct7 << 3 | funct3) {
+	case OP_ADD:
+		state->regs[rd] = state->regs[rs1] + state->regs[rs2];
 		break;
-	case 0b001:
-		if (funct7 == 0b0000000) /* SLL */
-			state->regs[rd] = state->regs[rs1] <<
+	case OP_SUB:
+		state->regs[rd] = state->regs[rs1] - state->regs[rs2];
+		break;
+	case OP_SLL:
+		state->regs[rd] = state->regs[rs1] <<
 				  (state->regs[rs2] & 63);
-		else
-			unsupported("R-type funct7", funct7);
 		break;
-	case 0b100:
-		if (funct7 == 0b0000001) /* DIV */
-			state->regs[rd] = emu_div(state->regs[rs1],
-					  state->regs[rs2]);
-		else
-			unsupported("R-type funct7", funct7);
-		break;
-	case 0b101:
-		if (funct7 == 0b0000000) /* SRL */
-			state->regs[rd] = state->regs[rs1] >>
+	case OP_SRL:
+		state->regs[rd] = state->regs[rs1] >>
 				  (state->regs[rs2] & 63);
-		else
-			unsupported("R-type funct7", funct7);
 		break;
-	case 0b110:
-		if (funct7 == 0b0000001) /* REM */
-			state->regs[rd] = emu_rem(state->regs[rs1],
+	case OP_AND:
+		state->regs[rd] = state->regs[rs1] & state->regs[rs2];
+		break;
+	case OP_MUL:
+		state->regs[rd] = state->regs[rs1] * state->regs[rs2];
+		break;
+	case OP_DIV:
+		state->regs[rd] = emu_div(state->regs[rs1],
 					  state->regs[rs2]);
-		else
-			unsupported("R-type funct7", funct7);
 		break;
-	case 0b111:
-		if (funct7 == 0b0000000) /* AND */
-			state->regs[rd] = state->regs[rs1] & state->regs[rs2];
-		else
-			unsupported("R-type funct7", funct7);
+	case OP_REM:
+		state->regs[rd] = emu_rem(state->regs[rs1],
+					  state->regs[rs2]);
 		break;
 	default:
-		unsupported("R-type funct3", funct3);
+		unsupported("R-type instruction", word);
 	}
 
 	state->pc += 4; /* Next instruction */
@@ -102,11 +105,11 @@ void emu_i_type(struct rv_state *state, uint32_t word)
 	uint32_t funct3 = get_bits(word, 12, 3);
 	uint32_t funct6 = get_bits(word, 26, 6);
 	uint32_t imm = get_bits(word, 20, 12);
-	if (funct3 == 0b101 && funct6 == 0b0)
+	if (funct3 == OP_IMM_SRLI && funct6 == 0)
 		state->regs[rd] = state->regs[rs1] >> shamt;
-	else if (funct3 == 0b001 && funct6 == 0b0) /* SLLI */
+	else if (funct3 == OP_IMM_SLLI && funct6 == 0)
 		state->regs[rd] = state->regs[rs1] << shamt;
-	else if (funct3 == 0b000)
+	else if (funct3 == OP_IMM_ADDI)
 		state->regs[rd] = state->regs[rs1] + sign_extend(imm, 12);
 	else
 		unsupported("I-type funct3", funct3);

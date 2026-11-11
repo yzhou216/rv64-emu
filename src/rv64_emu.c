@@ -12,7 +12,7 @@
 
 extern bool verbose_on;
 
-void usage()
+[[noreturn]] void usage(void)
 {
 	printf("usage: rv64_emu <prog> [<arg1> ...]\n");
 	exit(-1);
@@ -24,10 +24,6 @@ int parse_params(int argc, char **argv, struct rv_state *state)
 	 * Parse optional command line parameters which must precede
 	 * the name of the emulated program and its parameters
 	 */
-	state->analyze = false;
-	state->simulate_cache = false;
-	state->icache.type = CACHE_NONE;
-
 	int i;
 	for (i = 1; i < argc; i++) {
 		if (argv[i][0] != '-') {
@@ -65,7 +61,7 @@ int main(int argc, char **argv)
 	if (argc == 1)
 		usage();
 
-	struct rv_state state;
+	struct rv_state state = {};
 	int i = parse_params(argc, argv, &state);
 
 	if (!run_test(argv[i], i + 1, argc, argv, &state))

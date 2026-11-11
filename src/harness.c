@@ -11,7 +11,7 @@
 #include "harness.h"
 #include "progs.h"
 
-#define MAX_ARRAY 1024
+constexpr int MAX_ARRAY = 1024;
 
 void copy_array(int *dst, int *src, int len)
 {
@@ -159,7 +159,7 @@ void quadratic_test(int start_arg, char **argv, struct rv_state *state)
 void sort_test(int start_arg, int argc, char **argv, struct rv_state *state)
 {
 	int sorted[MAX_ARRAY];
-	int values[MAX_ARRAY] = { 0, };
+	int values[MAX_ARRAY] = {};
 	int len = 0;
 
 	for (int i = 0; i < argc - start_arg; i++) {

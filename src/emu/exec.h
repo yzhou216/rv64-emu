@@ -25,6 +25,6 @@ void emu_jalr(struct rv_state *state, uint32_t word);
 void emu_b_type(struct rv_state *state, uint32_t word);
 
 /* Helpers of the instructions, in exec.c */
-void unsupported(char *what, uint32_t value);
+[[noreturn]] void unsupported(char *what, uint32_t value);
 
 #endif /* EXEC_H */

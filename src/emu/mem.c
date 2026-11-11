@@ -9,6 +9,13 @@
 #include "exec.h"
 #include "bits.h"
 
+/* Access widths of LOAD and STORE instructions, encoded in funct3 */
+enum rv_width : uint8_t {
+	WIDTH_BYTE = 0b000,
+	WIDTH_WORD = 0b010,
+	WIDTH_DOUBLE = 0b011,
+};
+
 void emu_load(struct rv_state *state, uint32_t word)
 {
 	uint32_t rs1 = get_bits(word, 15, 5);
@@ -18,13 +25,13 @@ void emu_load(struct rv_state *state, uint32_t word)
 	int64_t offset = sign_extend(imm, 12);
 	uint64_t addr = (uint64_t)((uint8_t *)state->regs[rs1] + offset);
 	switch (funct3) {
-	case 0b000: /* LB */
+	case WIDTH_BYTE: /* lb */
 		state->regs[rd] = *((int8_t *)addr);
 		break;
-	case 0b010: /* LW */
+	case WIDTH_WORD: /* lw */
 		state->regs[rd] = *((int32_t *)addr);
 		break;
-	case 0b011: /* LD */
+	case WIDTH_DOUBLE: /* ld */
 		state->regs[rd] = *((uint64_t *)addr);
 		break;
 	default:
@@ -46,13 +53,13 @@ void emu_s_type(struct rv_state *state, uint32_t word)
 	int64_t offset = sign_extend(imm, 12);
 	uint64_t addr = (uint64_t)((uint8_t *)state->regs[rs1] + offset);
 	switch (funct3) {
-	case 0b000: /* SB */
+	case WIDTH_BYTE: /* sb */
 		*((uint8_t *)addr) = state->regs[rs2];
 		break;
-	case 0b010: /* SW */
+	case WIDTH_WORD: /* sw */
 		*((uint32_t *)addr) = state->regs[rs2];
 		break;
-	case 0b011: /* SD */
+	case WIDTH_DOUBLE: /* sd */
 		*((uint64_t *)addr) = state->regs[rs2];
 		break;
 	default:

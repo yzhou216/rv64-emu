@@ -9,6 +9,14 @@
 #include "exec.h"
 #include "bits.h"
 
+/* Conditions of BRANCH instructions, encoded in funct3 */
+enum rv_branch : uint8_t {
+	BRANCH_EQ = 0b000,
+	BRANCH_NE = 0b001,
+	BRANCH_LT = 0b100,
+	BRANCH_GE = 0b101,
+};
+
 void emu_ucond_j(struct rv_state *state, uint32_t word)
 {
 	uint32_t rd = get_bits(word, 7, 5);
@@ -66,16 +74,16 @@ void emu_b_type(struct rv_state *state, uint32_t word)
 
 	bool taken = false;
 	switch (funct3) {
-	case 0b000: /* BEQ */
+	case BRANCH_EQ:
 		taken = rs1_val == rs2_val;
 		break;
-	case 0b001: /* BNE */
+	case BRANCH_NE:
 		taken = rs1_val != rs2_val;
 		break;
-	case 0b100: /* BLT */
+	case BRANCH_LT:
 		taken = rs1_val < rs2_val;
 		break;
-	case 0b101: /* BGE */
+	case BRANCH_GE:
 		taken = rs1_val >= rs2_val;
 		break;
 	default:

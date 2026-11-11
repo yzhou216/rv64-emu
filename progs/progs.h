@@ -5,7 +5,6 @@
  */
 
 #include <stdint.h>
-#include <stdbool.h>
 
 uint64_t fib_rec_c(uint32_t);
 uint64_t fib_rec_s(uint32_t);

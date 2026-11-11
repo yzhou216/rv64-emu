@@ -7,7 +7,6 @@
 /* verbose.c - Implement a logging function for debugging */
 
 #include <stdarg.h>
-#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 
@@ -15,7 +14,7 @@
 
 bool verbose_on = false;
 
-void verbose(char *fmt, ...)
+void verbose(const char *fmt, ...)
 {
 	if (verbose_on) {
 		va_list args;

@@ -5,11 +5,10 @@
  */
 
 #include <stdio.h>
-#include <string.h>
 
 #include "exec.h"
 
-#define DEBUG 0
+constexpr bool DEBUG = false;
 
 /* Fetch and execute the instruction at pc */
 static void rv_one(struct rv_state *state)
@@ -17,9 +16,8 @@ static void rv_one(struct rv_state *state)
 	/* cache_lookup function hits memory bus if the word is not cached */
 	uint32_t word = cache_lookup(&state->icache, (uint64_t)state->pc);
 
-#if DEBUG
-	printf("iw: %x\n", word);
-#endif
+	if (DEBUG)
+		printf("iw: %x\n", word);
 
 	rv_exec(state, word);
 }
@@ -37,7 +35,7 @@ void rv_init(struct rv_state *state, uint32_t *target,
 	state->regs[RV_RA] = RV_STOP;
 	state->regs[RV_SP] = (uint64_t)&state->stack[STACK_SIZE];
 
-	memset(&state->analysis, 0, sizeof(struct rv_analysis));
+	state->analysis = (struct rv_analysis){};
 	cache_init(&state->icache);
 }
 

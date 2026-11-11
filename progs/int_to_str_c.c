@@ -6,7 +6,7 @@
 
 #include <stdint.h>
 
-#define MAX_DIGITS 34
+constexpr int MAX_DIGITS = 34;
 
 void int_to_str_c(uint32_t value, char *out, int base)
 {
