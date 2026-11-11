@@ -6,6 +6,8 @@
 
 #include <stdint.h>
 
+#include "progs.h"
+
 constexpr int MAX_DIGITS = 34;
 
 void int_to_str_c(uint32_t value, char *out, int base)

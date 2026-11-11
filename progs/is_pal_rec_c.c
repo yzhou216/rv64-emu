@@ -4,7 +4,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-int pal_rec_c(char *str, int start, int end)
+#include "progs.h"
+
+bool pal_rec_c(const char *str, int start, int end)
 {
 	if (start >= end) {
 		return true;

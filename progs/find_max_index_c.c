@@ -6,7 +6,9 @@
 
 #include <limits.h>
 
-int find_max_index_c(int *values, int len)
+#include "progs.h"
+
+int find_max_index_c(const int *values, int len)
 {
 	int max_index = 0;
 	int max = INT_MIN;

@@ -4,7 +4,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-void to_upper_c(char *src, char *dst)
+#include "progs.h"
+
+void to_upper_c(const char *src, char *dst)
 {
 	char ch;
 	while ((ch = *src++)) {

@@ -7,6 +7,7 @@
 #include <stdcountof.h>
 #include <stdio.h>
 
+#include "rv_emu.h"
 #include "decode.h"
 #include "exec.h"
 

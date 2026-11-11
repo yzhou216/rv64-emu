@@ -9,36 +9,30 @@
 #include <stdlib.h>
 #include <string.h>
 
-uint32_t char_to_digit(char ch, int base)
+#include "progs.h"
+
+/* Return the value of a digit in the given base, or zero for a non-digit */
+static uint32_t char_to_digit(char ch, int base)
 {
-	switch (base) {
-	case 2:
-		if (ch == '0' || ch == '1') {
-			return ch - '0';
-		}
+	int digit;
+
+	switch (ch) {
+	case '0' ... '9':
+		digit = ch - '0';
 		break;
-	case 10:
-		if (ch >= '0' && ch <= '9') {
-			return ch - '0';
-		}
+	case 'a' ... 'f':
+		digit = ch - 'a' + 0xa;
 		break;
-	case 16:
-		if (ch >= '0' && ch <= '9') {
-			return ch - '0';
-		}
-		if (ch >= 'a' && ch <= 'f') {
-			return ch - 'a' + 0xa;
-		}
-		if (ch >= 'A' && ch <= 'F') {
-			return ch - 'A' + 0xa;
-		}
+	case 'A' ... 'F':
+		digit = ch - 'A' + 0xa;
 		break;
+	default:
+		return 0;
 	}
-	/* Invalid digits count as zero */
-	return 0;
+	return digit < base ? digit : 0;
 }
 
-int str_to_int_c(char *str, int base)
+int str_to_int_c(const char *str, int base)
 {
 	int value = 0;
 	int place = 1;

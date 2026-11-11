@@ -24,7 +24,7 @@ enum rv_opcode : uint8_t {
 	OPCODE_JAL = 0b11'011'11,
 };
 
-[[noreturn]] void unsupported(char *what, uint32_t value)
+[[noreturn]] void unsupported(const char *what, uint32_t value)
 {
 	printf("unsupported %s 0x%x\n", what, value);
 	exit(-1);

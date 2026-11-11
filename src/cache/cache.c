@@ -35,7 +35,7 @@ void cache_init(struct cache *cache)
 	verbose("Cache initialized.\n");
 }
 
-void cache_print(struct cache *cache, char *name)
+void cache_print(const struct cache *cache, const char *name)
 {
 	int used = 0;
 	int i;

@@ -9,6 +9,7 @@
 #include <string.h>
 
 #include "harness.h"
+#include "emu/rv_emu.h"
 
 [[noreturn]] static void usage(void)
 {
@@ -16,21 +17,16 @@
 	exit(-1);
 }
 
+/*
+ * Parse the options, which must precede the name of the emulated program
+ * and its arguments, and return the index of that name in argv.
+ */
 static int parse_params(int argc, char **argv, struct rv_state *state)
 {
-	/*
-	 * Parse optional command line parameters which must precede
-	 * the name of the emulated program and its parameters
-	 */
 	int i;
-	for (i = 1; i < argc; i++) {
-		if (argv[i][0] != '-') {
-			/*
-			 * Return the index of the first non-optional parameter,
-			 * which is the name of the emulated program
-			 */
-			break;
-		} else if (!strcmp(argv[i], "-a")) {
+
+	for (i = 1; i < argc && argv[i][0] == '-'; i++) {
+		if (!strcmp(argv[i], "-a")) {
 			state->analyze = true;
 		} else if (!strcmp(argv[i], "-dm")) {
 			state->simulate_cache = true;

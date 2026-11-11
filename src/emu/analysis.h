@@ -20,6 +20,6 @@ struct rv_analysis {
 	int not_taken;
 };
 
-void rv_print(struct rv_analysis *analysis);
+void rv_print(const struct rv_analysis *analysis);
 
 #endif /* ANALYSIS_H */

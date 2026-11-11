@@ -14,13 +14,13 @@
 
 constexpr int MAX_ARRAY = 1024;
 
-static void copy_array(int *dst, int *src, int len)
+static void copy_array(int *dst, const int *src, int len)
 {
 	for (int i = 0; i < len; i++)
 		dst[i] = src[i];
 }
 
-static void print_array(char *prefix, int *values, int len)
+static void print_array(const char *prefix, const int *values, int len)
 {
 	printf("%s", prefix);
 	for (int i = 0; i < len; i++)
@@ -68,7 +68,7 @@ static void pal_test([[maybe_unused]] int argc, char **argv,
 				struct rv_state *state)
 {
 	bool result;
-	char *str = argv[0];
+	const char *str = argv[0];
 	int end = strlen(str) - 1;
 
 	result = pal_rec_c(str, 0, end);
@@ -193,7 +193,7 @@ static void sort_test(int argc, char **argv, struct rv_state *state)
 static void str_to_int_test([[maybe_unused]] int argc, char **argv,
 				struct rv_state *state)
 {
-	char *str = argv[0];
+	const char *str = argv[0];
 	int base = 10;
 	if (!strncmp(str, "0b", 2)) {
 		base = 2;
@@ -219,7 +219,7 @@ static void to_upper_test([[maybe_unused]] int argc, char **argv,
 {
 	/* Make a copy of the string since we modify it in place */
 	char out[MAX_ARRAY];
-	char *str = argv[0];
+	const char *str = argv[0];
 
 	if (strlen(str) >= countof(out)) {
 		fprintf(stderr, "rv64_emu: to_upper takes at most %zu characters\n",

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-int find_max_index_c(int *values, int len);
+#include "progs.h"
 
 void sort_c(int *values, int len)
 {

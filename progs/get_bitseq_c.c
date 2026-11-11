@@ -6,6 +6,8 @@
 
 #include <stdint.h>
 
+#include "progs.h"
+
 uint32_t get_bitseq_c(uint32_t value, int start, int end)
 {
 	uint32_t bits;

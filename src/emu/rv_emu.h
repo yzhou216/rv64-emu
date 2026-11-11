@@ -6,6 +6,9 @@
 
 /* RISC-V emulator types and constants */
 
+#ifndef RV_EMU_H
+#define RV_EMU_H
+
 #include <stddef.h>
 #include <stdint.h>
 
@@ -85,8 +88,10 @@ uint64_t rv_emulate(struct rv_state *state);
 
 void cache_init(struct cache *cache);
 [[nodiscard]] uint32_t cache_lookup(struct cache *cache, uint64_t addr);
-void cache_print(struct cache *cache, char *name);
+void cache_print(const struct cache *cache, const char *name);
 
 /* Logging for -v, enabled by verbose_on */
 extern bool verbose_on;
 [[gnu::format(printf, 1, 2)]] void verbose(const char *fmt, ...);
+
+#endif /* RV_EMU_H */

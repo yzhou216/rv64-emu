@@ -4,7 +4,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-int max2_c(int a, int b)
+#include "progs.h"
+
+static int max2_c(int a, int b)
 {
 	return a > b ? a : b;
 }
