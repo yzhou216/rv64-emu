@@ -38,7 +38,7 @@ static void print_results(const char *prefix, const uint64_t *results, int n)
 }
 
 static bool fib_rec_test([[maybe_unused]] int argc, char **argv,
-				struct rv_state *state)
+			 struct rv_state *state)
 {
 	int result;
 	int n = atoi(argv[0]);
@@ -56,12 +56,16 @@ static bool fib_rec_test([[maybe_unused]] int argc, char **argv,
 }
 
 static bool get_bitseq_test([[maybe_unused]] int argc, char **argv,
-				struct rv_state *state)
+			    struct rv_state *state)
 {
 	int result;
 	int n = atoi(argv[0]);
 	int start = atoi(argv[1]);
 	int end = atoi(argv[2]);
+
+	/* The versions only agree on ranges within bits 0 to 31 */
+	if (start < 0 || start > end || end > 31)
+		return false;
 
 	result = get_bitseq_c(n, start, end);
 	printf("C: %d\n", result);
@@ -76,7 +80,7 @@ static bool get_bitseq_test([[maybe_unused]] int argc, char **argv,
 }
 
 static bool pal_test([[maybe_unused]] int argc, char **argv,
-				struct rv_state *state)
+		     struct rv_state *state)
 {
 	bool result;
 	const char *str = argv[0];
@@ -105,6 +109,16 @@ static bool int_to_str_test(int argc, char **argv, struct rv_state *state)
 	else if (argc != 1)
 		return false;
 
+	/* The programs only know the prefixes of these bases */
+	switch (base) {
+	case 2:
+	case 10:
+	case 16:
+		break;
+	default:
+		return false;
+	}
+
 	memset(out, 0, sizeof(out));
 	int_to_str_c(value, out, base);
 	printf("C: %s\n", out);
@@ -122,7 +136,7 @@ static bool int_to_str_test(int argc, char **argv, struct rv_state *state)
 }
 
 static bool max3_test([[maybe_unused]] int argc, char **argv,
-				struct rv_state *state)
+		      struct rv_state *state)
 {
 	int result;
 	int a = atoi(argv[0]);
@@ -142,7 +156,7 @@ static bool max3_test([[maybe_unused]] int argc, char **argv,
 }
 
 static bool midpoint_test([[maybe_unused]] int argc, char **argv,
-				struct rv_state *state)
+			  struct rv_state *state)
 {
 	int result;
 	int start = atoi(argv[0]);
@@ -161,7 +175,7 @@ static bool midpoint_test([[maybe_unused]] int argc, char **argv,
 }
 
 static bool quadratic_test([[maybe_unused]] int argc, char **argv,
-				struct rv_state *state)
+			   struct rv_state *state)
 {
 	int result;
 	int x = atoi(argv[0]);
@@ -208,8 +222,13 @@ static bool sort_test(int argc, char **argv, struct rv_state *state)
 }
 
 static bool str_to_int_test([[maybe_unused]] int argc, char **argv,
-				struct rv_state *state)
+			    struct rv_state *state)
 {
+	static const char *const digits[] = {
+		[2] = "01",
+		[10] = "0123456789",
+		[16] = "0123456789abcdefABCDEF",
+	};
 	const char *str = argv[0];
 	int base = 10;
 	if (!strncmp(str, "0b", 2)) {
@@ -219,6 +238,10 @@ static bool str_to_int_test([[maybe_unused]] int argc, char **argv,
 		base = 16;
 		str += 2;
 	}
+
+	/* The versions only agree on strings of digits of the base */
+	if (!*str || str[strspn(str, digits[base])])
+		return false;
 
 	int result = str_to_int_c(str, base);
 	printf("C: %d\n", result);
@@ -233,24 +256,24 @@ static bool str_to_int_test([[maybe_unused]] int argc, char **argv,
 }
 
 static bool to_upper_test([[maybe_unused]] int argc, char **argv,
-				struct rv_state *state)
+			  struct rv_state *state)
 {
-	/* Make a copy of the string since we modify it in place */
 	char out[MAX_ARRAY];
 	const char *str = argv[0];
 
 	if (strlen(str) >= countof(out))
 		fatal("to_upper takes at most %zu characters", countof(out) - 1);
 
-	strcpy(out, str);
+	/* Clear the result between runs so that a stale one cannot pass */
+	memset(out, 0, sizeof(out));
 	to_upper_c(str, out);
 	printf("C: %s\n", out);
 
-	strcpy(out, str);
+	memset(out, 0, sizeof(out));
 	to_upper_s(str, out);
 	printf("Asm: %s\n", out);
 
-	strcpy(out, str);
+	memset(out, 0, sizeof(out));
 	rv_init(state, (uint32_t *)to_upper_s, (uint64_t)str, (uint64_t)out,
 		0, 0);
 	rv_emulate(state);
@@ -306,9 +329,10 @@ static const struct test {
 
 static const struct test *find_test(const char *name)
 {
-	for (size_t i = 0; i < countof(tests); i++)
+	for (size_t i = 0; i < countof(tests); i++) {
 		if (!strcmp(tests[i].name, name))
 			return &tests[i];
+	}
 	return nullptr;
 }
 

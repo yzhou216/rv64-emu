@@ -12,6 +12,9 @@
 #include "emu/rv_emu.h"
 #include "log.h"
 
+/* Whether to print the dynamic instruction mix, which -a turns on */
+static bool analyze;
+
 [[noreturn]] static void usage(void)
 {
 	fputs("usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]\n"
@@ -32,16 +35,14 @@ static int parse_params(int argc, char **argv, struct rv_state *state)
 
 	for (i = 1; i < argc && argv[i][0] == '-'; i++) {
 		if (!strcmp(argv[i], "-a")) {
-			state->analyze = true;
+			analyze = true;
 		} else if (!strcmp(argv[i], "-dm") && i + 2 < argc) {
-			state->simulate_cache = true;
 			state->icache.type = CACHE_DM;
 			state->icache.size = atoi(argv[i + 1]);
 			state->icache.block_size = atoi(argv[i + 2]);
 			state->icache.ways = 1;
 			i += 2;
 		} else if (!strcmp(argv[i], "-sa") && i + 3 < argc) {
-			state->simulate_cache = true;
 			state->icache.type = CACHE_SA;
 			state->icache.size = atoi(argv[i + 1]);
 			state->icache.block_size = atoi(argv[i + 2]);
@@ -54,7 +55,7 @@ static int parse_params(int argc, char **argv, struct rv_state *state)
 		}
 	}
 
-	if (state->simulate_cache && !cache_valid(&state->icache))
+	if (state->icache.type != CACHE_NONE && !cache_valid(&state->icache))
 		fatal("cannot simulate a %d-way cache of %d words in %d-word blocks",
 		      state->icache.ways, state->icache.size,
 		      state->icache.block_size);
@@ -70,10 +71,10 @@ int main(int argc, char **argv)
 	if (i >= argc || !run_test(argv[i], nargs, &argv[i + 1], &state))
 		usage();
 
-	if (state.analyze)
+	if (analyze)
 		rv_print(&state.analysis);
 
-	if (state.simulate_cache)
+	if (state.icache.type != CACHE_NONE)
 		cache_print(&state.icache, "(I)");
 
 	return 0;

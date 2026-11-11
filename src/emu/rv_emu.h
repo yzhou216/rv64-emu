@@ -41,9 +41,6 @@ struct rv_state {
 
 	alignas(16) uint8_t stack[STACK_SIZE];
 
-	bool analyze;
-	bool simulate_cache;
-
 	struct rv_analysis analysis;
 	struct cache icache;
 };
