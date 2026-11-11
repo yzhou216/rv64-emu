@@ -24,7 +24,7 @@ int max3_c(int a, int b, int c);
 int max3_s(int a, int b, int c);
 
 void int_to_str_c(uint32_t value, char *out, int base);
-void int_to_str_s(int value, char *out, int base);
+void int_to_str_s(uint32_t value, char *out, int base);
 
 int midpoint_c(int start, int end);
 int midpoint_s(int start, int end);

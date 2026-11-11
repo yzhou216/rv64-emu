@@ -4,9 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-#include <stdio.h>
 #include <stdint.h>
-#include <stdlib.h>
 #include <string.h>
 
 #include "progs.h"
@@ -34,9 +32,10 @@ static uint32_t char_to_digit(char ch, int base)
 
 int str_to_int_c(const char *str, int base)
 {
-	int value = 0;
-	int place = 1;
-	int digit;
+	/* Unsigned arithmetic wraps around where signed arithmetic overflows */
+	uint32_t value = 0;
+	uint32_t place = 1;
+	uint32_t digit;
 
 	for (int i = strlen(str) - 1; i >= 0; i--) {
 		digit = char_to_digit(str[i], base);

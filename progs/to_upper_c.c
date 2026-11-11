@@ -11,7 +11,7 @@ void to_upper_c(const char *src, char *dst)
 	char ch;
 	while ((ch = *src++)) {
 		if (ch >= 'a' && ch <= 'z')
-			ch -= 32;
+			ch -= 'a' - 'A';
 		*dst++ = ch;
 	}
 	*dst = '\0';

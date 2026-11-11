@@ -17,11 +17,11 @@ uint32_t get_bitseq_c(uint32_t value, int start, int end)
 	len = (end - start) + 1;
 	bits = value >> start;
 
-	if (len == 32) {
-		mask = 0xFFFFFFFF;
-	} else {
-		mask = (0b1 << len) - 1;
-	}
+	/* Shifting a 32-bit value by 32 is undefined, so mask that apart */
+	if (len == 32)
+		mask = UINT32_MAX;
+	else
+		mask = (UINT32_C(1) << len) - 1;
 
 	bits = bits & mask;
 

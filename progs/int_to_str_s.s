@@ -5,10 +5,12 @@
 .align 4
 .global int_to_str_s
 
-# a0: 32 bit signed integer
+# a0: 32 bit unsigned integer
 # a1: output string, assumed to be 32 chars
 # a2: output base
 int_to_str_s:
+	slli a0, a0, 32         # zero-extend the value, which the calling
+	srli a0, a0, 32         # convention sign-extends to 64 bits
 	li t4, 2
 	bne a2, t4, prefix_not_bin
 	li t4, '0'              # base 2, prefix "0b"
@@ -26,6 +28,10 @@ prefix_not_bin:
 	addi a1, a1, 2
 prefix_none:
 	mv a3, a1               # save for later reversing
+	bne a0, zero, mod_loop
+	li t0, '0'              # zero has no digits in the loop below
+	sb t0, (a1)
+	addi a1, a1, 1
 
 mod_loop:
 	beq a0, zero, reverse
@@ -43,6 +49,7 @@ mod_store:
 	j mod_loop
 
 reverse:
+	sb zero, (a1)           # null terminate the output str
 	addi a1, a1, -1         # back up a1 from the '\0' to the last char
 rev_loop:
 	blt a1, a3, rev_done    # stop when pointers cross
@@ -54,5 +61,4 @@ rev_loop:
 	addi a1, a1, -1
 	j rev_loop
 rev_done:
-	sb zero, 1(a3)          # null terminate the output str
 	ret

@@ -7,5 +7,6 @@
 
 midpoint_s:
 	add a0, a0, a1
-	srli a0, a0, 1
+	li t0, 2
+	div a0, a0, t0          # rounds toward zero, as C division does
 	ret

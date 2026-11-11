@@ -23,10 +23,14 @@ void int_to_str_c(uint32_t value, char *out, int base)
 		while (value != 0) {
 			quotient = value / base;
 			digit = value % base;
-			if (digit <= 9)
+			switch (digit) {
+			case 0 ... 9:
 				digits[len] = '0' + digit;
-			else if (digit >= 10 && digit <= 15)
-				digits[len] = 'a' - 0xa + digit;
+				break;
+			case 10 ... 15:
+				digits[len] = 'A' - 0xa + digit;
+				break;
+			}
 			len += 1;
 			value = quotient;
 		}
@@ -44,8 +48,7 @@ void int_to_str_c(uint32_t value, char *out, int base)
 	}
 
 	/* Reverse digits and put into result string */
-	for (i = len; i > 0; i--, j++) {
+	for (i = len; i > 0; i--, j++)
 		out[j] = digits[i - 1];
-	}
 	out[j] = '\0';
 }

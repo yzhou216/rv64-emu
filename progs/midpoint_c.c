@@ -4,9 +4,12 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+#include <stdint.h>
+
 #include "progs.h"
 
 int midpoint_c(int start, int end)
 {
-	return (start + end) / 2;
+	/* The sum of two ints can overflow an int, but not an int64_t */
+	return ((int64_t)start + end) / 2;
 }

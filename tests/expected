@@ -45,28 +45,28 @@ Emu: -1
 [exit 0]
 $ int_to_str 1234 -o 10
 C: 1234
-Asm: 123
-Emu: 123
+Asm: 1234
+Emu: 1234
 [exit 0]
 $ int_to_str 1234 -o 16
-C: 0x4d2
+C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
 [exit 0]
 $ int_to_str 255 -o 2
 C: 0b11111111
-Asm: 0b11111
-Emu: 0b11111
+Asm: 0b11111111
+Emu: 0b11111111
 [exit 0]
 $ int_to_str -42 -o 10
 C: 4294967254
-Asm: ,.
-Emu: ,.
+Asm: 4294967254
+Emu: 4294967254
 [exit 0]
 $ int_to_str 0 -o 10
 C: 0
-Asm: 
-Emu: 
+Asm: 0
+Emu: 0
 [exit 0]
 $ is_pal racecar
 C: is a palindrome
@@ -128,6 +128,16 @@ C: 3
 Asm: 3
 Emu: 3
 [exit 0]
+$ midpoint 2000000000 2000000000
+C: 2000000000
+Asm: 2000000000
+Emu: 2000000000
+[exit 0]
+$ midpoint -3 0
+C: -1
+Asm: -1
+Emu: -1
+[exit 0]
 $ quadratic 2 3 4 5
 C: 25
 Asm: 25
@@ -142,6 +152,11 @@ $ quadratic 0 0 0 0
 C: 0
 Asm: 0
 Emu: 0
+[exit 0]
+$ quadratic 100000 1 0 0
+C: 1410065408
+Asm: 1410065408
+Emu: 1410065408
 [exit 0]
 $ sort 5 3 9 1 7
 C: 9 7 5 3 1
@@ -182,6 +197,11 @@ $ str_to_int 0xdeadbee
 C: 233495534
 Asm: 233495534
 Emu: 233495534
+[exit 0]
+$ str_to_int 0xffffffff
+C: -1
+Asm: -1
+Emu: -1
 [exit 0]
 $ str_to_int 0
 C: 0
@@ -331,73 +351,73 @@ Conditional branches   = 1 (10.00%)
 [exit 0]
 $ -a int_to_str 1234 -o 10
 C: 1234
-Asm: 123
-Emu: 123
+Asm: 1234
+Emu: 1234
 === Analysis
-Instructions Executed  = 66
-R-type + I-type        = 28 (42.42%)
-Loads                  = 4 (6.06%)
-Stores                 = 9 (13.64%)
-Jumps/JAL/JALR         = 11 (16.67%)
-Conditional branches   = 14 (21.21%)
-  Branches taken       = 4 (28.57%)
-  Branches not taken   = 10 (71.43%)
+Instructions Executed  = 69
+R-type + I-type        = 30 (43.48%)
+Loads                  = 4 (5.80%)
+Stores                 = 9 (13.04%)
+Jumps/JAL/JALR         = 11 (15.94%)
+Conditional branches   = 15 (21.74%)
+  Branches taken       = 5 (33.33%)
+  Branches not taken   = 10 (66.67%)
 [exit 0]
 $ -a int_to_str 1234 -o 16
-C: 0x4d2
+C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
 === Analysis
-Instructions Executed  = 60
-R-type + I-type        = 26 (43.33%)
-Loads                  = 4 (6.67%)
-Stores                 = 10 (16.67%)
-Jumps/JAL/JALR         = 8 (13.33%)
-Conditional branches   = 12 (20.00%)
-  Branches taken       = 4 (33.33%)
-  Branches not taken   = 8 (66.67%)
+Instructions Executed  = 63
+R-type + I-type        = 28 (44.44%)
+Loads                  = 4 (6.35%)
+Stores                 = 10 (15.87%)
+Jumps/JAL/JALR         = 8 (12.70%)
+Conditional branches   = 13 (20.63%)
+  Branches taken       = 5 (38.46%)
+  Branches not taken   = 8 (61.54%)
 [exit 0]
 $ -a int_to_str 255 -o 2
 C: 0b11111111
-Asm: 0b11111
-Emu: 0b11111
+Asm: 0b11111111
+Emu: 0b11111111
 === Analysis
-Instructions Executed  = 127
-R-type + I-type        = 55 (43.31%)
-Loads                  = 8 (6.30%)
-Stores                 = 19 (14.96%)
-Jumps/JAL/JALR         = 21 (16.54%)
-Conditional branches   = 24 (18.90%)
-  Branches taken       = 3 (12.50%)
-  Branches not taken   = 21 (87.50%)
+Instructions Executed  = 130
+R-type + I-type        = 57 (43.85%)
+Loads                  = 8 (6.15%)
+Stores                 = 19 (14.62%)
+Jumps/JAL/JALR         = 21 (16.15%)
+Conditional branches   = 25 (19.23%)
+  Branches taken       = 4 (16.00%)
+  Branches not taken   = 21 (84.00%)
 [exit 0]
 $ -a int_to_str -42 -o 10
 C: 4294967254
-Asm: ,.
-Emu: ,.
+Asm: 4294967254
+Emu: 4294967254
 === Analysis
-Instructions Executed  = 38
-R-type + I-type        = 16 (42.11%)
-Loads                  = 2 (5.26%)
-Stores                 = 5 (13.16%)
-Jumps/JAL/JALR         = 6 (15.79%)
-Conditional branches   = 9 (23.68%)
-  Branches taken       = 4 (44.44%)
-  Branches not taken   = 5 (55.56%)
+Instructions Executed  = 153
+R-type + I-type        = 66 (43.14%)
+Loads                  = 10 (6.54%)
+Stores                 = 21 (13.73%)
+Jumps/JAL/JALR         = 26 (16.99%)
+Conditional branches   = 30 (19.61%)
+  Branches taken       = 5 (16.67%)
+  Branches not taken   = 25 (83.33%)
 [exit 0]
 $ -a int_to_str 0 -o 10
 C: 0
-Asm: 
-Emu: 
+Asm: 0
+Emu: 0
 === Analysis
-Instructions Executed  = 10
-R-type + I-type        = 4 (40.00%)
-Loads                  = 0 (0.00%)
-Stores                 = 1 (10.00%)
-Jumps/JAL/JALR         = 1 (10.00%)
-Conditional branches   = 4 (40.00%)
-  Branches taken       = 4 (100.00%)
-  Branches not taken   = 0 (0.00%)
+Instructions Executed  = 24
+R-type + I-type        = 10 (41.67%)
+Loads                  = 2 (8.33%)
+Stores                 = 4 (16.67%)
+Jumps/JAL/JALR         = 2 (8.33%)
+Conditional branches   = 6 (25.00%)
+  Branches taken       = 4 (66.67%)
+  Branches not taken   = 2 (33.33%)
 [exit 0]
 $ -a is_pal racecar
 C: is a palindrome
@@ -516,11 +536,11 @@ C: 5
 Asm: 5
 Emu: 5
 === Analysis
-Instructions Executed  = 3
-R-type + I-type        = 2 (66.67%)
+Instructions Executed  = 4
+R-type + I-type        = 3 (75.00%)
 Loads                  = 0 (0.00%)
 Stores                 = 0 (0.00%)
-Jumps/JAL/JALR         = 1 (33.33%)
+Jumps/JAL/JALR         = 1 (25.00%)
 Conditional branches   = 0 (0.00%)
   Branches taken       = 0 (0.00%)
   Branches not taken   = 0 (0.00%)
@@ -530,11 +550,11 @@ C: 0
 Asm: 0
 Emu: 0
 === Analysis
-Instructions Executed  = 3
-R-type + I-type        = 2 (66.67%)
+Instructions Executed  = 4
+R-type + I-type        = 3 (75.00%)
 Loads                  = 0 (0.00%)
 Stores                 = 0 (0.00%)
-Jumps/JAL/JALR         = 1 (33.33%)
+Jumps/JAL/JALR         = 1 (25.00%)
 Conditional branches   = 0 (0.00%)
   Branches taken       = 0 (0.00%)
   Branches not taken   = 0 (0.00%)
@@ -544,11 +564,11 @@ C: 0
 Asm: 0
 Emu: 0
 === Analysis
-Instructions Executed  = 3
-R-type + I-type        = 2 (66.67%)
+Instructions Executed  = 4
+R-type + I-type        = 3 (75.00%)
 Loads                  = 0 (0.00%)
 Stores                 = 0 (0.00%)
-Jumps/JAL/JALR         = 1 (33.33%)
+Jumps/JAL/JALR         = 1 (25.00%)
 Conditional branches   = 0 (0.00%)
   Branches taken       = 0 (0.00%)
   Branches not taken   = 0 (0.00%)
@@ -558,11 +578,11 @@ C: 3
 Asm: 3
 Emu: 3
 === Analysis
-Instructions Executed  = 3
-R-type + I-type        = 2 (66.67%)
+Instructions Executed  = 4
+R-type + I-type        = 3 (75.00%)
 Loads                  = 0 (0.00%)
 Stores                 = 0 (0.00%)
-Jumps/JAL/JALR         = 1 (33.33%)
+Jumps/JAL/JALR         = 1 (25.00%)
 Conditional branches   = 0 (0.00%)
   Branches taken       = 0 (0.00%)
   Branches not taken   = 0 (0.00%)
@@ -923,22 +943,22 @@ Misses (hot)  = 0
 [exit 0]
 $ -dm 64 4 int_to_str 1234 -o 10
 C: 1234
-Asm: 123
-Emu: 123
+Asm: 1234
+Emu: 1234
 === Cache (I)
 Type          = direct mapped
 Size          = 64 words
 Block size    = 4 words
 Ways          = 1
-References    = 66
-Hits          = 56 (84.85% hit ratio)
-Misses        = 10 (15.15% miss ratio)
-Misses (cold) = 10
+References    = 69
+Hits          = 60 (86.96% hit ratio)
+Misses        = 9 (13.04% miss ratio)
+Misses (cold) = 9
 Misses (hot)  = 0
-% Used        = 62.50%
+% Used        = 56.25%
 [exit 0]
 $ -dm 64 4 int_to_str 1234 -o 16
-C: 0x4d2
+C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
 === Cache (I)
@@ -946,57 +966,57 @@ Type          = direct mapped
 Size          = 64 words
 Block size    = 4 words
 Ways          = 1
-References    = 60
-Hits          = 50 (83.33% hit ratio)
-Misses        = 10 (16.67% miss ratio)
+References    = 63
+Hits          = 53 (84.13% hit ratio)
+Misses        = 10 (15.87% miss ratio)
 Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
 $ -dm 64 4 int_to_str 255 -o 2
 C: 0b11111111
-Asm: 0b11111
-Emu: 0b11111
+Asm: 0b11111111
+Emu: 0b11111111
 === Cache (I)
 Type          = direct mapped
 Size          = 64 words
 Block size    = 4 words
 Ways          = 1
-References    = 127
-Hits          = 117 (92.13% hit ratio)
-Misses        = 10 (7.87% miss ratio)
+References    = 130
+Hits          = 120 (92.31% hit ratio)
+Misses        = 10 (7.69% miss ratio)
 Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
 $ -dm 64 4 int_to_str -42 -o 10
 C: 4294967254
-Asm: ,.
-Emu: ,.
+Asm: 4294967254
+Emu: 4294967254
 === Cache (I)
 Type          = direct mapped
 Size          = 64 words
 Block size    = 4 words
 Ways          = 1
-References    = 38
-Hits          = 28 (73.68% hit ratio)
-Misses        = 10 (26.32% miss ratio)
-Misses (cold) = 10
+References    = 153
+Hits          = 144 (94.12% hit ratio)
+Misses        = 9 (5.88% miss ratio)
+Misses (cold) = 9
 Misses (hot)  = 0
-% Used        = 62.50%
+% Used        = 56.25%
 [exit 0]
 $ -dm 64 4 int_to_str 0 -o 10
 C: 0
-Asm: 
-Emu: 
+Asm: 0
+Emu: 0
 === Cache (I)
 Type          = direct mapped
 Size          = 64 words
 Block size    = 4 words
 Ways          = 1
-References    = 10
-Hits          = 3 (30.00% hit ratio)
-Misses        = 7 (70.00% miss ratio)
+References    = 24
+Hits          = 17 (70.83% hit ratio)
+Misses        = 7 (29.17% miss ratio)
 Misses (cold) = 7
 Misses (hot)  = 0
 % Used        = 43.75%
@@ -1138,9 +1158,9 @@ Type          = direct mapped
 Size          = 64 words
 Block size    = 4 words
 Ways          = 1
-References    = 3
-Hits          = 2 (66.67% hit ratio)
-Misses        = 1 (33.33% miss ratio)
+References    = 4
+Hits          = 3 (75.00% hit ratio)
+Misses        = 1 (25.00% miss ratio)
 Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
@@ -1154,9 +1174,9 @@ Type          = direct mapped
 Size          = 64 words
 Block size    = 4 words
 Ways          = 1
-References    = 3
-Hits          = 2 (66.67% hit ratio)
-Misses        = 1 (33.33% miss ratio)
+References    = 4
+Hits          = 3 (75.00% hit ratio)
+Misses        = 1 (25.00% miss ratio)
 Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
@@ -1170,9 +1190,9 @@ Type          = direct mapped
 Size          = 64 words
 Block size    = 4 words
 Ways          = 1
-References    = 3
-Hits          = 2 (66.67% hit ratio)
-Misses        = 1 (33.33% miss ratio)
+References    = 4
+Hits          = 3 (75.00% hit ratio)
+Misses        = 1 (25.00% miss ratio)
 Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
@@ -1186,9 +1206,9 @@ Type          = direct mapped
 Size          = 64 words
 Block size    = 4 words
 Ways          = 1
-References    = 3
-Hits          = 2 (66.67% hit ratio)
-Misses        = 1 (33.33% miss ratio)
+References    = 4
+Hits          = 3 (75.00% hit ratio)
+Misses        = 1 (25.00% miss ratio)
 Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
@@ -1251,10 +1271,10 @@ Size          = 64 words
 Block size    = 4 words
 Ways          = 1
 References    = 288
-Hits          = 250 (86.81% hit ratio)
-Misses        = 38 (13.19% miss ratio)
+Hits          = 242 (84.03% hit ratio)
+Misses        = 46 (15.97% miss ratio)
 Misses (cold) = 10
-Misses (hot)  = 28
+Misses (hot)  = 36
 % Used        = 62.50%
 [exit 0]
 $ -dm 64 4 sort 1
@@ -1283,10 +1303,10 @@ Size          = 64 words
 Block size    = 4 words
 Ways          = 1
 References    = 536
-Hits          = 480 (89.55% hit ratio)
-Misses        = 56 (10.45% miss ratio)
+Hits          = 466 (86.94% hit ratio)
+Misses        = 70 (13.06% miss ratio)
 Misses (cold) = 10
-Misses (hot)  = 46
+Misses (hot)  = 60
 % Used        = 62.50%
 [exit 0]
 $ -dm 64 4 sort 1 2 3 4 5 6 7 8 9 10
@@ -1299,10 +1319,10 @@ Size          = 64 words
 Block size    = 4 words
 Ways          = 1
 References    = 750
-Hits          = 682 (90.93% hit ratio)
-Misses        = 68 (9.07% miss ratio)
+Hits          = 664 (88.53% hit ratio)
+Misses        = 86 (11.47% miss ratio)
 Misses (cold) = 10
-Misses (hot)  = 58
+Misses (hot)  = 76
 % Used        = 62.50%
 [exit 0]
 $ -dm 64 4 str_to_int 1234
@@ -1579,22 +1599,22 @@ Misses (hot)  = 0
 [exit 0]
 $ -dm 16 1 int_to_str 1234 -o 10
 C: 1234
-Asm: 123
-Emu: 123
+Asm: 1234
+Emu: 1234
 === Cache (I)
 Type          = direct mapped
 Size          = 16 words
 Block size    = 1 words
 Ways          = 1
-References    = 66
-Hits          = 40 (60.61% hit ratio)
-Misses        = 26 (39.39% miss ratio)
+References    = 69
+Hits          = 40 (57.97% hit ratio)
+Misses        = 29 (42.03% miss ratio)
 Misses (cold) = 15
-Misses (hot)  = 11
+Misses (hot)  = 14
 % Used        = 93.75%
 [exit 0]
 $ -dm 16 1 int_to_str 1234 -o 16
-C: 0x4d2
+C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
 === Cache (I)
@@ -1602,60 +1622,60 @@ Type          = direct mapped
 Size          = 16 words
 Block size    = 1 words
 Ways          = 1
-References    = 60
-Hits          = 28 (46.67% hit ratio)
-Misses        = 32 (53.33% miss ratio)
+References    = 63
+Hits          = 28 (44.44% hit ratio)
+Misses        = 35 (55.56% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 16
+Misses (hot)  = 19
 % Used        = 100.00%
 [exit 0]
 $ -dm 16 1 int_to_str 255 -o 2
 C: 0b11111111
-Asm: 0b11111
-Emu: 0b11111
+Asm: 0b11111111
+Emu: 0b11111111
 === Cache (I)
 Type          = direct mapped
 Size          = 16 words
 Block size    = 1 words
 Ways          = 1
-References    = 127
-Hits          = 96 (75.59% hit ratio)
-Misses        = 31 (24.41% miss ratio)
-Misses (cold) = 16
-Misses (hot)  = 15
-% Used        = 100.00%
+References    = 130
+Hits          = 96 (73.85% hit ratio)
+Misses        = 34 (26.15% miss ratio)
+Misses (cold) = 15
+Misses (hot)  = 19
+% Used        = 93.75%
 [exit 0]
 $ -dm 16 1 int_to_str -42 -o 10
 C: 4294967254
-Asm: ,.
-Emu: ,.
+Asm: 4294967254
+Emu: 4294967254
 === Cache (I)
 Type          = direct mapped
 Size          = 16 words
 Block size    = 1 words
 Ways          = 1
-References    = 38
-Hits          = 12 (31.58% hit ratio)
-Misses        = 26 (68.42% miss ratio)
+References    = 153
+Hits          = 124 (81.05% hit ratio)
+Misses        = 29 (18.95% miss ratio)
 Misses (cold) = 15
-Misses (hot)  = 11
+Misses (hot)  = 14
 % Used        = 93.75%
 [exit 0]
 $ -dm 16 1 int_to_str 0 -o 10
 C: 0
-Asm: 
-Emu: 
+Asm: 0
+Emu: 0
 === Cache (I)
 Type          = direct mapped
 Size          = 16 words
 Block size    = 1 words
 Ways          = 1
-References    = 10
-Hits          = 0 (0.00% hit ratio)
-Misses        = 10 (100.00% miss ratio)
-Misses (cold) = 10
-Misses (hot)  = 0
-% Used        = 62.50%
+References    = 24
+Hits          = 1 (4.17% hit ratio)
+Misses        = 23 (95.83% miss ratio)
+Misses (cold) = 11
+Misses (hot)  = 12
+% Used        = 68.75%
 [exit 0]
 $ -dm 16 1 is_pal racecar
 C: is a palindrome
@@ -1794,12 +1814,12 @@ Type          = direct mapped
 Size          = 16 words
 Block size    = 1 words
 Ways          = 1
-References    = 3
+References    = 4
 Hits          = 0 (0.00% hit ratio)
-Misses        = 3 (100.00% miss ratio)
-Misses (cold) = 3
+Misses        = 4 (100.00% miss ratio)
+Misses (cold) = 4
 Misses (hot)  = 0
-% Used        = 18.75%
+% Used        = 25.00%
 [exit 0]
 $ -dm 16 1 midpoint 0 0
 C: 0
@@ -1810,12 +1830,12 @@ Type          = direct mapped
 Size          = 16 words
 Block size    = 1 words
 Ways          = 1
-References    = 3
+References    = 4
 Hits          = 0 (0.00% hit ratio)
-Misses        = 3 (100.00% miss ratio)
-Misses (cold) = 3
+Misses        = 4 (100.00% miss ratio)
+Misses (cold) = 4
 Misses (hot)  = 0
-% Used        = 18.75%
+% Used        = 25.00%
 [exit 0]
 $ -dm 16 1 midpoint -10 10
 C: 0
@@ -1826,12 +1846,12 @@ Type          = direct mapped
 Size          = 16 words
 Block size    = 1 words
 Ways          = 1
-References    = 3
+References    = 4
 Hits          = 0 (0.00% hit ratio)
-Misses        = 3 (100.00% miss ratio)
-Misses (cold) = 3
+Misses        = 4 (100.00% miss ratio)
+Misses (cold) = 4
 Misses (hot)  = 0
-% Used        = 18.75%
+% Used        = 25.00%
 [exit 0]
 $ -dm 16 1 midpoint 3 4
 C: 3
@@ -1842,12 +1862,12 @@ Type          = direct mapped
 Size          = 16 words
 Block size    = 1 words
 Ways          = 1
-References    = 3
+References    = 4
 Hits          = 0 (0.00% hit ratio)
-Misses        = 3 (100.00% miss ratio)
-Misses (cold) = 3
+Misses        = 4 (100.00% miss ratio)
+Misses (cold) = 4
 Misses (hot)  = 0
-% Used        = 18.75%
+% Used        = 25.00%
 [exit 0]
 $ -dm 16 1 quadratic 2 3 4 5
 C: 25
@@ -1907,10 +1927,10 @@ Size          = 16 words
 Block size    = 1 words
 Ways          = 1
 References    = 288
-Hits          = 77 (26.74% hit ratio)
-Misses        = 211 (73.26% miss ratio)
+Hits          = 73 (25.35% hit ratio)
+Misses        = 215 (74.65% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 195
+Misses (hot)  = 199
 % Used        = 100.00%
 [exit 0]
 $ -dm 16 1 sort 1
@@ -1939,10 +1959,10 @@ Size          = 16 words
 Block size    = 1 words
 Ways          = 1
 References    = 536
-Hits          = 205 (38.25% hit ratio)
-Misses        = 331 (61.75% miss ratio)
+Hits          = 198 (36.94% hit ratio)
+Misses        = 338 (63.06% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 315
+Misses (hot)  = 322
 % Used        = 100.00%
 [exit 0]
 $ -dm 16 1 sort 1 2 3 4 5 6 7 8 9 10
@@ -1955,10 +1975,10 @@ Size          = 16 words
 Block size    = 1 words
 Ways          = 1
 References    = 750
-Hits          = 339 (45.20% hit ratio)
-Misses        = 411 (54.80% miss ratio)
+Hits          = 330 (44.00% hit ratio)
+Misses        = 420 (56.00% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 395
+Misses (hot)  = 404
 % Used        = 100.00%
 [exit 0]
 $ -dm 16 1 str_to_int 1234
@@ -2235,22 +2255,22 @@ Misses (hot)  = 0
 [exit 0]
 $ -dm 32 2 int_to_str 1234 -o 10
 C: 1234
-Asm: 123
-Emu: 123
+Asm: 1234
+Emu: 1234
 === Cache (I)
 Type          = direct mapped
 Size          = 32 words
 Block size    = 2 words
 Ways          = 1
-References    = 66
-Hits          = 51 (77.27% hit ratio)
-Misses        = 15 (22.73% miss ratio)
-Misses (cold) = 14
-Misses (hot)  = 1
-% Used        = 87.50%
+References    = 69
+Hits          = 52 (75.36% hit ratio)
+Misses        = 17 (24.64% miss ratio)
+Misses (cold) = 13
+Misses (hot)  = 4
+% Used        = 81.25%
 [exit 0]
 $ -dm 32 2 int_to_str 1234 -o 16
-C: 0x4d2
+C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
 === Cache (I)
@@ -2258,60 +2278,60 @@ Type          = direct mapped
 Size          = 32 words
 Block size    = 2 words
 Ways          = 1
-References    = 60
-Hits          = 43 (71.67% hit ratio)
-Misses        = 17 (28.33% miss ratio)
-Misses (cold) = 16
-Misses (hot)  = 1
-% Used        = 100.00%
+References    = 63
+Hits          = 44 (69.84% hit ratio)
+Misses        = 19 (30.16% miss ratio)
+Misses (cold) = 15
+Misses (hot)  = 4
+% Used        = 93.75%
 [exit 0]
 $ -dm 32 2 int_to_str 255 -o 2
 C: 0b11111111
-Asm: 0b11111
-Emu: 0b11111
+Asm: 0b11111111
+Emu: 0b11111111
 === Cache (I)
 Type          = direct mapped
 Size          = 32 words
 Block size    = 2 words
 Ways          = 1
-References    = 127
-Hits          = 110 (86.61% hit ratio)
-Misses        = 17 (13.39% miss ratio)
-Misses (cold) = 14
-Misses (hot)  = 3
-% Used        = 87.50%
+References    = 130
+Hits          = 111 (85.38% hit ratio)
+Misses        = 19 (14.62% miss ratio)
+Misses (cold) = 13
+Misses (hot)  = 6
+% Used        = 81.25%
 [exit 0]
 $ -dm 32 2 int_to_str -42 -o 10
 C: 4294967254
-Asm: ,.
-Emu: ,.
+Asm: 4294967254
+Emu: 4294967254
 === Cache (I)
 Type          = direct mapped
 Size          = 32 words
 Block size    = 2 words
 Ways          = 1
-References    = 38
-Hits          = 23 (60.53% hit ratio)
-Misses        = 15 (39.47% miss ratio)
-Misses (cold) = 14
-Misses (hot)  = 1
-% Used        = 87.50%
+References    = 153
+Hits          = 136 (88.89% hit ratio)
+Misses        = 17 (11.11% miss ratio)
+Misses (cold) = 13
+Misses (hot)  = 4
+% Used        = 81.25%
 [exit 0]
 $ -dm 32 2 int_to_str 0 -o 10
 C: 0
-Asm: 
-Emu: 
+Asm: 0
+Emu: 0
 === Cache (I)
 Type          = direct mapped
 Size          = 32 words
 Block size    = 2 words
 Ways          = 1
-References    = 10
-Hits          = 3 (30.00% hit ratio)
-Misses        = 7 (70.00% miss ratio)
-Misses (cold) = 7
-Misses (hot)  = 0
-% Used        = 43.75%
+References    = 24
+Hits          = 11 (45.83% hit ratio)
+Misses        = 13 (54.17% miss ratio)
+Misses (cold) = 9
+Misses (hot)  = 4
+% Used        = 56.25%
 [exit 0]
 $ -dm 32 2 is_pal racecar
 C: is a palindrome
@@ -2450,9 +2470,9 @@ Type          = direct mapped
 Size          = 32 words
 Block size    = 2 words
 Ways          = 1
-References    = 3
-Hits          = 1 (33.33% hit ratio)
-Misses        = 2 (66.67% miss ratio)
+References    = 4
+Hits          = 2 (50.00% hit ratio)
+Misses        = 2 (50.00% miss ratio)
 Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
@@ -2466,9 +2486,9 @@ Type          = direct mapped
 Size          = 32 words
 Block size    = 2 words
 Ways          = 1
-References    = 3
-Hits          = 1 (33.33% hit ratio)
-Misses        = 2 (66.67% miss ratio)
+References    = 4
+Hits          = 2 (50.00% hit ratio)
+Misses        = 2 (50.00% miss ratio)
 Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
@@ -2482,9 +2502,9 @@ Type          = direct mapped
 Size          = 32 words
 Block size    = 2 words
 Ways          = 1
-References    = 3
-Hits          = 1 (33.33% hit ratio)
-Misses        = 2 (66.67% miss ratio)
+References    = 4
+Hits          = 2 (50.00% hit ratio)
+Misses        = 2 (50.00% miss ratio)
 Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
@@ -2498,9 +2518,9 @@ Type          = direct mapped
 Size          = 32 words
 Block size    = 2 words
 Ways          = 1
-References    = 3
-Hits          = 1 (33.33% hit ratio)
-Misses        = 2 (66.67% miss ratio)
+References    = 4
+Hits          = 2 (50.00% hit ratio)
+Misses        = 2 (50.00% miss ratio)
 Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
@@ -2563,10 +2583,10 @@ Size          = 32 words
 Block size    = 2 words
 Ways          = 1
 References    = 288
-Hits          = 222 (77.08% hit ratio)
-Misses        = 66 (22.92% miss ratio)
+Hits          = 206 (71.53% hit ratio)
+Misses        = 82 (28.47% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 50
+Misses (hot)  = 66
 % Used        = 100.00%
 [exit 0]
 $ -dm 32 2 sort 1
@@ -2595,10 +2615,10 @@ Size          = 32 words
 Block size    = 2 words
 Ways          = 1
 References    = 536
-Hits          = 440 (82.09% hit ratio)
-Misses        = 96 (17.91% miss ratio)
+Hits          = 412 (76.87% hit ratio)
+Misses        = 124 (23.13% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 80
+Misses (hot)  = 108
 % Used        = 100.00%
 [exit 0]
 $ -dm 32 2 sort 1 2 3 4 5 6 7 8 9 10
@@ -2611,10 +2631,10 @@ Size          = 32 words
 Block size    = 2 words
 Ways          = 1
 References    = 750
-Hits          = 634 (84.53% hit ratio)
-Misses        = 116 (15.47% miss ratio)
+Hits          = 598 (79.73% hit ratio)
+Misses        = 152 (20.27% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 100
+Misses (hot)  = 136
 % Used        = 100.00%
 [exit 0]
 $ -dm 32 2 str_to_int 1234
@@ -2891,22 +2911,22 @@ Misses (hot)  = 0
 [exit 0]
 $ -sa 64 4 4 int_to_str 1234 -o 10
 C: 1234
-Asm: 123
-Emu: 123
+Asm: 1234
+Emu: 1234
 === Cache (I)
 Type          = set associative
 Size          = 64 words
 Block size    = 4 words
 Ways          = 4
-References    = 66
-Hits          = 56 (84.85% hit ratio)
-Misses        = 10 (15.15% miss ratio)
-Misses (cold) = 10
+References    = 69
+Hits          = 60 (86.96% hit ratio)
+Misses        = 9 (13.04% miss ratio)
+Misses (cold) = 9
 Misses (hot)  = 0
-% Used        = 62.50%
+% Used        = 56.25%
 [exit 0]
 $ -sa 64 4 4 int_to_str 1234 -o 16
-C: 0x4d2
+C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
 === Cache (I)
@@ -2914,57 +2934,57 @@ Type          = set associative
 Size          = 64 words
 Block size    = 4 words
 Ways          = 4
-References    = 60
-Hits          = 50 (83.33% hit ratio)
-Misses        = 10 (16.67% miss ratio)
+References    = 63
+Hits          = 53 (84.13% hit ratio)
+Misses        = 10 (15.87% miss ratio)
 Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
 $ -sa 64 4 4 int_to_str 255 -o 2
 C: 0b11111111
-Asm: 0b11111
-Emu: 0b11111
+Asm: 0b11111111
+Emu: 0b11111111
 === Cache (I)
 Type          = set associative
 Size          = 64 words
 Block size    = 4 words
 Ways          = 4
-References    = 127
-Hits          = 117 (92.13% hit ratio)
-Misses        = 10 (7.87% miss ratio)
+References    = 130
+Hits          = 120 (92.31% hit ratio)
+Misses        = 10 (7.69% miss ratio)
 Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
 $ -sa 64 4 4 int_to_str -42 -o 10
 C: 4294967254
-Asm: ,.
-Emu: ,.
+Asm: 4294967254
+Emu: 4294967254
 === Cache (I)
 Type          = set associative
 Size          = 64 words
 Block size    = 4 words
 Ways          = 4
-References    = 38
-Hits          = 28 (73.68% hit ratio)
-Misses        = 10 (26.32% miss ratio)
-Misses (cold) = 10
+References    = 153
+Hits          = 144 (94.12% hit ratio)
+Misses        = 9 (5.88% miss ratio)
+Misses (cold) = 9
 Misses (hot)  = 0
-% Used        = 62.50%
+% Used        = 56.25%
 [exit 0]
 $ -sa 64 4 4 int_to_str 0 -o 10
 C: 0
-Asm: 
-Emu: 
+Asm: 0
+Emu: 0
 === Cache (I)
 Type          = set associative
 Size          = 64 words
 Block size    = 4 words
 Ways          = 4
-References    = 10
-Hits          = 3 (30.00% hit ratio)
-Misses        = 7 (70.00% miss ratio)
+References    = 24
+Hits          = 17 (70.83% hit ratio)
+Misses        = 7 (29.17% miss ratio)
 Misses (cold) = 7
 Misses (hot)  = 0
 % Used        = 43.75%
@@ -3106,9 +3126,9 @@ Type          = set associative
 Size          = 64 words
 Block size    = 4 words
 Ways          = 4
-References    = 3
-Hits          = 2 (66.67% hit ratio)
-Misses        = 1 (33.33% miss ratio)
+References    = 4
+Hits          = 3 (75.00% hit ratio)
+Misses        = 1 (25.00% miss ratio)
 Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
@@ -3122,9 +3142,9 @@ Type          = set associative
 Size          = 64 words
 Block size    = 4 words
 Ways          = 4
-References    = 3
-Hits          = 2 (66.67% hit ratio)
-Misses        = 1 (33.33% miss ratio)
+References    = 4
+Hits          = 3 (75.00% hit ratio)
+Misses        = 1 (25.00% miss ratio)
 Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
@@ -3138,9 +3158,9 @@ Type          = set associative
 Size          = 64 words
 Block size    = 4 words
 Ways          = 4
-References    = 3
-Hits          = 2 (66.67% hit ratio)
-Misses        = 1 (33.33% miss ratio)
+References    = 4
+Hits          = 3 (75.00% hit ratio)
+Misses        = 1 (25.00% miss ratio)
 Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
@@ -3154,9 +3174,9 @@ Type          = set associative
 Size          = 64 words
 Block size    = 4 words
 Ways          = 4
-References    = 3
-Hits          = 2 (66.67% hit ratio)
-Misses        = 1 (33.33% miss ratio)
+References    = 4
+Hits          = 3 (75.00% hit ratio)
+Misses        = 1 (25.00% miss ratio)
 Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
@@ -3547,22 +3567,22 @@ Misses (hot)  = 0
 [exit 0]
 $ -sa 16 1 4 int_to_str 1234 -o 10
 C: 1234
-Asm: 123
-Emu: 123
+Asm: 1234
+Emu: 1234
 === Cache (I)
 Type          = set associative
 Size          = 16 words
 Block size    = 1 words
 Ways          = 4
-References    = 66
-Hits          = 40 (60.61% hit ratio)
-Misses        = 26 (39.39% miss ratio)
+References    = 69
+Hits          = 40 (57.97% hit ratio)
+Misses        = 29 (42.03% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 10
+Misses (hot)  = 13
 % Used        = 100.00%
 [exit 0]
 $ -sa 16 1 4 int_to_str 1234 -o 16
-C: 0x4d2
+C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
 === Cache (I)
@@ -3570,60 +3590,60 @@ Type          = set associative
 Size          = 16 words
 Block size    = 1 words
 Ways          = 4
-References    = 60
-Hits          = 28 (46.67% hit ratio)
-Misses        = 32 (53.33% miss ratio)
+References    = 63
+Hits          = 28 (44.44% hit ratio)
+Misses        = 35 (55.56% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 16
+Misses (hot)  = 19
 % Used        = 100.00%
 [exit 0]
 $ -sa 16 1 4 int_to_str 255 -o 2
 C: 0b11111111
-Asm: 0b11111
-Emu: 0b11111
+Asm: 0b11111111
+Emu: 0b11111111
 === Cache (I)
 Type          = set associative
 Size          = 16 words
 Block size    = 1 words
 Ways          = 4
-References    = 127
-Hits          = 96 (75.59% hit ratio)
-Misses        = 31 (24.41% miss ratio)
+References    = 130
+Hits          = 96 (73.85% hit ratio)
+Misses        = 34 (26.15% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 15
+Misses (hot)  = 18
 % Used        = 100.00%
 [exit 0]
 $ -sa 16 1 4 int_to_str -42 -o 10
 C: 4294967254
-Asm: ,.
-Emu: ,.
+Asm: 4294967254
+Emu: 4294967254
 === Cache (I)
 Type          = set associative
 Size          = 16 words
 Block size    = 1 words
 Ways          = 4
-References    = 38
-Hits          = 12 (31.58% hit ratio)
-Misses        = 26 (68.42% miss ratio)
+References    = 153
+Hits          = 124 (81.05% hit ratio)
+Misses        = 29 (18.95% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 10
+Misses (hot)  = 13
 % Used        = 100.00%
 [exit 0]
 $ -sa 16 1 4 int_to_str 0 -o 10
 C: 0
-Asm: 
-Emu: 
+Asm: 0
+Emu: 0
 === Cache (I)
 Type          = set associative
 Size          = 16 words
 Block size    = 1 words
 Ways          = 4
-References    = 10
-Hits          = 0 (0.00% hit ratio)
-Misses        = 10 (100.00% miss ratio)
-Misses (cold) = 10
-Misses (hot)  = 0
-% Used        = 62.50%
+References    = 24
+Hits          = 1 (4.17% hit ratio)
+Misses        = 23 (95.83% miss ratio)
+Misses (cold) = 16
+Misses (hot)  = 7
+% Used        = 100.00%
 [exit 0]
 $ -sa 16 1 4 is_pal racecar
 C: is a palindrome
@@ -3762,12 +3782,12 @@ Type          = set associative
 Size          = 16 words
 Block size    = 1 words
 Ways          = 4
-References    = 3
+References    = 4
 Hits          = 0 (0.00% hit ratio)
-Misses        = 3 (100.00% miss ratio)
-Misses (cold) = 3
+Misses        = 4 (100.00% miss ratio)
+Misses (cold) = 4
 Misses (hot)  = 0
-% Used        = 18.75%
+% Used        = 25.00%
 [exit 0]
 $ -sa 16 1 4 midpoint 0 0
 C: 0
@@ -3778,12 +3798,12 @@ Type          = set associative
 Size          = 16 words
 Block size    = 1 words
 Ways          = 4
-References    = 3
+References    = 4
 Hits          = 0 (0.00% hit ratio)
-Misses        = 3 (100.00% miss ratio)
-Misses (cold) = 3
+Misses        = 4 (100.00% miss ratio)
+Misses (cold) = 4
 Misses (hot)  = 0
-% Used        = 18.75%
+% Used        = 25.00%
 [exit 0]
 $ -sa 16 1 4 midpoint -10 10
 C: 0
@@ -3794,12 +3814,12 @@ Type          = set associative
 Size          = 16 words
 Block size    = 1 words
 Ways          = 4
-References    = 3
+References    = 4
 Hits          = 0 (0.00% hit ratio)
-Misses        = 3 (100.00% miss ratio)
-Misses (cold) = 3
+Misses        = 4 (100.00% miss ratio)
+Misses (cold) = 4
 Misses (hot)  = 0
-% Used        = 18.75%
+% Used        = 25.00%
 [exit 0]
 $ -sa 16 1 4 midpoint 3 4
 C: 3
@@ -3810,12 +3830,12 @@ Type          = set associative
 Size          = 16 words
 Block size    = 1 words
 Ways          = 4
-References    = 3
+References    = 4
 Hits          = 0 (0.00% hit ratio)
-Misses        = 3 (100.00% miss ratio)
-Misses (cold) = 3
+Misses        = 4 (100.00% miss ratio)
+Misses (cold) = 4
 Misses (hot)  = 0
-% Used        = 18.75%
+% Used        = 25.00%
 [exit 0]
 $ -sa 16 1 4 quadratic 2 3 4 5
 C: 25
@@ -4203,22 +4223,22 @@ Misses (hot)  = 0
 [exit 0]
 $ -sa 32 2 2 int_to_str 1234 -o 10
 C: 1234
-Asm: 123
-Emu: 123
+Asm: 1234
+Emu: 1234
 === Cache (I)
 Type          = set associative
 Size          = 32 words
 Block size    = 2 words
 Ways          = 2
-References    = 66
-Hits          = 51 (77.27% hit ratio)
-Misses        = 15 (22.73% miss ratio)
+References    = 69
+Hits          = 52 (75.36% hit ratio)
+Misses        = 17 (24.64% miss ratio)
 Misses (cold) = 14
-Misses (hot)  = 1
+Misses (hot)  = 3
 % Used        = 87.50%
 [exit 0]
 $ -sa 32 2 2 int_to_str 1234 -o 16
-C: 0x4d2
+C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
 === Cache (I)
@@ -4226,60 +4246,60 @@ Type          = set associative
 Size          = 32 words
 Block size    = 2 words
 Ways          = 2
-References    = 60
-Hits          = 43 (71.67% hit ratio)
-Misses        = 17 (28.33% miss ratio)
+References    = 63
+Hits          = 44 (69.84% hit ratio)
+Misses        = 19 (30.16% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 1
+Misses (hot)  = 3
 % Used        = 100.00%
 [exit 0]
 $ -sa 32 2 2 int_to_str 255 -o 2
 C: 0b11111111
-Asm: 0b11111
-Emu: 0b11111
+Asm: 0b11111111
+Emu: 0b11111111
 === Cache (I)
 Type          = set associative
 Size          = 32 words
 Block size    = 2 words
 Ways          = 2
-References    = 127
-Hits          = 110 (86.61% hit ratio)
-Misses        = 17 (13.39% miss ratio)
+References    = 130
+Hits          = 111 (85.38% hit ratio)
+Misses        = 19 (14.62% miss ratio)
 Misses (cold) = 14
-Misses (hot)  = 3
+Misses (hot)  = 5
 % Used        = 87.50%
 [exit 0]
 $ -sa 32 2 2 int_to_str -42 -o 10
 C: 4294967254
-Asm: ,.
-Emu: ,.
+Asm: 4294967254
+Emu: 4294967254
 === Cache (I)
 Type          = set associative
 Size          = 32 words
 Block size    = 2 words
 Ways          = 2
-References    = 38
-Hits          = 23 (60.53% hit ratio)
-Misses        = 15 (39.47% miss ratio)
+References    = 153
+Hits          = 136 (88.89% hit ratio)
+Misses        = 17 (11.11% miss ratio)
 Misses (cold) = 14
-Misses (hot)  = 1
+Misses (hot)  = 3
 % Used        = 87.50%
 [exit 0]
 $ -sa 32 2 2 int_to_str 0 -o 10
 C: 0
-Asm: 
-Emu: 
+Asm: 0
+Emu: 0
 === Cache (I)
 Type          = set associative
 Size          = 32 words
 Block size    = 2 words
 Ways          = 2
-References    = 10
-Hits          = 3 (30.00% hit ratio)
-Misses        = 7 (70.00% miss ratio)
-Misses (cold) = 7
-Misses (hot)  = 0
-% Used        = 43.75%
+References    = 24
+Hits          = 11 (45.83% hit ratio)
+Misses        = 13 (54.17% miss ratio)
+Misses (cold) = 11
+Misses (hot)  = 2
+% Used        = 68.75%
 [exit 0]
 $ -sa 32 2 2 is_pal racecar
 C: is a palindrome
@@ -4418,9 +4438,9 @@ Type          = set associative
 Size          = 32 words
 Block size    = 2 words
 Ways          = 2
-References    = 3
-Hits          = 1 (33.33% hit ratio)
-Misses        = 2 (66.67% miss ratio)
+References    = 4
+Hits          = 2 (50.00% hit ratio)
+Misses        = 2 (50.00% miss ratio)
 Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
@@ -4434,9 +4454,9 @@ Type          = set associative
 Size          = 32 words
 Block size    = 2 words
 Ways          = 2
-References    = 3
-Hits          = 1 (33.33% hit ratio)
-Misses        = 2 (66.67% miss ratio)
+References    = 4
+Hits          = 2 (50.00% hit ratio)
+Misses        = 2 (50.00% miss ratio)
 Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
@@ -4450,9 +4470,9 @@ Type          = set associative
 Size          = 32 words
 Block size    = 2 words
 Ways          = 2
-References    = 3
-Hits          = 1 (33.33% hit ratio)
-Misses        = 2 (66.67% miss ratio)
+References    = 4
+Hits          = 2 (50.00% hit ratio)
+Misses        = 2 (50.00% miss ratio)
 Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
@@ -4466,9 +4486,9 @@ Type          = set associative
 Size          = 32 words
 Block size    = 2 words
 Ways          = 2
-References    = 3
-Hits          = 1 (33.33% hit ratio)
-Misses        = 2 (66.67% miss ratio)
+References    = 4
+Hits          = 2 (50.00% hit ratio)
+Misses        = 2 (50.00% miss ratio)
 Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
@@ -4531,10 +4551,10 @@ Size          = 32 words
 Block size    = 2 words
 Ways          = 2
 References    = 288
-Hits          = 202 (70.14% hit ratio)
-Misses        = 86 (29.86% miss ratio)
+Hits          = 201 (69.79% hit ratio)
+Misses        = 87 (30.21% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 70
+Misses (hot)  = 71
 % Used        = 100.00%
 [exit 0]
 $ -sa 32 2 2 sort 1
@@ -4547,10 +4567,10 @@ Size          = 32 words
 Block size    = 2 words
 Ways          = 2
 References    = 52
-Hits          = 26 (50.00% hit ratio)
-Misses        = 26 (50.00% miss ratio)
+Hits          = 25 (48.08% hit ratio)
+Misses        = 27 (51.92% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 10
+Misses (hot)  = 11
 % Used        = 100.00%
 [exit 0]
 $ -sa 32 2 2 sort -3 10 0 -7 22 4 4 8
@@ -4563,10 +4583,10 @@ Size          = 32 words
 Block size    = 2 words
 Ways          = 2
 References    = 536
-Hits          = 405 (75.56% hit ratio)
-Misses        = 131 (24.44% miss ratio)
+Hits          = 404 (75.37% hit ratio)
+Misses        = 132 (24.63% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 115
+Misses (hot)  = 116
 % Used        = 100.00%
 [exit 0]
 $ -sa 32 2 2 sort 1 2 3 4 5 6 7 8 9 10
@@ -4579,10 +4599,10 @@ Size          = 32 words
 Block size    = 2 words
 Ways          = 2
 References    = 750
-Hits          = 589 (78.53% hit ratio)
-Misses        = 161 (21.47% miss ratio)
+Hits          = 588 (78.40% hit ratio)
+Misses        = 162 (21.60% miss ratio)
 Misses (cold) = 16
-Misses (hot)  = 145
+Misses (hot)  = 146
 % Used        = 100.00%
 [exit 0]
 $ -sa 32 2 2 str_to_int 1234
@@ -4859,22 +4879,22 @@ Misses (hot)  = 0
 [exit 0]
 $ -sa 64 1 8 int_to_str 1234 -o 10
 C: 1234
-Asm: 123
-Emu: 123
+Asm: 1234
+Emu: 1234
 === Cache (I)
 Type          = set associative
 Size          = 64 words
 Block size    = 1 words
 Ways          = 8
-References    = 66
-Hits          = 40 (60.61% hit ratio)
-Misses        = 26 (39.39% miss ratio)
-Misses (cold) = 26
+References    = 69
+Hits          = 40 (57.97% hit ratio)
+Misses        = 29 (42.03% miss ratio)
+Misses (cold) = 29
 Misses (hot)  = 0
-% Used        = 40.62%
+% Used        = 45.31%
 [exit 0]
 $ -sa 64 1 8 int_to_str 1234 -o 16
-C: 0x4d2
+C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
 === Cache (I)
@@ -4882,60 +4902,60 @@ Type          = set associative
 Size          = 64 words
 Block size    = 1 words
 Ways          = 8
-References    = 60
-Hits          = 28 (46.67% hit ratio)
-Misses        = 32 (53.33% miss ratio)
-Misses (cold) = 32
+References    = 63
+Hits          = 28 (44.44% hit ratio)
+Misses        = 35 (55.56% miss ratio)
+Misses (cold) = 35
 Misses (hot)  = 0
-% Used        = 50.00%
+% Used        = 54.69%
 [exit 0]
 $ -sa 64 1 8 int_to_str 255 -o 2
 C: 0b11111111
-Asm: 0b11111
-Emu: 0b11111
+Asm: 0b11111111
+Emu: 0b11111111
 === Cache (I)
 Type          = set associative
 Size          = 64 words
 Block size    = 1 words
 Ways          = 8
-References    = 127
-Hits          = 96 (75.59% hit ratio)
-Misses        = 31 (24.41% miss ratio)
-Misses (cold) = 31
+References    = 130
+Hits          = 96 (73.85% hit ratio)
+Misses        = 34 (26.15% miss ratio)
+Misses (cold) = 34
 Misses (hot)  = 0
-% Used        = 48.44%
+% Used        = 53.12%
 [exit 0]
 $ -sa 64 1 8 int_to_str -42 -o 10
 C: 4294967254
-Asm: ,.
-Emu: ,.
+Asm: 4294967254
+Emu: 4294967254
 === Cache (I)
 Type          = set associative
 Size          = 64 words
 Block size    = 1 words
 Ways          = 8
-References    = 38
-Hits          = 12 (31.58% hit ratio)
-Misses        = 26 (68.42% miss ratio)
-Misses (cold) = 26
+References    = 153
+Hits          = 124 (81.05% hit ratio)
+Misses        = 29 (18.95% miss ratio)
+Misses (cold) = 29
 Misses (hot)  = 0
-% Used        = 40.62%
+% Used        = 45.31%
 [exit 0]
 $ -sa 64 1 8 int_to_str 0 -o 10
 C: 0
-Asm: 
-Emu: 
+Asm: 0
+Emu: 0
 === Cache (I)
 Type          = set associative
 Size          = 64 words
 Block size    = 1 words
 Ways          = 8
-References    = 10
-Hits          = 0 (0.00% hit ratio)
-Misses        = 10 (100.00% miss ratio)
-Misses (cold) = 10
+References    = 24
+Hits          = 1 (4.17% hit ratio)
+Misses        = 23 (95.83% miss ratio)
+Misses (cold) = 23
 Misses (hot)  = 0
-% Used        = 15.62%
+% Used        = 35.94%
 [exit 0]
 $ -sa 64 1 8 is_pal racecar
 C: is a palindrome
@@ -5074,12 +5094,12 @@ Type          = set associative
 Size          = 64 words
 Block size    = 1 words
 Ways          = 8
-References    = 3
+References    = 4
 Hits          = 0 (0.00% hit ratio)
-Misses        = 3 (100.00% miss ratio)
-Misses (cold) = 3
+Misses        = 4 (100.00% miss ratio)
+Misses (cold) = 4
 Misses (hot)  = 0
-% Used        = 4.69%
+% Used        = 6.25%
 [exit 0]
 $ -sa 64 1 8 midpoint 0 0
 C: 0
@@ -5090,12 +5110,12 @@ Type          = set associative
 Size          = 64 words
 Block size    = 1 words
 Ways          = 8
-References    = 3
+References    = 4
 Hits          = 0 (0.00% hit ratio)
-Misses        = 3 (100.00% miss ratio)
-Misses (cold) = 3
+Misses        = 4 (100.00% miss ratio)
+Misses (cold) = 4
 Misses (hot)  = 0
-% Used        = 4.69%
+% Used        = 6.25%
 [exit 0]
 $ -sa 64 1 8 midpoint -10 10
 C: 0
@@ -5106,12 +5126,12 @@ Type          = set associative
 Size          = 64 words
 Block size    = 1 words
 Ways          = 8
-References    = 3
+References    = 4
 Hits          = 0 (0.00% hit ratio)
-Misses        = 3 (100.00% miss ratio)
-Misses (cold) = 3
+Misses        = 4 (100.00% miss ratio)
+Misses (cold) = 4
 Misses (hot)  = 0
-% Used        = 4.69%
+% Used        = 6.25%
 [exit 0]
 $ -sa 64 1 8 midpoint 3 4
 C: 3
@@ -5122,12 +5142,12 @@ Type          = set associative
 Size          = 64 words
 Block size    = 1 words
 Ways          = 8
-References    = 3
+References    = 4
 Hits          = 0 (0.00% hit ratio)
-Misses        = 3 (100.00% miss ratio)
-Misses (cold) = 3
+Misses        = 4 (100.00% miss ratio)
+Misses (cold) = 4
 Misses (hot)  = 0
-% Used        = 4.69%
+% Used        = 6.25%
 [exit 0]
 $ -sa 64 1 8 quadratic 2 3 4 5
 C: 25
@@ -5726,6 +5746,11 @@ $ str_to_int 0xBeEf
 C: 48879
 Asm: 48879
 Emu: 48879
+[exit 0]
+$ get_bitseq -1 1 31
+C: 2147483647
+Asm: 2147483647
+Emu: 2147483647
 [exit 0]
 $ get_bitseq 94116 10 3
 usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]

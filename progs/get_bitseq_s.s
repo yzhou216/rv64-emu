@@ -5,7 +5,7 @@
 .align 4
 .global get_bitseq_s
 
-/* get_bitseq_s returns a specified range of bits within a number as unigned
+/* get_bitseq_s returns a specified range of bits within a number as unsigned
    a0 is the number
    a1 is the start index
    a2 is the end index

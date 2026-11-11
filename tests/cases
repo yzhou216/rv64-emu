@@ -24,9 +24,12 @@ midpoint 2 8
 midpoint 0 0
 midpoint -10 10
 midpoint 3 4
+midpoint 2000000000 2000000000
+midpoint -3 0
 quadratic 2 3 4 5
 quadratic -3 1 -2 7
 quadratic 0 0 0 0
+quadratic 100000 1 0 0
 sort 5 3 9 1 7
 sort 1
 sort -3 10 0 -7 22 4 4 8
@@ -35,6 +38,7 @@ str_to_int 1234
 str_to_int 0x1f
 str_to_int 0b1010
 str_to_int 0xdeadbee
+str_to_int 0xffffffff
 str_to_int 0
 to_upper hello
 to_upper Hello_World_123
@@ -401,5 +405,6 @@ str_to_int 1z
 str_to_int -17
 str_to_int 0x
 str_to_int 0xBeEf
+get_bitseq -1 1 31
 get_bitseq 94116 10 3
 get_bitseq 94116 12 32
