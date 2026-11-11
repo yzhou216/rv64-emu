@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2024 Yiyu Zhou <yiyu@yiyuzhou.io>
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 int find_max_index_c(int *values, int len);
 
 int sort_c(int *values, int len)

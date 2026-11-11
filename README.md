@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2026 Yiyu Zhou <yiyu@yiyuzhou.io>
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # rv64_emu
 
 64-bit RISC-V emulator with instruction cache support
@@ -31,3 +37,17 @@ set-associative one.  The other programs are `get_bitseq`,
 `int_to_str`, `max3`, `midpoint`, `quadratic`, and `str_to_int`.
 
 The `c2y` branch reworks it in C2y and adds a test suite.
+
+## License
+
+rv64_emu is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation, either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.

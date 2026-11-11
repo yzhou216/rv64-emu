@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2024 Yiyu Zhou <yiyu@yiyuzhou.io>
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 #include <stdint.h>
 
 uint32_t get_bitseq_c(uint32_t value, int start, int end)

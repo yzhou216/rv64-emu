@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 Yiyu Zhou <yiyu@yiyuzhou.io>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 PROG = rv64_emu
 OBJS = rv64_emu.o harness.o rv_emu.o exec.o alu.o    \
        mem.o control.o analysis.o bits.o cache.o     \
