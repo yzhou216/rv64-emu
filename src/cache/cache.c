@@ -41,7 +41,7 @@ void cache_print(struct cache *cache, char *name)
 	int i;
 
 	for (i = 0; i < cache->size; i++)
-		if (cache->slots[i].valid == 1)
+		if (cache->slots[i].valid)
 			used += 1;
 
 	printf("=== Cache %s\n", name);
@@ -61,101 +61,94 @@ void cache_print(struct cache *cache, char *name)
 	       ((double)cache->misses / (double)cache->refs) * 100.00);
 	printf("Misses (cold) = %d\n", cache->misses_cold);
 	printf("Misses (hot)  = %d\n", cache->misses_hot);
-	/* TODO: Funky format due to bad test cases. Remove later */
+	/* The value lines up with the others because %% prints one character */
 	printf("%% Used        = %.2f%%\n",
 	       ((double)used / (double)cache->size) * 100.0);
 }
 
-uint32_t evict_data_in_cache_block(struct cache *cache, struct cache_slot *slot,
-				   uint64_t addr_word, uint64_t offset)
+/*
+ * Replace the contents of a slot with the block of memory that holds the
+ * word at addr_word, the address divided by four, and return that word,
+ * which is word offset of the block.
+ */
+static uint32_t cache_fill_block(struct cache *cache, struct cache_slot *slot,
+				 uint64_t addr_word, uint64_t offset)
 {
-		uint64_t block_base = addr_word - offset;
-		/* Convert block base to a pointer to the word in memory */
-		uint32_t *src = (uint32_t *)(block_base << 2);
+	const uint32_t *block = (const uint32_t *)((addr_word - offset) << 2);
 
-		/*
-		 * Evict old data from the block and update with new data
-		 * retrieved from the memory bus
-		 */
-                for (int i = 0; i < cache->block_size; i++) {
-                        slot->block[i] = *src;
-                        src++; /* Move pointer by 32 bits (next word) */
-                }
-
-		/* Word is now in the updated cache block */
-		uint32_t data = slot->block[offset];
-		return data;
+	for (int i = 0; i < cache->block_size; i++)
+		slot->block[i] = block[i];
+	return slot->block[offset];
 }
 
-/* Direct mapped lookup */
-uint32_t cache_lookup_dm(struct cache *cache, uint64_t addr)
+/* Direct-mapped lookup */
+static uint32_t cache_lookup_dm(struct cache *cache, uint64_t addr)
 {
-	uint64_t tag;
-	uint64_t index;
-	uint64_t offset;
-	struct cache_slot *slot;
-	uint32_t data = 0;
-
 	uint64_t addr_word = addr >> 2;
-	offset = addr_word % cache->block_size; /* mask off according to the block size */
-
-	index = (addr >> (cache->block_bits + 2)) & cache->index_mask;
-	tag = addr >> (cache->index_bits + cache->block_bits + 2);
-
-	slot = &cache->slots[index];
+	uint64_t offset = addr_word % cache->block_size;
+	uint64_t index = (addr >> (cache->block_bits + 2)) & cache->index_mask;
+	uint64_t tag = addr >> (cache->index_bits + cache->block_bits + 2);
+	struct cache_slot *slot = &cache->slots[index];
 
 	cache->refs += 1;
-	if (slot->valid && (slot->tag == tag)) {
-		/* hit */
+	if (slot->valid && slot->tag == tag) {
 		cache->hits += 1;
-		data = slot->block[offset];
-
 		verbose("  cache tag hit for index %w64u tag %w64X addr %w64X\n",
 			index, tag, addr);
-	} else {
-		/* miss */
-		cache->misses += 1;
-		if (slot->valid == 0) {
-			cache->misses_cold += 1;
-			verbose("  cache tag (%w64X) miss for index %w64u tag %w64X addr %w64X (cold)\n",
-				slot->tag, index, tag, addr);
-		} else {
-			cache->misses_hot += 1;
-			verbose("  cache tag (%w64X) miss for index %w64u tag %w64X addr %w64X (hot)\n",
-				slot->tag, index, tag, addr);
-		}
-		slot->valid = 1;
-		slot->tag = tag;
-
-		data = evict_data_in_cache_block(cache, slot, addr_word,
-						 offset);
+		return slot->block[offset];
 	}
 
-	return data;
+	cache->misses += 1;
+	if (slot->valid) {
+		cache->misses_hot += 1;
+		verbose("  cache tag (%w64X) miss for index %w64u tag %w64X addr %w64X (hot)\n",
+			slot->tag, index, tag, addr);
+	} else {
+		cache->misses_cold += 1;
+		verbose("  cache tag (%w64X) miss for index %w64u tag %w64X addr %w64X (cold)\n",
+			slot->tag, index, tag, addr);
+	}
+	slot->valid = true;
+	slot->tag = tag;
+	return cache_fill_block(cache, slot, addr_word, offset);
 }
 
-struct cache_slot *find_lru_slot_in_set(struct cache *cache, uint32_t set_base)
+/* Return the slot of a set that holds tag, or nullptr if none does */
+static struct cache_slot *cache_find_tag(struct cache_slot *set, int ways,
+					 uint64_t tag)
 {
-	struct cache_slot *lru = &cache->slots[set_base];
-	for (int i = 0; i < cache->ways; i++) {
-		struct cache_slot *slot = &cache->slots[set_base + i];
-		if (slot->timestamp < lru->timestamp)
-			lru = slot;
-	}
+	for (int way = 0; way < ways; way++)
+		if (set[way].valid && set[way].tag == tag)
+			return &set[way];
+	return nullptr;
+}
+
+/* Return the last invalid slot of a set, or nullptr if the set is full */
+static struct cache_slot *cache_find_invalid(struct cache_slot *set, int ways)
+{
+	struct cache_slot *invalid = nullptr;
+
+	for (int way = 0; way < ways; way++)
+		if (!set[way].valid)
+			invalid = &set[way];
+	return invalid;
+}
+
+/* Return the least recently used slot of a set */
+static struct cache_slot *cache_find_lru(struct cache_slot *set, int ways)
+{
+	struct cache_slot *lru = &set[0];
+
+	for (int way = 1; way < ways; way++)
+		if (set[way].timestamp < lru->timestamp)
+			lru = &set[way];
 	return lru;
 }
 
-uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
+/* Set-associative lookup with least recently used replacement */
+static uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
 {
-	bool hit = false;
-	uint32_t value;
-
-	/*
-	 * Didn't allocate any cache. I guess that's a miss?
-	 * This should not happen in our code as we don't simulate unless
-	 * cache_size > 0
-	 */
-
+	/* A cache without slots misses every time */
 	if (cache->size == 0) {
 		cache->misses += 1;
 		return *((uint32_t *)addr);
@@ -164,68 +157,39 @@ uint32_t cache_lookup_sa(struct cache *cache, uint64_t addr)
 	cache->refs += 1;
 
 	uint64_t tag = addr >> (cache->index_bits + cache->block_bits + 2);
-
 	uint64_t addr_word = addr >> 2;
-	uint64_t offset = addr_word % cache->block_size; /* mask off according to the block size */
-
+	uint64_t offset = addr_word % cache->block_size;
 	int set_index = (addr >> (cache->block_bits + 2)) & cache->index_mask;
 	int set_base = set_index * cache->ways;
+	struct cache_slot *set = &cache->slots[set_base];
 
-	struct cache_slot *slot = nullptr;
-	struct cache_slot *found = nullptr;
-	struct cache_slot *invalid = nullptr;
-
-	/* Check each slot in the set */
-	for (int i = 0; i < cache->ways; i += 1) {
-		slot = &cache->slots[set_base + i];
-		if (slot->valid) {
-			if (tag == slot->tag) {
-				verbose("  cache tag hit for set %d way %d tag %w64X addr %w64X\n",
-					set_index, i, tag, addr);
-				hit = true;
-				found = slot;
-				cache->hits++;
-				break;
-			}
-		} else {
-			/* Save invalid slot in case of miss */
-			invalid = slot;
-		}
+	if (struct cache_slot *hit = cache_find_tag(set, cache->ways, tag)) {
+		verbose("  cache tag hit for set %d way %td tag %w64X addr %w64X\n",
+			set_index, hit - set, tag, addr);
+		cache->hits++;
+		hit->timestamp = cache->refs;
+		return hit->block[offset];
 	}
 
-	if (!found) {
-		if (invalid) {
-			slot = invalid;
-			verbose("  cache tag (%w64X) miss for set %d tag %w64X addr %w64X (fill invalid slot)\n",
-				slot->tag, set_index, tag, addr);
-			cache->misses += 1;
-			/* Miss due to tag collision is a "hot" miss */
-			cache->misses_cold += 1;
-		} else {
-			/* hot miss */
-			slot = find_lru_slot_in_set(cache, set_base);
-
-			verbose("  cache tag (%w64X) miss for set %d tag %w64X addr %w64X (evict address %w64X)\n",
-				slot->tag, set_index, tag, addr,
-				slot->tag << (cache->index_bits + 2) |
-				set_index << 2);
-
-			cache->misses += 1;
-			/* Miss due to tag collision is a "hot" miss */
-			cache->misses_hot += 1;
-		}
-	}
-
-	if (!hit) {
-		value = evict_data_in_cache_block(cache, slot, addr_word,
-						  offset);
-		slot->tag = tag;
-		slot->valid = true;
+	cache->misses += 1;
+	struct cache_slot *victim = cache_find_invalid(set, cache->ways);
+	if (victim) {
+		cache->misses_cold += 1;
+		verbose("  cache tag (%w64X) miss for set %d tag %w64X addr %w64X (fill invalid slot)\n",
+			victim->tag, set_index, tag, addr);
 	} else {
-		value = slot->block[offset];
+		victim = cache_find_lru(set, cache->ways);
+		cache->misses_hot += 1;
+		verbose("  cache tag (%w64X) miss for set %d tag %w64X addr %w64X (evict address %w64X)\n",
+			victim->tag, set_index, tag, addr,
+			victim->tag << (cache->index_bits + 2) |
+			set_index << 2);
 	}
 
-	slot->timestamp = cache->refs;
+	uint32_t value = cache_fill_block(cache, victim, addr_word, offset);
+	victim->tag = tag;
+	victim->valid = true;
+	victim->timestamp = cache->refs;
 	return value;
 }
 

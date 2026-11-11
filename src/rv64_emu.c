@@ -10,8 +10,6 @@
 
 #include "harness.h"
 
-extern bool verbose_on;
-
 [[noreturn]] static void usage(void)
 {
 	printf("usage: rv64_emu <prog> [<arg1> ...]\n");
@@ -49,7 +47,6 @@ static int parse_params(int argc, char **argv, struct rv_state *state)
 			state->icache.ways = atoi(argv[i + 3]);
 			i += 3;
 		} else if (!strcmp(argv[i], "-v")) {
-			state->verbose = true;
 			verbose_on = true;
 		}
 	}

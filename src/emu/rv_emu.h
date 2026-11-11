@@ -42,7 +42,7 @@ constexpr int CACHE_MAX_SLOTS = 4096;
 constexpr int CACHE_MAX_BLOCK_SIZE = 4;
 
 struct cache_slot {
-	uint64_t valid;
+	bool valid;
 	uint64_t tag;
 	uint32_t block[CACHE_MAX_BLOCK_SIZE];
 	uint64_t timestamp; /* Only used by the set-associative cache */
@@ -63,7 +63,6 @@ struct cache {
 	int misses;
 	int misses_cold;
 	int misses_hot;
-	int slots_used;
 };
 
 struct rv_state {
@@ -74,7 +73,6 @@ struct rv_state {
 
 	bool analyze;
 	bool simulate_cache;
-	bool verbose;
 
 	struct rv_analysis analysis;
 	struct cache icache;
@@ -89,6 +87,6 @@ void cache_init(struct cache *cache);
 [[nodiscard]] uint32_t cache_lookup(struct cache *cache, uint64_t addr);
 void cache_print(struct cache *cache, char *name);
 
-/* Logging */
+/* Logging for -v, enabled by verbose_on */
+extern bool verbose_on;
 [[gnu::format(printf, 1, 2)]] void verbose(const char *fmt, ...);
-void verbose_cache(int mem_type, char *fmt, ...);
