@@ -373,3 +373,20 @@ insn
 -sa 32 2 2 insn
 
 bogus 1 2
+-a
+fib_rec
+fib_rec 1 2
+-dm 16
+-x fib_rec 3
+int_to_str 255
+int_to_str 255 -x 2
+sort
+-dm 64 3 fib_rec 5
+-dm 64 8 fib_rec 5
+-dm 48 4 fib_rec 5
+-dm 2 4 fib_rec 5
+-dm 65536 4 fib_rec 5
+-sa 64 4 0 fib_rec 5
+-sa 64 4 3 fib_rec 5
+-sa 64 4 32 fib_rec 5
+-dm 16384 4 fib_rec 5

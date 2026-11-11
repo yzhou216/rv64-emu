@@ -13,8 +13,12 @@
 
 [[noreturn]] static void usage(void)
 {
-	printf("usage: rv64_emu <prog> [<arg1> ...]\n");
-	exit(-1);
+	fputs("usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]\n"
+	      "                <prog> [<arg> ...]\n"
+	      "\n"
+	      "programs:\n", stderr);
+	print_tests(stderr);
+	exit(EXIT_FAILURE);
 }
 
 /*
@@ -28,14 +32,14 @@ static int parse_params(int argc, char **argv, struct rv_state *state)
 	for (i = 1; i < argc && argv[i][0] == '-'; i++) {
 		if (!strcmp(argv[i], "-a")) {
 			state->analyze = true;
-		} else if (!strcmp(argv[i], "-dm")) {
+		} else if (!strcmp(argv[i], "-dm") && i + 2 < argc) {
 			state->simulate_cache = true;
 			state->icache.type = CACHE_DM;
 			state->icache.size = atoi(argv[i + 1]);
 			state->icache.block_size = atoi(argv[i + 2]);
 			state->icache.ways = 1;
 			i += 2;
-		} else if (!strcmp(argv[i], "-sa")) {
+		} else if (!strcmp(argv[i], "-sa") && i + 3 < argc) {
 			state->simulate_cache = true;
 			state->icache.type = CACHE_SA;
 			state->icache.size = atoi(argv[i + 1]);
@@ -44,20 +48,27 @@ static int parse_params(int argc, char **argv, struct rv_state *state)
 			i += 3;
 		} else if (!strcmp(argv[i], "-v")) {
 			verbose_on = true;
+		} else {
+			usage();
 		}
+	}
+
+	if (state->simulate_cache && !cache_valid(&state->icache)) {
+		fprintf(stderr, "rv64_emu: cannot simulate a %d-way cache of %d words in %d-word blocks\n",
+			state->icache.ways, state->icache.size,
+			state->icache.block_size);
+		exit(EXIT_FAILURE);
 	}
 	return i;
 }
 
 int main(int argc, char **argv)
 {
-	if (argc == 1)
-		usage();
-
 	struct rv_state state = {};
 	int i = parse_params(argc, argv, &state);
+	int nargs = argc - i - 1;
 
-	if (!run_test(argv[i], argc - i - 1, &argv[i + 1], &state))
+	if (i >= argc || !run_test(argv[i], nargs, &argv[i + 1], &state))
 		usage();
 
 	if (state.analyze)

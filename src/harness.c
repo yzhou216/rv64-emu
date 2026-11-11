@@ -36,7 +36,7 @@ static void print_results(const char *prefix, const uint64_t *results, int n)
 	printf("\n");
 }
 
-static void fib_rec_test([[maybe_unused]] int argc, char **argv,
+static bool fib_rec_test([[maybe_unused]] int argc, char **argv,
 				struct rv_state *state)
 {
 	int result;
@@ -51,9 +51,10 @@ static void fib_rec_test([[maybe_unused]] int argc, char **argv,
 	rv_init(state, (uint32_t *)fib_rec_s, n, 0, 0, 0);
 	result = rv_emulate(state);
 	printf("Emu: %d\n", result);
+	return true;
 }
 
-static void get_bitseq_test([[maybe_unused]] int argc, char **argv,
+static bool get_bitseq_test([[maybe_unused]] int argc, char **argv,
 				struct rv_state *state)
 {
 	int result;
@@ -70,9 +71,10 @@ static void get_bitseq_test([[maybe_unused]] int argc, char **argv,
 	rv_init(state, (uint32_t *)get_bitseq_s, n, start, end, 0);
 	result = rv_emulate(state);
 	printf("Emu: %d\n", result);
+	return true;
 }
 
-static void pal_test([[maybe_unused]] int argc, char **argv,
+static bool pal_test([[maybe_unused]] int argc, char **argv,
 				struct rv_state *state)
 {
 	bool result;
@@ -88,17 +90,19 @@ static void pal_test([[maybe_unused]] int argc, char **argv,
 	rv_init(state, (uint32_t *)pal_rec_s, (uint64_t)str, 0, end, 0);
 	result = rv_emulate(state);
 	printf("Emu: %s\n", result ? "is a palindrome" : "is not a palindrome");
+	return true;
 }
 
-static void int_to_str_test([[maybe_unused]] int argc, char **argv,
-				struct rv_state *state)
+static bool int_to_str_test(int argc, char **argv, struct rv_state *state)
 {
 	char out[MAX_ARRAY];
 
 	int value = atoi(argv[0]);
 	int base = 10;
-	if (!strncmp(argv[1], "-o", 2))
+	if (argc == 3 && !strcmp(argv[1], "-o"))
 		base = atoi(argv[2]);
+	else if (argc != 1)
+		return false;
 
 	memset(out, 0, sizeof(out));
 	int_to_str_c(value, out, base);
@@ -113,9 +117,10 @@ static void int_to_str_test([[maybe_unused]] int argc, char **argv,
 		base, 0);
 	rv_emulate(state);
 	printf("Emu: %s\n", out);
+	return true;
 }
 
-static void max3_test([[maybe_unused]] int argc, char **argv,
+static bool max3_test([[maybe_unused]] int argc, char **argv,
 				struct rv_state *state)
 {
 	int result;
@@ -132,9 +137,10 @@ static void max3_test([[maybe_unused]] int argc, char **argv,
 	rv_init(state, (uint32_t *)max3_s, a, b, c, 0);
 	result = rv_emulate(state);
 	printf("Emu: %d\n", result);
+	return true;
 }
 
-static void midpoint_test([[maybe_unused]] int argc, char **argv,
+static bool midpoint_test([[maybe_unused]] int argc, char **argv,
 				struct rv_state *state)
 {
 	int result;
@@ -150,9 +156,10 @@ static void midpoint_test([[maybe_unused]] int argc, char **argv,
 	rv_init(state, (uint32_t *)midpoint_s, start, end, 0, 0);
 	result = rv_emulate(state);
 	printf("Emu: %d\n", result);
+	return true;
 }
 
-static void quadratic_test([[maybe_unused]] int argc, char **argv,
+static bool quadratic_test([[maybe_unused]] int argc, char **argv,
 				struct rv_state *state)
 {
 	int result;
@@ -170,9 +177,10 @@ static void quadratic_test([[maybe_unused]] int argc, char **argv,
 	rv_init(state, (uint32_t *)quadratic_s, x, a, b, c);
 	result = rv_emulate(state);
 	printf("Emu: %d\n", result);
+	return true;
 }
 
-static void sort_test(int argc, char **argv, struct rv_state *state)
+static bool sort_test(int argc, char **argv, struct rv_state *state)
 {
 	int sorted[MAX_ARRAY];
 	int values[MAX_ARRAY] = {};
@@ -195,10 +203,10 @@ static void sort_test(int argc, char **argv, struct rv_state *state)
 	rv_init(state, (uint32_t *)sort_s, (uint64_t)sorted, len, 0, 0);
 	rv_emulate(state);
 	print_array("Emu:", sorted, len);
-
+	return true;
 }
 
-static void str_to_int_test([[maybe_unused]] int argc, char **argv,
+static bool str_to_int_test([[maybe_unused]] int argc, char **argv,
 				struct rv_state *state)
 {
 	const char *str = argv[0];
@@ -220,9 +228,10 @@ static void str_to_int_test([[maybe_unused]] int argc, char **argv,
 	rv_init(state, (uint32_t *)str_to_int_s, (uint64_t)str, base, 0, 0);
 	result = rv_emulate(state);
 	printf("Emu: %d\n", result);
+	return true;
 }
 
-static void to_upper_test([[maybe_unused]] int argc, char **argv,
+static bool to_upper_test([[maybe_unused]] int argc, char **argv,
 				struct rv_state *state)
 {
 	/* Make a copy of the string since we modify it in place */
@@ -248,13 +257,14 @@ static void to_upper_test([[maybe_unused]] int argc, char **argv,
 		0, 0);
 	rv_emulate(state);
 	printf("Emu: %s\n", out);
+	return true;
 }
 
 /*
  * insn_s has no C version, so compare its native results with the
  * emulated ones only.
  */
-static void insn_test([[maybe_unused]] int argc, [[maybe_unused]] char **argv,
+static bool insn_test([[maybe_unused]] int argc, [[maybe_unused]] char **argv,
 		      struct rv_state *state)
 {
 	uint64_t results[64] = {};
@@ -267,24 +277,33 @@ static void insn_test([[maybe_unused]] int argc, [[maybe_unused]] char **argv,
 	rv_init(state, (uint32_t *)insn_s, (uint64_t)results, 0, 0, 0);
 	n = rv_emulate(state);
 	print_results("Emu:", results, n);
+	return true;
 }
 
-/* Test programs by the name that selects them on the command line */
+/*
+ * Test programs by the name that selects them on the command line, with
+ * a summary of their arguments and the range of their argument count.
+ * run() returns false, before it prints anything, if it rejects its
+ * arguments.
+ */
 static const struct test {
 	const char *name;
-	void (*run)(int argc, char **argv, struct rv_state *state);
+	const char *args;
+	int min_args;
+	int max_args;
+	bool (*run)(int argc, char **argv, struct rv_state *state);
 } tests[] = {
-	{ "fib_rec", fib_rec_test },
-	{ "get_bitseq", get_bitseq_test },
-	{ "insn", insn_test },
-	{ "int_to_str", int_to_str_test },
-	{ "is_pal", pal_test },
-	{ "max3", max3_test },
-	{ "midpoint", midpoint_test },
-	{ "quadratic", quadratic_test },
-	{ "sort", sort_test },
-	{ "str_to_int", str_to_int_test },
-	{ "to_upper", to_upper_test },
+	{ "fib_rec", "<n>", 1, 1, fib_rec_test },
+	{ "get_bitseq", "<n> <start> <end>", 3, 3, get_bitseq_test },
+	{ "insn", "", 0, 0, insn_test },
+	{ "int_to_str", "<n> [-o <base>]", 1, 3, int_to_str_test },
+	{ "is_pal", "<string>", 1, 1, pal_test },
+	{ "max3", "<a> <b> <c>", 3, 3, max3_test },
+	{ "midpoint", "<start> <end>", 2, 2, midpoint_test },
+	{ "quadratic", "<x> <a> <b> <c>", 4, 4, quadratic_test },
+	{ "sort", "<n> ...", 0, MAX_ARRAY, sort_test },
+	{ "str_to_int", "<string>", 1, 1, str_to_int_test },
+	{ "to_upper", "<string>", 1, 1, to_upper_test },
 };
 
 static const struct test *find_test(const char *name)
@@ -297,14 +316,25 @@ static const struct test *find_test(const char *name)
 
 /*
  * Run the test program called name with the argc arguments in argv, and
- * return false if there is no such program.
+ * return false if there is no such program or it rejects the arguments.
  */
 bool run_test(const char *name, int argc, char **argv,
 	      struct rv_state *state)
 {
-	if (const struct test *test = find_test(name)) {
-		test->run(argc, argv, state);
-		return true;
-	}
+	if (const struct test *test = find_test(name);
+	    test && argc >= test->min_args && argc <= test->max_args)
+		return test->run(argc, argv, state);
 	return false;
+}
+
+/* List the test programs and their arguments for the usage message */
+void print_tests(FILE *stream)
+{
+	for (size_t i = 0; i < countof(tests); i++) {
+		if (*tests[i].args)
+			fprintf(stream, "  %-10s %s\n", tests[i].name,
+				tests[i].args);
+		else
+			fprintf(stream, "  %s\n", tests[i].name);
+	}
 }

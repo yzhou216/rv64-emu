@@ -86,6 +86,7 @@ void rv_init(struct rv_state *state, uint32_t *target,
 	     uint64_t a0, uint64_t a1, uint64_t a2, uint64_t a3);
 uint64_t rv_emulate(struct rv_state *state);
 
+[[nodiscard]] bool cache_valid(const struct cache *cache);
 void cache_init(struct cache *cache);
 [[nodiscard]] uint32_t cache_lookup(struct cache *cache, uint64_t addr);
 void cache_print(const struct cache *cache, const char *name);

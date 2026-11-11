@@ -9,9 +9,12 @@
 #ifndef HARNESS_H
 #define HARNESS_H
 
+#include <stdio.h>
+
 #include "emu/rv_emu.h"
 
 [[nodiscard]] bool run_test(const char *name, int argc, char **argv,
 			    struct rv_state *state);
+void print_tests(FILE *stream);
 
 #endif /* HARNESS_H */

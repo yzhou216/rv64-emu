@@ -5417,8 +5417,188 @@ Misses (hot)  = 27
 % Used        = 50.00%
 [exit 0]
 $ 
-usage: rv64_emu <prog> [<arg1> ...]
-[exit 255]
+usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+                <prog> [<arg> ...]
+
+programs:
+  fib_rec    <n>
+  get_bitseq <n> <start> <end>
+  insn
+  int_to_str <n> [-o <base>]
+  is_pal     <string>
+  max3       <a> <b> <c>
+  midpoint   <start> <end>
+  quadratic  <x> <a> <b> <c>
+  sort       <n> ...
+  str_to_int <string>
+  to_upper   <string>
+[exit 1]
 $ bogus 1 2
-usage: rv64_emu <prog> [<arg1> ...]
-[exit 255]
+usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+                <prog> [<arg> ...]
+
+programs:
+  fib_rec    <n>
+  get_bitseq <n> <start> <end>
+  insn
+  int_to_str <n> [-o <base>]
+  is_pal     <string>
+  max3       <a> <b> <c>
+  midpoint   <start> <end>
+  quadratic  <x> <a> <b> <c>
+  sort       <n> ...
+  str_to_int <string>
+  to_upper   <string>
+[exit 1]
+$ -a
+usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+                <prog> [<arg> ...]
+
+programs:
+  fib_rec    <n>
+  get_bitseq <n> <start> <end>
+  insn
+  int_to_str <n> [-o <base>]
+  is_pal     <string>
+  max3       <a> <b> <c>
+  midpoint   <start> <end>
+  quadratic  <x> <a> <b> <c>
+  sort       <n> ...
+  str_to_int <string>
+  to_upper   <string>
+[exit 1]
+$ fib_rec
+usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+                <prog> [<arg> ...]
+
+programs:
+  fib_rec    <n>
+  get_bitseq <n> <start> <end>
+  insn
+  int_to_str <n> [-o <base>]
+  is_pal     <string>
+  max3       <a> <b> <c>
+  midpoint   <start> <end>
+  quadratic  <x> <a> <b> <c>
+  sort       <n> ...
+  str_to_int <string>
+  to_upper   <string>
+[exit 1]
+$ fib_rec 1 2
+usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+                <prog> [<arg> ...]
+
+programs:
+  fib_rec    <n>
+  get_bitseq <n> <start> <end>
+  insn
+  int_to_str <n> [-o <base>]
+  is_pal     <string>
+  max3       <a> <b> <c>
+  midpoint   <start> <end>
+  quadratic  <x> <a> <b> <c>
+  sort       <n> ...
+  str_to_int <string>
+  to_upper   <string>
+[exit 1]
+$ -dm 16
+usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+                <prog> [<arg> ...]
+
+programs:
+  fib_rec    <n>
+  get_bitseq <n> <start> <end>
+  insn
+  int_to_str <n> [-o <base>]
+  is_pal     <string>
+  max3       <a> <b> <c>
+  midpoint   <start> <end>
+  quadratic  <x> <a> <b> <c>
+  sort       <n> ...
+  str_to_int <string>
+  to_upper   <string>
+[exit 1]
+$ -x fib_rec 3
+usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+                <prog> [<arg> ...]
+
+programs:
+  fib_rec    <n>
+  get_bitseq <n> <start> <end>
+  insn
+  int_to_str <n> [-o <base>]
+  is_pal     <string>
+  max3       <a> <b> <c>
+  midpoint   <start> <end>
+  quadratic  <x> <a> <b> <c>
+  sort       <n> ...
+  str_to_int <string>
+  to_upper   <string>
+[exit 1]
+$ int_to_str 255
+C: 255
+Asm: 255
+Emu: 255
+[exit 0]
+$ int_to_str 255 -x 2
+usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+                <prog> [<arg> ...]
+
+programs:
+  fib_rec    <n>
+  get_bitseq <n> <start> <end>
+  insn
+  int_to_str <n> [-o <base>]
+  is_pal     <string>
+  max3       <a> <b> <c>
+  midpoint   <start> <end>
+  quadratic  <x> <a> <b> <c>
+  sort       <n> ...
+  str_to_int <string>
+  to_upper   <string>
+[exit 1]
+$ sort
+C:
+Asm:
+Emu:
+[exit 0]
+$ -dm 64 3 fib_rec 5
+rv64_emu: cannot simulate a 1-way cache of 64 words in 3-word blocks
+[exit 1]
+$ -dm 64 8 fib_rec 5
+rv64_emu: cannot simulate a 1-way cache of 64 words in 8-word blocks
+[exit 1]
+$ -dm 48 4 fib_rec 5
+rv64_emu: cannot simulate a 1-way cache of 48 words in 4-word blocks
+[exit 1]
+$ -dm 2 4 fib_rec 5
+rv64_emu: cannot simulate a 1-way cache of 2 words in 4-word blocks
+[exit 1]
+$ -dm 65536 4 fib_rec 5
+rv64_emu: cannot simulate a 1-way cache of 65536 words in 4-word blocks
+[exit 1]
+$ -sa 64 4 0 fib_rec 5
+rv64_emu: cannot simulate a 0-way cache of 64 words in 4-word blocks
+[exit 1]
+$ -sa 64 4 3 fib_rec 5
+rv64_emu: cannot simulate a 3-way cache of 64 words in 4-word blocks
+[exit 1]
+$ -sa 64 4 32 fib_rec 5
+rv64_emu: cannot simulate a 32-way cache of 64 words in 4-word blocks
+[exit 1]
+$ -dm 16384 4 fib_rec 5
+C: 5
+Asm: 5
+Emu: 5
+=== Cache (I)
+Type          = direct mapped
+Size          = 16384 slots
+Block size    = 4 words
+Ways          = 1
+References    = 136
+Hits          = 131 (96.32% hit ratio)
+Misses        = 5 (3.68% miss ratio)
+Misses (cold) = 5
+Misses (hot)  = 0
+% Used        = 0.03%
+[exit 0]

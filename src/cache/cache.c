@@ -11,6 +11,26 @@
 
 #include "emu/rv_emu.h"
 
+/*
+ * Return whether the simulator can model the cache: size words in blocks
+ * of block_size words, grouped into sets of ways slots.  The masks in
+ * cache_init() need a power of two for both the block size and the number
+ * of sets, and all slots have to fit.
+ */
+bool cache_valid(const struct cache *cache)
+{
+	if (cache->block_size < 1 || cache->block_size > CACHE_MAX_BLOCK_SIZE ||
+	    !stdc_has_single_bit((unsigned int)cache->block_size) ||
+	    cache->ways < 1 || cache->size < 1 ||
+	    cache->size % cache->block_size)
+		return false;
+
+	int slots = cache->size / cache->block_size;
+	if (slots > (int)countof(cache->slots) || slots % cache->ways)
+		return false;
+	return stdc_has_single_bit((unsigned int)(slots / cache->ways));
+}
+
 void cache_init(struct cache *cache)
 {
 	if (cache->type == CACHE_NONE)
@@ -40,7 +60,7 @@ void cache_print(const struct cache *cache, const char *name)
 	int used = 0;
 	int i;
 
-	for (i = 0; i < cache->size; i++)
+	for (i = 0; i < cache->size / cache->block_size; i++)
 		if (cache->slots[i].valid)
 			used += 1;
 
