@@ -5,22 +5,19 @@
 CFLAGS = -std=c2y -g -Wall -Wextra
 ASFLAGS = -g -march=rv64g
 LDFLAGS =
+RUN =
 
 PROG = rv64_emu
-OBJS = rv64_emu.o harness.o rv_emu.o exec.o alu.o    \
-       mem.o control.o analysis.o bits.o cache.o     \
-       verbose.o                                     \
-       fib_rec_c.o fib_rec_s.o                       \
-       find_max_index_c.o find_max_index_s.o         \
-       get_bitseq_c.o get_bitseq_s.o                 \
-       is_pal_rec_c.o is_pal_rec_s.o                 \
-       max3_c.o max3_s.o                             \
-       str_to_int_c.o str_to_int_s.o                 \
-       int_to_str_c.o int_to_str_s.o                 \
-       midpoint_c.o midpoint_s.o                     \
-       quadratic_c.o quadratic_s.o                   \
-       sort_c.o sort_s.o                             \
-       to_upper_c.o to_upper_s.o
+
+# Test programs, each with a C version and an assembly version
+TESTS = fib_rec find_max_index get_bitseq is_pal_rec max3 str_to_int \
+	int_to_str midpoint quadratic sort to_upper
+
+# Link the assembly versions first and next to each other.  The cache
+# statistics depend on where they end up, so this keeps them independent
+# of the size of the C code.
+OBJS = $(TESTS:=_s.o) rv64_emu.o harness.o rv_emu.o exec.o alu.o mem.o \
+       control.o analysis.o bits.o cache.o verbose.o $(TESTS:=_c.o)
 
 # Find the sources under src and the test programs in progs
 VPATH = src src/emu src/cache progs
@@ -35,9 +32,12 @@ VPATH = src src/emu src/cache progs
 $(PROG): $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
+check: $(PROG)
+	RUN='$(RUN)' tests/run.sh ./$(PROG)
+
 clean:
 	rm -rf $(PROG) $(OBJS) $(OBJS:.o=.d)
 
-.PHONY: clean
+.PHONY: check clean
 
 -include $(OBJS:.o=.d)

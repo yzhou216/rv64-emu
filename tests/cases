@@ -1,0 +1,371 @@
+fib_rec 0
+fib_rec 1
+fib_rec 2
+fib_rec 10
+fib_rec 20
+get_bitseq 94116 12 15
+get_bitseq 1023 4 7
+get_bitseq 305419896 8 15
+get_bitseq -1 0 31
+int_to_str 1234 -o 10
+int_to_str 1234 -o 16
+int_to_str 255 -o 2
+int_to_str -42 -o 10
+int_to_str 0 -o 10
+is_pal racecar
+is_pal abba
+is_pal abcd
+is_pal a
+max3 1 2 3
+max3 3 2 1
+max3 -5 -2 -9
+max3 7 7 7
+midpoint 2 8
+midpoint 0 0
+midpoint -10 10
+midpoint 3 4
+quadratic 2 3 4 5
+quadratic -3 1 -2 7
+quadratic 0 0 0 0
+sort 5 3 9 1 7
+sort 1
+sort -3 10 0 -7 22 4 4 8
+sort 1 2 3 4 5 6 7 8 9 10
+str_to_int 1234
+str_to_int 0x1f
+str_to_int 0b1010
+str_to_int 0xdeadbee
+str_to_int 0
+to_upper hello
+to_upper Hello_World_123
+to_upper already_UPPER
+-a fib_rec 0
+-a fib_rec 1
+-a fib_rec 2
+-a fib_rec 10
+-a fib_rec 20
+-a get_bitseq 94116 12 15
+-a get_bitseq 1023 4 7
+-a get_bitseq 305419896 8 15
+-a get_bitseq -1 0 31
+-a int_to_str 1234 -o 10
+-a int_to_str 1234 -o 16
+-a int_to_str 255 -o 2
+-a int_to_str -42 -o 10
+-a int_to_str 0 -o 10
+-a is_pal racecar
+-a is_pal abba
+-a is_pal abcd
+-a is_pal a
+-a max3 1 2 3
+-a max3 3 2 1
+-a max3 -5 -2 -9
+-a max3 7 7 7
+-a midpoint 2 8
+-a midpoint 0 0
+-a midpoint -10 10
+-a midpoint 3 4
+-a quadratic 2 3 4 5
+-a quadratic -3 1 -2 7
+-a quadratic 0 0 0 0
+-a sort 5 3 9 1 7
+-a sort 1
+-a sort -3 10 0 -7 22 4 4 8
+-a sort 1 2 3 4 5 6 7 8 9 10
+-a str_to_int 1234
+-a str_to_int 0x1f
+-a str_to_int 0b1010
+-a str_to_int 0xdeadbee
+-a str_to_int 0
+-a to_upper hello
+-a to_upper Hello_World_123
+-a to_upper already_UPPER
+-dm 64 4 fib_rec 0
+-dm 64 4 fib_rec 1
+-dm 64 4 fib_rec 2
+-dm 64 4 fib_rec 10
+-dm 64 4 fib_rec 20
+-dm 64 4 get_bitseq 94116 12 15
+-dm 64 4 get_bitseq 1023 4 7
+-dm 64 4 get_bitseq 305419896 8 15
+-dm 64 4 get_bitseq -1 0 31
+-dm 64 4 int_to_str 1234 -o 10
+-dm 64 4 int_to_str 1234 -o 16
+-dm 64 4 int_to_str 255 -o 2
+-dm 64 4 int_to_str -42 -o 10
+-dm 64 4 int_to_str 0 -o 10
+-dm 64 4 is_pal racecar
+-dm 64 4 is_pal abba
+-dm 64 4 is_pal abcd
+-dm 64 4 is_pal a
+-dm 64 4 max3 1 2 3
+-dm 64 4 max3 3 2 1
+-dm 64 4 max3 -5 -2 -9
+-dm 64 4 max3 7 7 7
+-dm 64 4 midpoint 2 8
+-dm 64 4 midpoint 0 0
+-dm 64 4 midpoint -10 10
+-dm 64 4 midpoint 3 4
+-dm 64 4 quadratic 2 3 4 5
+-dm 64 4 quadratic -3 1 -2 7
+-dm 64 4 quadratic 0 0 0 0
+-dm 64 4 sort 5 3 9 1 7
+-dm 64 4 sort 1
+-dm 64 4 sort -3 10 0 -7 22 4 4 8
+-dm 64 4 sort 1 2 3 4 5 6 7 8 9 10
+-dm 64 4 str_to_int 1234
+-dm 64 4 str_to_int 0x1f
+-dm 64 4 str_to_int 0b1010
+-dm 64 4 str_to_int 0xdeadbee
+-dm 64 4 str_to_int 0
+-dm 64 4 to_upper hello
+-dm 64 4 to_upper Hello_World_123
+-dm 64 4 to_upper already_UPPER
+-dm 16 1 fib_rec 0
+-dm 16 1 fib_rec 1
+-dm 16 1 fib_rec 2
+-dm 16 1 fib_rec 10
+-dm 16 1 fib_rec 20
+-dm 16 1 get_bitseq 94116 12 15
+-dm 16 1 get_bitseq 1023 4 7
+-dm 16 1 get_bitseq 305419896 8 15
+-dm 16 1 get_bitseq -1 0 31
+-dm 16 1 int_to_str 1234 -o 10
+-dm 16 1 int_to_str 1234 -o 16
+-dm 16 1 int_to_str 255 -o 2
+-dm 16 1 int_to_str -42 -o 10
+-dm 16 1 int_to_str 0 -o 10
+-dm 16 1 is_pal racecar
+-dm 16 1 is_pal abba
+-dm 16 1 is_pal abcd
+-dm 16 1 is_pal a
+-dm 16 1 max3 1 2 3
+-dm 16 1 max3 3 2 1
+-dm 16 1 max3 -5 -2 -9
+-dm 16 1 max3 7 7 7
+-dm 16 1 midpoint 2 8
+-dm 16 1 midpoint 0 0
+-dm 16 1 midpoint -10 10
+-dm 16 1 midpoint 3 4
+-dm 16 1 quadratic 2 3 4 5
+-dm 16 1 quadratic -3 1 -2 7
+-dm 16 1 quadratic 0 0 0 0
+-dm 16 1 sort 5 3 9 1 7
+-dm 16 1 sort 1
+-dm 16 1 sort -3 10 0 -7 22 4 4 8
+-dm 16 1 sort 1 2 3 4 5 6 7 8 9 10
+-dm 16 1 str_to_int 1234
+-dm 16 1 str_to_int 0x1f
+-dm 16 1 str_to_int 0b1010
+-dm 16 1 str_to_int 0xdeadbee
+-dm 16 1 str_to_int 0
+-dm 16 1 to_upper hello
+-dm 16 1 to_upper Hello_World_123
+-dm 16 1 to_upper already_UPPER
+-dm 32 2 fib_rec 0
+-dm 32 2 fib_rec 1
+-dm 32 2 fib_rec 2
+-dm 32 2 fib_rec 10
+-dm 32 2 fib_rec 20
+-dm 32 2 get_bitseq 94116 12 15
+-dm 32 2 get_bitseq 1023 4 7
+-dm 32 2 get_bitseq 305419896 8 15
+-dm 32 2 get_bitseq -1 0 31
+-dm 32 2 int_to_str 1234 -o 10
+-dm 32 2 int_to_str 1234 -o 16
+-dm 32 2 int_to_str 255 -o 2
+-dm 32 2 int_to_str -42 -o 10
+-dm 32 2 int_to_str 0 -o 10
+-dm 32 2 is_pal racecar
+-dm 32 2 is_pal abba
+-dm 32 2 is_pal abcd
+-dm 32 2 is_pal a
+-dm 32 2 max3 1 2 3
+-dm 32 2 max3 3 2 1
+-dm 32 2 max3 -5 -2 -9
+-dm 32 2 max3 7 7 7
+-dm 32 2 midpoint 2 8
+-dm 32 2 midpoint 0 0
+-dm 32 2 midpoint -10 10
+-dm 32 2 midpoint 3 4
+-dm 32 2 quadratic 2 3 4 5
+-dm 32 2 quadratic -3 1 -2 7
+-dm 32 2 quadratic 0 0 0 0
+-dm 32 2 sort 5 3 9 1 7
+-dm 32 2 sort 1
+-dm 32 2 sort -3 10 0 -7 22 4 4 8
+-dm 32 2 sort 1 2 3 4 5 6 7 8 9 10
+-dm 32 2 str_to_int 1234
+-dm 32 2 str_to_int 0x1f
+-dm 32 2 str_to_int 0b1010
+-dm 32 2 str_to_int 0xdeadbee
+-dm 32 2 str_to_int 0
+-dm 32 2 to_upper hello
+-dm 32 2 to_upper Hello_World_123
+-dm 32 2 to_upper already_UPPER
+-sa 64 4 4 fib_rec 0
+-sa 64 4 4 fib_rec 1
+-sa 64 4 4 fib_rec 2
+-sa 64 4 4 fib_rec 10
+-sa 64 4 4 fib_rec 20
+-sa 64 4 4 get_bitseq 94116 12 15
+-sa 64 4 4 get_bitseq 1023 4 7
+-sa 64 4 4 get_bitseq 305419896 8 15
+-sa 64 4 4 get_bitseq -1 0 31
+-sa 64 4 4 int_to_str 1234 -o 10
+-sa 64 4 4 int_to_str 1234 -o 16
+-sa 64 4 4 int_to_str 255 -o 2
+-sa 64 4 4 int_to_str -42 -o 10
+-sa 64 4 4 int_to_str 0 -o 10
+-sa 64 4 4 is_pal racecar
+-sa 64 4 4 is_pal abba
+-sa 64 4 4 is_pal abcd
+-sa 64 4 4 is_pal a
+-sa 64 4 4 max3 1 2 3
+-sa 64 4 4 max3 3 2 1
+-sa 64 4 4 max3 -5 -2 -9
+-sa 64 4 4 max3 7 7 7
+-sa 64 4 4 midpoint 2 8
+-sa 64 4 4 midpoint 0 0
+-sa 64 4 4 midpoint -10 10
+-sa 64 4 4 midpoint 3 4
+-sa 64 4 4 quadratic 2 3 4 5
+-sa 64 4 4 quadratic -3 1 -2 7
+-sa 64 4 4 quadratic 0 0 0 0
+-sa 64 4 4 sort 5 3 9 1 7
+-sa 64 4 4 sort 1
+-sa 64 4 4 sort -3 10 0 -7 22 4 4 8
+-sa 64 4 4 sort 1 2 3 4 5 6 7 8 9 10
+-sa 64 4 4 str_to_int 1234
+-sa 64 4 4 str_to_int 0x1f
+-sa 64 4 4 str_to_int 0b1010
+-sa 64 4 4 str_to_int 0xdeadbee
+-sa 64 4 4 str_to_int 0
+-sa 64 4 4 to_upper hello
+-sa 64 4 4 to_upper Hello_World_123
+-sa 64 4 4 to_upper already_UPPER
+-sa 16 1 4 fib_rec 0
+-sa 16 1 4 fib_rec 1
+-sa 16 1 4 fib_rec 2
+-sa 16 1 4 fib_rec 10
+-sa 16 1 4 fib_rec 20
+-sa 16 1 4 get_bitseq 94116 12 15
+-sa 16 1 4 get_bitseq 1023 4 7
+-sa 16 1 4 get_bitseq 305419896 8 15
+-sa 16 1 4 get_bitseq -1 0 31
+-sa 16 1 4 int_to_str 1234 -o 10
+-sa 16 1 4 int_to_str 1234 -o 16
+-sa 16 1 4 int_to_str 255 -o 2
+-sa 16 1 4 int_to_str -42 -o 10
+-sa 16 1 4 int_to_str 0 -o 10
+-sa 16 1 4 is_pal racecar
+-sa 16 1 4 is_pal abba
+-sa 16 1 4 is_pal abcd
+-sa 16 1 4 is_pal a
+-sa 16 1 4 max3 1 2 3
+-sa 16 1 4 max3 3 2 1
+-sa 16 1 4 max3 -5 -2 -9
+-sa 16 1 4 max3 7 7 7
+-sa 16 1 4 midpoint 2 8
+-sa 16 1 4 midpoint 0 0
+-sa 16 1 4 midpoint -10 10
+-sa 16 1 4 midpoint 3 4
+-sa 16 1 4 quadratic 2 3 4 5
+-sa 16 1 4 quadratic -3 1 -2 7
+-sa 16 1 4 quadratic 0 0 0 0
+-sa 16 1 4 sort 5 3 9 1 7
+-sa 16 1 4 sort 1
+-sa 16 1 4 sort -3 10 0 -7 22 4 4 8
+-sa 16 1 4 sort 1 2 3 4 5 6 7 8 9 10
+-sa 16 1 4 str_to_int 1234
+-sa 16 1 4 str_to_int 0x1f
+-sa 16 1 4 str_to_int 0b1010
+-sa 16 1 4 str_to_int 0xdeadbee
+-sa 16 1 4 str_to_int 0
+-sa 16 1 4 to_upper hello
+-sa 16 1 4 to_upper Hello_World_123
+-sa 16 1 4 to_upper already_UPPER
+-sa 32 2 2 fib_rec 0
+-sa 32 2 2 fib_rec 1
+-sa 32 2 2 fib_rec 2
+-sa 32 2 2 fib_rec 10
+-sa 32 2 2 fib_rec 20
+-sa 32 2 2 get_bitseq 94116 12 15
+-sa 32 2 2 get_bitseq 1023 4 7
+-sa 32 2 2 get_bitseq 305419896 8 15
+-sa 32 2 2 get_bitseq -1 0 31
+-sa 32 2 2 int_to_str 1234 -o 10
+-sa 32 2 2 int_to_str 1234 -o 16
+-sa 32 2 2 int_to_str 255 -o 2
+-sa 32 2 2 int_to_str -42 -o 10
+-sa 32 2 2 int_to_str 0 -o 10
+-sa 32 2 2 is_pal racecar
+-sa 32 2 2 is_pal abba
+-sa 32 2 2 is_pal abcd
+-sa 32 2 2 is_pal a
+-sa 32 2 2 max3 1 2 3
+-sa 32 2 2 max3 3 2 1
+-sa 32 2 2 max3 -5 -2 -9
+-sa 32 2 2 max3 7 7 7
+-sa 32 2 2 midpoint 2 8
+-sa 32 2 2 midpoint 0 0
+-sa 32 2 2 midpoint -10 10
+-sa 32 2 2 midpoint 3 4
+-sa 32 2 2 quadratic 2 3 4 5
+-sa 32 2 2 quadratic -3 1 -2 7
+-sa 32 2 2 quadratic 0 0 0 0
+-sa 32 2 2 sort 5 3 9 1 7
+-sa 32 2 2 sort 1
+-sa 32 2 2 sort -3 10 0 -7 22 4 4 8
+-sa 32 2 2 sort 1 2 3 4 5 6 7 8 9 10
+-sa 32 2 2 str_to_int 1234
+-sa 32 2 2 str_to_int 0x1f
+-sa 32 2 2 str_to_int 0b1010
+-sa 32 2 2 str_to_int 0xdeadbee
+-sa 32 2 2 str_to_int 0
+-sa 32 2 2 to_upper hello
+-sa 32 2 2 to_upper Hello_World_123
+-sa 32 2 2 to_upper already_UPPER
+-sa 64 1 8 fib_rec 0
+-sa 64 1 8 fib_rec 1
+-sa 64 1 8 fib_rec 2
+-sa 64 1 8 fib_rec 10
+-sa 64 1 8 fib_rec 20
+-sa 64 1 8 get_bitseq 94116 12 15
+-sa 64 1 8 get_bitseq 1023 4 7
+-sa 64 1 8 get_bitseq 305419896 8 15
+-sa 64 1 8 get_bitseq -1 0 31
+-sa 64 1 8 int_to_str 1234 -o 10
+-sa 64 1 8 int_to_str 1234 -o 16
+-sa 64 1 8 int_to_str 255 -o 2
+-sa 64 1 8 int_to_str -42 -o 10
+-sa 64 1 8 int_to_str 0 -o 10
+-sa 64 1 8 is_pal racecar
+-sa 64 1 8 is_pal abba
+-sa 64 1 8 is_pal abcd
+-sa 64 1 8 is_pal a
+-sa 64 1 8 max3 1 2 3
+-sa 64 1 8 max3 3 2 1
+-sa 64 1 8 max3 -5 -2 -9
+-sa 64 1 8 max3 7 7 7
+-sa 64 1 8 midpoint 2 8
+-sa 64 1 8 midpoint 0 0
+-sa 64 1 8 midpoint -10 10
+-sa 64 1 8 midpoint 3 4
+-sa 64 1 8 quadratic 2 3 4 5
+-sa 64 1 8 quadratic -3 1 -2 7
+-sa 64 1 8 quadratic 0 0 0 0
+-sa 64 1 8 sort 5 3 9 1 7
+-sa 64 1 8 sort 1
+-sa 64 1 8 sort -3 10 0 -7 22 4 4 8
+-sa 64 1 8 sort 1 2 3 4 5 6 7 8 9 10
+-sa 64 1 8 str_to_int 1234
+-sa 64 1 8 str_to_int 0x1f
+-sa 64 1 8 str_to_int 0b1010
+-sa 64 1 8 str_to_int 0xdeadbee
+-sa 64 1 8 str_to_int 0
+-sa 64 1 8 to_upper hello
+-sa 64 1 8 to_upper Hello_World_123
+-sa 64 1 8 to_upper already_UPPER
+
+bogus 1 2

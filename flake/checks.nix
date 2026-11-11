@@ -14,15 +14,23 @@
       riscv64,
       ...
     }:
+    let
+      # qemu-riscv64 on systems other than RISC-V
+      emulator = riscv64.stdenv.hostPlatform.emulator pkgs;
+      rv64_emu = lib.getExe config.packages.rv64_emu;
+    in
     {
       checks = {
         reuse = pkgs.runCommandLocal "reuse-lint" { nativeBuildInputs = [ pkgs.reuse ]; } ''
           reuse --root ${../.} lint
           touch "$out"
         '';
-        # Through qemu-riscv64 on systems other than RISC-V
         agree = pkgs.runCommandLocal "rv64_emu-agree" { } ''
-          sh ${./agree.sh} ${riscv64.stdenv.hostPlatform.emulator pkgs} ${lib.getExe config.packages.rv64_emu}
+          sh ${./agree.sh} ${emulator} ${rv64_emu}
+          touch "$out"
+        '';
+        tests = pkgs.runCommandLocal "rv64_emu-tests" { } ''
+          RUN=${emulator} sh ${../tests}/run.sh ${rv64_emu}
           touch "$out"
         '';
       };
