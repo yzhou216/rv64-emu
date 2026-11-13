@@ -4,9 +4,14 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+/* getopt() and getsubopt(), which ISO C leaves out */
+#define _POSIX_C_SOURCE 200809L
+
+#include <errno.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <unistd.h>
 
 #include "harness.h"
 #include "emu/rv_emu.h"
@@ -17,12 +22,64 @@ static bool analyze;
 
 [[noreturn]] static void usage(void)
 {
-	fputs("usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]\n"
+	fputs("usage: rv64_emu [-av] [-d size=<words>,block=<words>]\n"
+	      "                [-s size=<words>,block=<words>,ways=<n>]\n"
 	      "                <prog> [<arg> ...]\n"
 	      "\n"
 	      "programs:\n", stderr);
 	print_tests(stderr);
 	exit(EXIT_FAILURE);
+}
+
+/* Parse a decimal int, or return false if arg is not one */
+static bool parse_int(const char *arg, int *value)
+{
+	char *end;
+
+	errno = 0;
+	long n = strtol(arg, &end, 10);
+	if (end == arg || *end || errno || n < INT_MIN || n > INT_MAX)
+		return false;
+	*value = n;
+	return true;
+}
+
+/* Parameters of the cache, which -d and -s take as suboptions */
+enum param { SIZE, BLOCK, WAYS, NPARAMS };
+
+static char *const params[] = {
+	[SIZE] = "size",
+	[BLOCK] = "block",
+	[WAYS] = "ways",
+	[NPARAMS] = nullptr,
+};
+
+/*
+ * Configure a cache of the given type from the suboptions in arg: size
+ * and block for both types, and ways for a set-associative one.
+ */
+static void parse_cache(struct cache *cache, enum cache_type type, char *arg)
+{
+	int *fields[NPARAMS] = {
+		[SIZE] = &cache->size,
+		[BLOCK] = &cache->block_size,
+		[WAYS] = &cache->ways,
+	};
+	bool given[NPARAMS] = {};
+	char *value;
+
+	cache->type = type;
+	cache->ways = 1;
+	while (*arg) {
+		int i = getsubopt(&arg, params, &value);
+
+		if (i < 0 || (i == WAYS && type != CACHE_SA) || !value ||
+		    !parse_int(value, fields[i]))
+			usage();
+		given[i] = true;
+	}
+	if (!given[SIZE] || !given[BLOCK] || (type == CACHE_SA && !given[WAYS]))
+		usage();
 }
 
 /*
@@ -31,26 +88,30 @@ static bool analyze;
  */
 static int parse_params(int argc, char **argv, struct rv_state *state)
 {
-	int i;
+	int opt;
 
-	for (i = 1; i < argc && argv[i][0] == '-'; i++) {
-		if (!strcmp(argv[i], "-a")) {
+	/*
+	 * The + keeps the getopt() of glibc from permuting argv, which POSIX
+	 * getopt() never does, so that the arguments of the emulated program,
+	 * such as the -o of int_to_str and negative numbers, stay its own.
+	 * Errors print the usage instead of a message with the path in argv[0].
+	 */
+	opterr = 0;
+	while ((opt = getopt(argc, argv, "+ad:s:v")) != -1) {
+		switch (opt) {
+		case 'a':
 			analyze = true;
-		} else if (!strcmp(argv[i], "-dm") && i + 2 < argc) {
-			state->icache.type = CACHE_DM;
-			state->icache.size = atoi(argv[i + 1]);
-			state->icache.block_size = atoi(argv[i + 2]);
-			state->icache.ways = 1;
-			i += 2;
-		} else if (!strcmp(argv[i], "-sa") && i + 3 < argc) {
-			state->icache.type = CACHE_SA;
-			state->icache.size = atoi(argv[i + 1]);
-			state->icache.block_size = atoi(argv[i + 2]);
-			state->icache.ways = atoi(argv[i + 3]);
-			i += 3;
-		} else if (!strcmp(argv[i], "-v")) {
+			break;
+		case 'd':
+			parse_cache(&state->icache, CACHE_DM, optarg);
+			break;
+		case 's':
+			parse_cache(&state->icache, CACHE_SA, optarg);
+			break;
+		case 'v':
 			verbose_on = true;
-		} else {
+			break;
+		default:
 			usage();
 		}
 	}
@@ -59,7 +120,7 @@ static int parse_params(int argc, char **argv, struct rv_state *state)
 		fatal("cannot simulate a %d-way cache of %d words in %d-word blocks",
 		      state->icache.ways, state->icache.size,
 		      state->icache.block_size);
-	return i;
+	return optind;
 }
 
 int main(int argc, char **argv)

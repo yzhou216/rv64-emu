@@ -46,8 +46,8 @@ and `nix flake check` runs the tests under QEMU:
 
     ./rv64_emu fib_rec 10
     ./rv64_emu -a sort 5 3 9 1 7
-    ./rv64_emu -dm 64 4 to_upper hello
-    ./rv64_emu -sa 64 4 4 is_pal racecar
+    ./rv64_emu -d size=64,block=4 to_upper hello
+    ./rv64_emu -s size=64,block=4,ways=4 is_pal racecar
 
 Run `./rv64_emu` without arguments to list the options and programs.
 

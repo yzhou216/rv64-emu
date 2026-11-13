@@ -36,7 +36,7 @@ sort 5 3 9 1 7
 str_to_int 0x1f
 to_upper hello
 -a sort 5 3 9 1 7
--dm 64 4 to_upper hello
--sa 64 4 4 is_pal racecar
+-d size=64,block=4 to_upper hello
+-s size=64,block=4,ways=4 is_pal racecar
 CASES
 exit $status

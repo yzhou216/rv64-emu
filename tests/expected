@@ -797,7 +797,7 @@ Conditional branches   = 34 (30.63%)
   Branches taken       = 7 (20.59%)
   Branches not taken   = 27 (79.41%)
 [exit 0]
-$ -dm 64 4 fib_rec 0
+$ -d size=64,block=4 fib_rec 0
 C: 0
 Asm: 0
 Emu: 0
@@ -813,7 +813,7 @@ Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -dm 64 4 fib_rec 1
+$ -d size=64,block=4 fib_rec 1
 C: 1
 Asm: 1
 Emu: 1
@@ -829,7 +829,7 @@ Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -dm 64 4 fib_rec 2
+$ -d size=64,block=4 fib_rec 2
 C: 1
 Asm: 1
 Emu: 1
@@ -845,7 +845,7 @@ Misses (cold) = 5
 Misses (hot)  = 0
 % Used        = 31.25%
 [exit 0]
-$ -dm 64 4 fib_rec 10
+$ -d size=64,block=4 fib_rec 10
 C: 55
 Asm: 55
 Emu: 55
@@ -861,7 +861,7 @@ Misses (cold) = 5
 Misses (hot)  = 0
 % Used        = 31.25%
 [exit 0]
-$ -dm 64 4 fib_rec 20
+$ -d size=64,block=4 fib_rec 20
 C: 6765
 Asm: 6765
 Emu: 6765
@@ -877,7 +877,7 @@ Misses (cold) = 5
 Misses (hot)  = 0
 % Used        = 31.25%
 [exit 0]
-$ -dm 64 4 get_bitseq 94116 12 15
+$ -d size=64,block=4 get_bitseq 94116 12 15
 C: 6
 Asm: 6
 Emu: 6
@@ -893,7 +893,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -dm 64 4 get_bitseq 1023 4 7
+$ -d size=64,block=4 get_bitseq 1023 4 7
 C: 15
 Asm: 15
 Emu: 15
@@ -909,7 +909,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -dm 64 4 get_bitseq 305419896 8 15
+$ -d size=64,block=4 get_bitseq 305419896 8 15
 C: 86
 Asm: 86
 Emu: 86
@@ -925,7 +925,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -dm 64 4 get_bitseq -1 0 31
+$ -d size=64,block=4 get_bitseq -1 0 31
 C: -1
 Asm: -1
 Emu: -1
@@ -941,7 +941,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -dm 64 4 int_to_str 1234 -o 10
+$ -d size=64,block=4 int_to_str 1234 -o 10
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -957,7 +957,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -dm 64 4 int_to_str 1234 -o 16
+$ -d size=64,block=4 int_to_str 1234 -o 16
 C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
@@ -973,7 +973,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
-$ -dm 64 4 int_to_str 255 -o 2
+$ -d size=64,block=4 int_to_str 255 -o 2
 C: 0b11111111
 Asm: 0b11111111
 Emu: 0b11111111
@@ -989,7 +989,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
-$ -dm 64 4 int_to_str -42 -o 10
+$ -d size=64,block=4 int_to_str -42 -o 10
 C: 4294967254
 Asm: 4294967254
 Emu: 4294967254
@@ -1005,7 +1005,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -dm 64 4 int_to_str 0 -o 10
+$ -d size=64,block=4 int_to_str 0 -o 10
 C: 0
 Asm: 0
 Emu: 0
@@ -1021,7 +1021,7 @@ Misses (cold) = 7
 Misses (hot)  = 0
 % Used        = 43.75%
 [exit 0]
-$ -dm 64 4 is_pal racecar
+$ -d size=64,block=4 is_pal racecar
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -1037,7 +1037,7 @@ Misses (cold) = 5
 Misses (hot)  = 0
 % Used        = 31.25%
 [exit 0]
-$ -dm 64 4 is_pal abba
+$ -d size=64,block=4 is_pal abba
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -1053,7 +1053,7 @@ Misses (cold) = 5
 Misses (hot)  = 0
 % Used        = 31.25%
 [exit 0]
-$ -dm 64 4 is_pal abcd
+$ -d size=64,block=4 is_pal abcd
 C: is not a palindrome
 Asm: is not a palindrome
 Emu: is not a palindrome
@@ -1069,7 +1069,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -dm 64 4 is_pal a
+$ -d size=64,block=4 is_pal a
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -1085,7 +1085,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -dm 64 4 max3 1 2 3
+$ -d size=64,block=4 max3 1 2 3
 C: 3
 Asm: 3
 Emu: 3
@@ -1101,7 +1101,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -dm 64 4 max3 3 2 1
+$ -d size=64,block=4 max3 3 2 1
 C: 3
 Asm: 3
 Emu: 3
@@ -1117,7 +1117,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -dm 64 4 max3 -5 -2 -9
+$ -d size=64,block=4 max3 -5 -2 -9
 C: -2
 Asm: -2
 Emu: -2
@@ -1133,7 +1133,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -dm 64 4 max3 7 7 7
+$ -d size=64,block=4 max3 7 7 7
 C: 7
 Asm: 7
 Emu: 7
@@ -1149,7 +1149,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -dm 64 4 midpoint 2 8
+$ -d size=64,block=4 midpoint 2 8
 C: 5
 Asm: 5
 Emu: 5
@@ -1165,7 +1165,7 @@ Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -dm 64 4 midpoint 0 0
+$ -d size=64,block=4 midpoint 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -1181,7 +1181,7 @@ Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -dm 64 4 midpoint -10 10
+$ -d size=64,block=4 midpoint -10 10
 C: 0
 Asm: 0
 Emu: 0
@@ -1197,7 +1197,7 @@ Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -dm 64 4 midpoint 3 4
+$ -d size=64,block=4 midpoint 3 4
 C: 3
 Asm: 3
 Emu: 3
@@ -1213,7 +1213,7 @@ Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -dm 64 4 quadratic 2 3 4 5
+$ -d size=64,block=4 quadratic 2 3 4 5
 C: 25
 Asm: 25
 Emu: 25
@@ -1229,7 +1229,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -dm 64 4 quadratic -3 1 -2 7
+$ -d size=64,block=4 quadratic -3 1 -2 7
 C: 22
 Asm: 22
 Emu: 22
@@ -1245,7 +1245,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -dm 64 4 quadratic 0 0 0 0
+$ -d size=64,block=4 quadratic 0 0 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -1261,7 +1261,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -dm 64 4 sort 5 3 9 1 7
+$ -d size=64,block=4 sort 5 3 9 1 7
 C: 9 7 5 3 1
 Asm: 9 7 5 3 1
 Emu: 9 7 5 3 1
@@ -1277,7 +1277,7 @@ Misses (cold) = 10
 Misses (hot)  = 36
 % Used        = 62.50%
 [exit 0]
-$ -dm 64 4 sort 1
+$ -d size=64,block=4 sort 1
 C: 1
 Asm: 1
 Emu: 1
@@ -1293,7 +1293,7 @@ Misses (cold) = 10
 Misses (hot)  = 4
 % Used        = 62.50%
 [exit 0]
-$ -dm 64 4 sort -3 10 0 -7 22 4 4 8
+$ -d size=64,block=4 sort -3 10 0 -7 22 4 4 8
 C: 22 10 8 4 4 0 -3 -7
 Asm: 22 10 8 4 4 0 -3 -7
 Emu: 22 10 8 4 4 0 -3 -7
@@ -1309,7 +1309,7 @@ Misses (cold) = 10
 Misses (hot)  = 60
 % Used        = 62.50%
 [exit 0]
-$ -dm 64 4 sort 1 2 3 4 5 6 7 8 9 10
+$ -d size=64,block=4 sort 1 2 3 4 5 6 7 8 9 10
 C: 10 9 8 7 6 5 4 3 2 1
 Asm: 10 9 8 7 6 5 4 3 2 1
 Emu: 10 9 8 7 6 5 4 3 2 1
@@ -1325,7 +1325,7 @@ Misses (cold) = 10
 Misses (hot)  = 76
 % Used        = 62.50%
 [exit 0]
-$ -dm 64 4 str_to_int 1234
+$ -d size=64,block=4 str_to_int 1234
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -1341,7 +1341,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -dm 64 4 str_to_int 0x1f
+$ -d size=64,block=4 str_to_int 0x1f
 C: 31
 Asm: 31
 Emu: 31
@@ -1357,7 +1357,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -dm 64 4 str_to_int 0b1010
+$ -d size=64,block=4 str_to_int 0b1010
 C: 10
 Asm: 10
 Emu: 10
@@ -1373,7 +1373,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -dm 64 4 str_to_int 0xdeadbee
+$ -d size=64,block=4 str_to_int 0xdeadbee
 C: 233495534
 Asm: 233495534
 Emu: 233495534
@@ -1389,7 +1389,7 @@ Misses (cold) = 8
 Misses (hot)  = 0
 % Used        = 50.00%
 [exit 0]
-$ -dm 64 4 str_to_int 0
+$ -d size=64,block=4 str_to_int 0
 C: 0
 Asm: 0
 Emu: 0
@@ -1405,7 +1405,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -dm 64 4 to_upper hello
+$ -d size=64,block=4 to_upper hello
 C: HELLO
 Asm: HELLO
 Emu: HELLO
@@ -1421,7 +1421,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -dm 64 4 to_upper Hello_World_123
+$ -d size=64,block=4 to_upper Hello_World_123
 C: HELLO_WORLD_123
 Asm: HELLO_WORLD_123
 Emu: HELLO_WORLD_123
@@ -1437,7 +1437,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -dm 64 4 to_upper already_UPPER
+$ -d size=64,block=4 to_upper already_UPPER
 C: ALREADY_UPPER
 Asm: ALREADY_UPPER
 Emu: ALREADY_UPPER
@@ -1453,7 +1453,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -dm 16 1 fib_rec 0
+$ -d size=16,block=1 fib_rec 0
 C: 0
 Asm: 0
 Emu: 0
@@ -1469,7 +1469,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -dm 16 1 fib_rec 1
+$ -d size=16,block=1 fib_rec 1
 C: 1
 Asm: 1
 Emu: 1
@@ -1485,7 +1485,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -dm 16 1 fib_rec 2
+$ -d size=16,block=1 fib_rec 2
 C: 1
 Asm: 1
 Emu: 1
@@ -1501,7 +1501,7 @@ Misses (cold) = 16
 Misses (hot)  = 1
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 fib_rec 10
+$ -d size=16,block=1 fib_rec 10
 C: 55
 Asm: 55
 Emu: 55
@@ -1517,7 +1517,7 @@ Misses (cold) = 16
 Misses (hot)  = 109
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 fib_rec 20
+$ -d size=16,block=1 fib_rec 20
 C: 6765
 Asm: 6765
 Emu: 6765
@@ -1533,7 +1533,7 @@ Misses (cold) = 16
 Misses (hot)  = 13529
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 get_bitseq 94116 12 15
+$ -d size=16,block=1 get_bitseq 94116 12 15
 C: 6
 Asm: 6
 Emu: 6
@@ -1549,7 +1549,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
-$ -dm 16 1 get_bitseq 1023 4 7
+$ -d size=16,block=1 get_bitseq 1023 4 7
 C: 15
 Asm: 15
 Emu: 15
@@ -1565,7 +1565,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
-$ -dm 16 1 get_bitseq 305419896 8 15
+$ -d size=16,block=1 get_bitseq 305419896 8 15
 C: 86
 Asm: 86
 Emu: 86
@@ -1581,7 +1581,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
-$ -dm 16 1 get_bitseq -1 0 31
+$ -d size=16,block=1 get_bitseq -1 0 31
 C: -1
 Asm: -1
 Emu: -1
@@ -1597,7 +1597,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
-$ -dm 16 1 int_to_str 1234 -o 10
+$ -d size=16,block=1 int_to_str 1234 -o 10
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -1613,7 +1613,7 @@ Misses (cold) = 15
 Misses (hot)  = 14
 % Used        = 93.75%
 [exit 0]
-$ -dm 16 1 int_to_str 1234 -o 16
+$ -d size=16,block=1 int_to_str 1234 -o 16
 C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
@@ -1629,7 +1629,7 @@ Misses (cold) = 16
 Misses (hot)  = 19
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 int_to_str 255 -o 2
+$ -d size=16,block=1 int_to_str 255 -o 2
 C: 0b11111111
 Asm: 0b11111111
 Emu: 0b11111111
@@ -1645,7 +1645,7 @@ Misses (cold) = 15
 Misses (hot)  = 19
 % Used        = 93.75%
 [exit 0]
-$ -dm 16 1 int_to_str -42 -o 10
+$ -d size=16,block=1 int_to_str -42 -o 10
 C: 4294967254
 Asm: 4294967254
 Emu: 4294967254
@@ -1661,7 +1661,7 @@ Misses (cold) = 15
 Misses (hot)  = 14
 % Used        = 93.75%
 [exit 0]
-$ -dm 16 1 int_to_str 0 -o 10
+$ -d size=16,block=1 int_to_str 0 -o 10
 C: 0
 Asm: 0
 Emu: 0
@@ -1677,7 +1677,7 @@ Misses (cold) = 11
 Misses (hot)  = 12
 % Used        = 68.75%
 [exit 0]
-$ -dm 16 1 is_pal racecar
+$ -d size=16,block=1 is_pal racecar
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -1693,7 +1693,7 @@ Misses (cold) = 14
 Misses (hot)  = 2
 % Used        = 87.50%
 [exit 0]
-$ -dm 16 1 is_pal abba
+$ -d size=16,block=1 is_pal abba
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -1709,7 +1709,7 @@ Misses (cold) = 14
 Misses (hot)  = 2
 % Used        = 87.50%
 [exit 0]
-$ -dm 16 1 is_pal abcd
+$ -d size=16,block=1 is_pal abcd
 C: is not a palindrome
 Asm: is not a palindrome
 Emu: is not a palindrome
@@ -1725,7 +1725,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -dm 16 1 is_pal a
+$ -d size=16,block=1 is_pal a
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -1741,7 +1741,7 @@ Misses (cold) = 3
 Misses (hot)  = 1
 % Used        = 18.75%
 [exit 0]
-$ -dm 16 1 max3 1 2 3
+$ -d size=16,block=1 max3 1 2 3
 C: 3
 Asm: 3
 Emu: 3
@@ -1757,7 +1757,7 @@ Misses (cold) = 12
 Misses (hot)  = 0
 % Used        = 75.00%
 [exit 0]
-$ -dm 16 1 max3 3 2 1
+$ -d size=16,block=1 max3 3 2 1
 C: 3
 Asm: 3
 Emu: 3
@@ -1773,7 +1773,7 @@ Misses (cold) = 12
 Misses (hot)  = 0
 % Used        = 75.00%
 [exit 0]
-$ -dm 16 1 max3 -5 -2 -9
+$ -d size=16,block=1 max3 -5 -2 -9
 C: -2
 Asm: -2
 Emu: -2
@@ -1789,7 +1789,7 @@ Misses (cold) = 12
 Misses (hot)  = 0
 % Used        = 75.00%
 [exit 0]
-$ -dm 16 1 max3 7 7 7
+$ -d size=16,block=1 max3 7 7 7
 C: 7
 Asm: 7
 Emu: 7
@@ -1805,7 +1805,7 @@ Misses (cold) = 11
 Misses (hot)  = 0
 % Used        = 68.75%
 [exit 0]
-$ -dm 16 1 midpoint 2 8
+$ -d size=16,block=1 midpoint 2 8
 C: 5
 Asm: 5
 Emu: 5
@@ -1821,7 +1821,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -dm 16 1 midpoint 0 0
+$ -d size=16,block=1 midpoint 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -1837,7 +1837,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -dm 16 1 midpoint -10 10
+$ -d size=16,block=1 midpoint -10 10
 C: 0
 Asm: 0
 Emu: 0
@@ -1853,7 +1853,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -dm 16 1 midpoint 3 4
+$ -d size=16,block=1 midpoint 3 4
 C: 3
 Asm: 3
 Emu: 3
@@ -1869,7 +1869,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -dm 16 1 quadratic 2 3 4 5
+$ -d size=16,block=1 quadratic 2 3 4 5
 C: 25
 Asm: 25
 Emu: 25
@@ -1885,7 +1885,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -dm 16 1 quadratic -3 1 -2 7
+$ -d size=16,block=1 quadratic -3 1 -2 7
 C: 22
 Asm: 22
 Emu: 22
@@ -1901,7 +1901,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -dm 16 1 quadratic 0 0 0 0
+$ -d size=16,block=1 quadratic 0 0 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -1917,7 +1917,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -dm 16 1 sort 5 3 9 1 7
+$ -d size=16,block=1 sort 5 3 9 1 7
 C: 9 7 5 3 1
 Asm: 9 7 5 3 1
 Emu: 9 7 5 3 1
@@ -1933,7 +1933,7 @@ Misses (cold) = 16
 Misses (hot)  = 199
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 sort 1
+$ -d size=16,block=1 sort 1
 C: 1
 Asm: 1
 Emu: 1
@@ -1949,7 +1949,7 @@ Misses (cold) = 16
 Misses (hot)  = 35
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 sort -3 10 0 -7 22 4 4 8
+$ -d size=16,block=1 sort -3 10 0 -7 22 4 4 8
 C: 22 10 8 4 4 0 -3 -7
 Asm: 22 10 8 4 4 0 -3 -7
 Emu: 22 10 8 4 4 0 -3 -7
@@ -1965,7 +1965,7 @@ Misses (cold) = 16
 Misses (hot)  = 322
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 sort 1 2 3 4 5 6 7 8 9 10
+$ -d size=16,block=1 sort 1 2 3 4 5 6 7 8 9 10
 C: 10 9 8 7 6 5 4 3 2 1
 Asm: 10 9 8 7 6 5 4 3 2 1
 Emu: 10 9 8 7 6 5 4 3 2 1
@@ -1981,7 +1981,7 @@ Misses (cold) = 16
 Misses (hot)  = 404
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 str_to_int 1234
+$ -d size=16,block=1 str_to_int 1234
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -1997,7 +1997,7 @@ Misses (cold) = 16
 Misses (hot)  = 21
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 str_to_int 0x1f
+$ -d size=16,block=1 str_to_int 0x1f
 C: 31
 Asm: 31
 Emu: 31
@@ -2013,7 +2013,7 @@ Misses (cold) = 16
 Misses (hot)  = 19
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 str_to_int 0b1010
+$ -d size=16,block=1 str_to_int 0b1010
 C: 10
 Asm: 10
 Emu: 10
@@ -2029,7 +2029,7 @@ Misses (cold) = 16
 Misses (hot)  = 21
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 str_to_int 0xdeadbee
+$ -d size=16,block=1 str_to_int 0xdeadbee
 C: 233495534
 Asm: 233495534
 Emu: 233495534
@@ -2045,7 +2045,7 @@ Misses (cold) = 16
 Misses (hot)  = 26
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 str_to_int 0
+$ -d size=16,block=1 str_to_int 0
 C: 0
 Asm: 0
 Emu: 0
@@ -2061,7 +2061,7 @@ Misses (cold) = 16
 Misses (hot)  = 15
 % Used        = 100.00%
 [exit 0]
-$ -dm 16 1 to_upper hello
+$ -d size=16,block=1 to_upper hello
 C: HELLO
 Asm: HELLO
 Emu: HELLO
@@ -2077,7 +2077,7 @@ Misses (cold) = 13
 Misses (hot)  = 0
 % Used        = 81.25%
 [exit 0]
-$ -dm 16 1 to_upper Hello_World_123
+$ -d size=16,block=1 to_upper Hello_World_123
 C: HELLO_WORLD_123
 Asm: HELLO_WORLD_123
 Emu: HELLO_WORLD_123
@@ -2093,7 +2093,7 @@ Misses (cold) = 13
 Misses (hot)  = 0
 % Used        = 81.25%
 [exit 0]
-$ -dm 16 1 to_upper already_UPPER
+$ -d size=16,block=1 to_upper already_UPPER
 C: ALREADY_UPPER
 Asm: ALREADY_UPPER
 Emu: ALREADY_UPPER
@@ -2109,7 +2109,7 @@ Misses (cold) = 13
 Misses (hot)  = 0
 % Used        = 81.25%
 [exit 0]
-$ -dm 32 2 fib_rec 0
+$ -d size=32,block=2 fib_rec 0
 C: 0
 Asm: 0
 Emu: 0
@@ -2125,7 +2125,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -dm 32 2 fib_rec 1
+$ -d size=32,block=2 fib_rec 1
 C: 1
 Asm: 1
 Emu: 1
@@ -2141,7 +2141,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -dm 32 2 fib_rec 2
+$ -d size=32,block=2 fib_rec 2
 C: 1
 Asm: 1
 Emu: 1
@@ -2157,7 +2157,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -dm 32 2 fib_rec 10
+$ -d size=32,block=2 fib_rec 10
 C: 55
 Asm: 55
 Emu: 55
@@ -2173,7 +2173,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -dm 32 2 fib_rec 20
+$ -d size=32,block=2 fib_rec 20
 C: 6765
 Asm: 6765
 Emu: 6765
@@ -2189,7 +2189,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -dm 32 2 get_bitseq 94116 12 15
+$ -d size=32,block=2 get_bitseq 94116 12 15
 C: 6
 Asm: 6
 Emu: 6
@@ -2205,7 +2205,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -dm 32 2 get_bitseq 1023 4 7
+$ -d size=32,block=2 get_bitseq 1023 4 7
 C: 15
 Asm: 15
 Emu: 15
@@ -2221,7 +2221,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -dm 32 2 get_bitseq 305419896 8 15
+$ -d size=32,block=2 get_bitseq 305419896 8 15
 C: 86
 Asm: 86
 Emu: 86
@@ -2237,7 +2237,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -dm 32 2 get_bitseq -1 0 31
+$ -d size=32,block=2 get_bitseq -1 0 31
 C: -1
 Asm: -1
 Emu: -1
@@ -2253,7 +2253,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -dm 32 2 int_to_str 1234 -o 10
+$ -d size=32,block=2 int_to_str 1234 -o 10
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -2269,7 +2269,7 @@ Misses (cold) = 13
 Misses (hot)  = 4
 % Used        = 81.25%
 [exit 0]
-$ -dm 32 2 int_to_str 1234 -o 16
+$ -d size=32,block=2 int_to_str 1234 -o 16
 C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
@@ -2285,7 +2285,7 @@ Misses (cold) = 15
 Misses (hot)  = 4
 % Used        = 93.75%
 [exit 0]
-$ -dm 32 2 int_to_str 255 -o 2
+$ -d size=32,block=2 int_to_str 255 -o 2
 C: 0b11111111
 Asm: 0b11111111
 Emu: 0b11111111
@@ -2301,7 +2301,7 @@ Misses (cold) = 13
 Misses (hot)  = 6
 % Used        = 81.25%
 [exit 0]
-$ -dm 32 2 int_to_str -42 -o 10
+$ -d size=32,block=2 int_to_str -42 -o 10
 C: 4294967254
 Asm: 4294967254
 Emu: 4294967254
@@ -2317,7 +2317,7 @@ Misses (cold) = 13
 Misses (hot)  = 4
 % Used        = 81.25%
 [exit 0]
-$ -dm 32 2 int_to_str 0 -o 10
+$ -d size=32,block=2 int_to_str 0 -o 10
 C: 0
 Asm: 0
 Emu: 0
@@ -2333,7 +2333,7 @@ Misses (cold) = 9
 Misses (hot)  = 4
 % Used        = 56.25%
 [exit 0]
-$ -dm 32 2 is_pal racecar
+$ -d size=32,block=2 is_pal racecar
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -2349,7 +2349,7 @@ Misses (cold) = 8
 Misses (hot)  = 0
 % Used        = 50.00%
 [exit 0]
-$ -dm 32 2 is_pal abba
+$ -d size=32,block=2 is_pal abba
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -2365,7 +2365,7 @@ Misses (cold) = 8
 Misses (hot)  = 0
 % Used        = 50.00%
 [exit 0]
-$ -dm 32 2 is_pal abcd
+$ -d size=32,block=2 is_pal abcd
 C: is not a palindrome
 Asm: is not a palindrome
 Emu: is not a palindrome
@@ -2381,7 +2381,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -dm 32 2 is_pal a
+$ -d size=32,block=2 is_pal a
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -2397,7 +2397,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -dm 32 2 max3 1 2 3
+$ -d size=32,block=2 max3 1 2 3
 C: 3
 Asm: 3
 Emu: 3
@@ -2413,7 +2413,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -dm 32 2 max3 3 2 1
+$ -d size=32,block=2 max3 3 2 1
 C: 3
 Asm: 3
 Emu: 3
@@ -2429,7 +2429,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -dm 32 2 max3 -5 -2 -9
+$ -d size=32,block=2 max3 -5 -2 -9
 C: -2
 Asm: -2
 Emu: -2
@@ -2445,7 +2445,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -dm 32 2 max3 7 7 7
+$ -d size=32,block=2 max3 7 7 7
 C: 7
 Asm: 7
 Emu: 7
@@ -2461,7 +2461,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -dm 32 2 midpoint 2 8
+$ -d size=32,block=2 midpoint 2 8
 C: 5
 Asm: 5
 Emu: 5
@@ -2477,7 +2477,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -dm 32 2 midpoint 0 0
+$ -d size=32,block=2 midpoint 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -2493,7 +2493,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -dm 32 2 midpoint -10 10
+$ -d size=32,block=2 midpoint -10 10
 C: 0
 Asm: 0
 Emu: 0
@@ -2509,7 +2509,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -dm 32 2 midpoint 3 4
+$ -d size=32,block=2 midpoint 3 4
 C: 3
 Asm: 3
 Emu: 3
@@ -2525,7 +2525,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -dm 32 2 quadratic 2 3 4 5
+$ -d size=32,block=2 quadratic 2 3 4 5
 C: 25
 Asm: 25
 Emu: 25
@@ -2541,7 +2541,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -dm 32 2 quadratic -3 1 -2 7
+$ -d size=32,block=2 quadratic -3 1 -2 7
 C: 22
 Asm: 22
 Emu: 22
@@ -2557,7 +2557,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -dm 32 2 quadratic 0 0 0 0
+$ -d size=32,block=2 quadratic 0 0 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -2573,7 +2573,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -dm 32 2 sort 5 3 9 1 7
+$ -d size=32,block=2 sort 5 3 9 1 7
 C: 9 7 5 3 1
 Asm: 9 7 5 3 1
 Emu: 9 7 5 3 1
@@ -2589,7 +2589,7 @@ Misses (cold) = 16
 Misses (hot)  = 66
 % Used        = 100.00%
 [exit 0]
-$ -dm 32 2 sort 1
+$ -d size=32,block=2 sort 1
 C: 1
 Asm: 1
 Emu: 1
@@ -2605,7 +2605,7 @@ Misses (cold) = 16
 Misses (hot)  = 10
 % Used        = 100.00%
 [exit 0]
-$ -dm 32 2 sort -3 10 0 -7 22 4 4 8
+$ -d size=32,block=2 sort -3 10 0 -7 22 4 4 8
 C: 22 10 8 4 4 0 -3 -7
 Asm: 22 10 8 4 4 0 -3 -7
 Emu: 22 10 8 4 4 0 -3 -7
@@ -2621,7 +2621,7 @@ Misses (cold) = 16
 Misses (hot)  = 108
 % Used        = 100.00%
 [exit 0]
-$ -dm 32 2 sort 1 2 3 4 5 6 7 8 9 10
+$ -d size=32,block=2 sort 1 2 3 4 5 6 7 8 9 10
 C: 10 9 8 7 6 5 4 3 2 1
 Asm: 10 9 8 7 6 5 4 3 2 1
 Emu: 10 9 8 7 6 5 4 3 2 1
@@ -2637,7 +2637,7 @@ Misses (cold) = 16
 Misses (hot)  = 136
 % Used        = 100.00%
 [exit 0]
-$ -dm 32 2 str_to_int 1234
+$ -d size=32,block=2 str_to_int 1234
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -2653,7 +2653,7 @@ Misses (cold) = 14
 Misses (hot)  = 1
 % Used        = 87.50%
 [exit 0]
-$ -dm 32 2 str_to_int 0x1f
+$ -d size=32,block=2 str_to_int 0x1f
 C: 31
 Asm: 31
 Emu: 31
@@ -2669,7 +2669,7 @@ Misses (cold) = 15
 Misses (hot)  = 1
 % Used        = 93.75%
 [exit 0]
-$ -dm 32 2 str_to_int 0b1010
+$ -d size=32,block=2 str_to_int 0b1010
 C: 10
 Asm: 10
 Emu: 10
@@ -2685,7 +2685,7 @@ Misses (cold) = 14
 Misses (hot)  = 1
 % Used        = 87.50%
 [exit 0]
-$ -dm 32 2 str_to_int 0xdeadbee
+$ -d size=32,block=2 str_to_int 0xdeadbee
 C: 233495534
 Asm: 233495534
 Emu: 233495534
@@ -2701,7 +2701,7 @@ Misses (cold) = 14
 Misses (hot)  = 1
 % Used        = 87.50%
 [exit 0]
-$ -dm 32 2 str_to_int 0
+$ -d size=32,block=2 str_to_int 0
 C: 0
 Asm: 0
 Emu: 0
@@ -2717,7 +2717,7 @@ Misses (cold) = 14
 Misses (hot)  = 1
 % Used        = 87.50%
 [exit 0]
-$ -dm 32 2 to_upper hello
+$ -d size=32,block=2 to_upper hello
 C: HELLO
 Asm: HELLO
 Emu: HELLO
@@ -2733,7 +2733,7 @@ Misses (cold) = 7
 Misses (hot)  = 0
 % Used        = 43.75%
 [exit 0]
-$ -dm 32 2 to_upper Hello_World_123
+$ -d size=32,block=2 to_upper Hello_World_123
 C: HELLO_WORLD_123
 Asm: HELLO_WORLD_123
 Emu: HELLO_WORLD_123
@@ -2749,7 +2749,7 @@ Misses (cold) = 7
 Misses (hot)  = 0
 % Used        = 43.75%
 [exit 0]
-$ -dm 32 2 to_upper already_UPPER
+$ -d size=32,block=2 to_upper already_UPPER
 C: ALREADY_UPPER
 Asm: ALREADY_UPPER
 Emu: ALREADY_UPPER
@@ -2765,7 +2765,7 @@ Misses (cold) = 7
 Misses (hot)  = 0
 % Used        = 43.75%
 [exit 0]
-$ -sa 64 4 4 fib_rec 0
+$ -s size=64,block=4,ways=4 fib_rec 0
 C: 0
 Asm: 0
 Emu: 0
@@ -2781,7 +2781,7 @@ Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -sa 64 4 4 fib_rec 1
+$ -s size=64,block=4,ways=4 fib_rec 1
 C: 1
 Asm: 1
 Emu: 1
@@ -2797,7 +2797,7 @@ Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -sa 64 4 4 fib_rec 2
+$ -s size=64,block=4,ways=4 fib_rec 2
 C: 1
 Asm: 1
 Emu: 1
@@ -2813,7 +2813,7 @@ Misses (cold) = 5
 Misses (hot)  = 0
 % Used        = 31.25%
 [exit 0]
-$ -sa 64 4 4 fib_rec 10
+$ -s size=64,block=4,ways=4 fib_rec 10
 C: 55
 Asm: 55
 Emu: 55
@@ -2829,7 +2829,7 @@ Misses (cold) = 5
 Misses (hot)  = 0
 % Used        = 31.25%
 [exit 0]
-$ -sa 64 4 4 fib_rec 20
+$ -s size=64,block=4,ways=4 fib_rec 20
 C: 6765
 Asm: 6765
 Emu: 6765
@@ -2845,7 +2845,7 @@ Misses (cold) = 5
 Misses (hot)  = 0
 % Used        = 31.25%
 [exit 0]
-$ -sa 64 4 4 get_bitseq 94116 12 15
+$ -s size=64,block=4,ways=4 get_bitseq 94116 12 15
 C: 6
 Asm: 6
 Emu: 6
@@ -2861,7 +2861,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 64 4 4 get_bitseq 1023 4 7
+$ -s size=64,block=4,ways=4 get_bitseq 1023 4 7
 C: 15
 Asm: 15
 Emu: 15
@@ -2877,7 +2877,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 64 4 4 get_bitseq 305419896 8 15
+$ -s size=64,block=4,ways=4 get_bitseq 305419896 8 15
 C: 86
 Asm: 86
 Emu: 86
@@ -2893,7 +2893,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 64 4 4 get_bitseq -1 0 31
+$ -s size=64,block=4,ways=4 get_bitseq -1 0 31
 C: -1
 Asm: -1
 Emu: -1
@@ -2909,7 +2909,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 64 4 4 int_to_str 1234 -o 10
+$ -s size=64,block=4,ways=4 int_to_str 1234 -o 10
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -2925,7 +2925,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -sa 64 4 4 int_to_str 1234 -o 16
+$ -s size=64,block=4,ways=4 int_to_str 1234 -o 16
 C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
@@ -2941,7 +2941,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
-$ -sa 64 4 4 int_to_str 255 -o 2
+$ -s size=64,block=4,ways=4 int_to_str 255 -o 2
 C: 0b11111111
 Asm: 0b11111111
 Emu: 0b11111111
@@ -2957,7 +2957,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
-$ -sa 64 4 4 int_to_str -42 -o 10
+$ -s size=64,block=4,ways=4 int_to_str -42 -o 10
 C: 4294967254
 Asm: 4294967254
 Emu: 4294967254
@@ -2973,7 +2973,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -sa 64 4 4 int_to_str 0 -o 10
+$ -s size=64,block=4,ways=4 int_to_str 0 -o 10
 C: 0
 Asm: 0
 Emu: 0
@@ -2989,7 +2989,7 @@ Misses (cold) = 7
 Misses (hot)  = 0
 % Used        = 43.75%
 [exit 0]
-$ -sa 64 4 4 is_pal racecar
+$ -s size=64,block=4,ways=4 is_pal racecar
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -3005,7 +3005,7 @@ Misses (cold) = 5
 Misses (hot)  = 0
 % Used        = 31.25%
 [exit 0]
-$ -sa 64 4 4 is_pal abba
+$ -s size=64,block=4,ways=4 is_pal abba
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -3021,7 +3021,7 @@ Misses (cold) = 5
 Misses (hot)  = 0
 % Used        = 31.25%
 [exit 0]
-$ -sa 64 4 4 is_pal abcd
+$ -s size=64,block=4,ways=4 is_pal abcd
 C: is not a palindrome
 Asm: is not a palindrome
 Emu: is not a palindrome
@@ -3037,7 +3037,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 64 4 4 is_pal a
+$ -s size=64,block=4,ways=4 is_pal a
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -3053,7 +3053,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -sa 64 4 4 max3 1 2 3
+$ -s size=64,block=4,ways=4 max3 1 2 3
 C: 3
 Asm: 3
 Emu: 3
@@ -3069,7 +3069,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 64 4 4 max3 3 2 1
+$ -s size=64,block=4,ways=4 max3 3 2 1
 C: 3
 Asm: 3
 Emu: 3
@@ -3085,7 +3085,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 64 4 4 max3 -5 -2 -9
+$ -s size=64,block=4,ways=4 max3 -5 -2 -9
 C: -2
 Asm: -2
 Emu: -2
@@ -3101,7 +3101,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 64 4 4 max3 7 7 7
+$ -s size=64,block=4,ways=4 max3 7 7 7
 C: 7
 Asm: 7
 Emu: 7
@@ -3117,7 +3117,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 64 4 4 midpoint 2 8
+$ -s size=64,block=4,ways=4 midpoint 2 8
 C: 5
 Asm: 5
 Emu: 5
@@ -3133,7 +3133,7 @@ Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -sa 64 4 4 midpoint 0 0
+$ -s size=64,block=4,ways=4 midpoint 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -3149,7 +3149,7 @@ Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -sa 64 4 4 midpoint -10 10
+$ -s size=64,block=4,ways=4 midpoint -10 10
 C: 0
 Asm: 0
 Emu: 0
@@ -3165,7 +3165,7 @@ Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -sa 64 4 4 midpoint 3 4
+$ -s size=64,block=4,ways=4 midpoint 3 4
 C: 3
 Asm: 3
 Emu: 3
@@ -3181,7 +3181,7 @@ Misses (cold) = 1
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -sa 64 4 4 quadratic 2 3 4 5
+$ -s size=64,block=4,ways=4 quadratic 2 3 4 5
 C: 25
 Asm: 25
 Emu: 25
@@ -3197,7 +3197,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -sa 64 4 4 quadratic -3 1 -2 7
+$ -s size=64,block=4,ways=4 quadratic -3 1 -2 7
 C: 22
 Asm: 22
 Emu: 22
@@ -3213,7 +3213,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -sa 64 4 4 quadratic 0 0 0 0
+$ -s size=64,block=4,ways=4 quadratic 0 0 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -3229,7 +3229,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -sa 64 4 4 sort 5 3 9 1 7
+$ -s size=64,block=4,ways=4 sort 5 3 9 1 7
 C: 9 7 5 3 1
 Asm: 9 7 5 3 1
 Emu: 9 7 5 3 1
@@ -3245,7 +3245,7 @@ Misses (cold) = 14
 Misses (hot)  = 0
 % Used        = 87.50%
 [exit 0]
-$ -sa 64 4 4 sort 1
+$ -s size=64,block=4,ways=4 sort 1
 C: 1
 Asm: 1
 Emu: 1
@@ -3261,7 +3261,7 @@ Misses (cold) = 14
 Misses (hot)  = 0
 % Used        = 87.50%
 [exit 0]
-$ -sa 64 4 4 sort -3 10 0 -7 22 4 4 8
+$ -s size=64,block=4,ways=4 sort -3 10 0 -7 22 4 4 8
 C: 22 10 8 4 4 0 -3 -7
 Asm: 22 10 8 4 4 0 -3 -7
 Emu: 22 10 8 4 4 0 -3 -7
@@ -3277,7 +3277,7 @@ Misses (cold) = 14
 Misses (hot)  = 0
 % Used        = 87.50%
 [exit 0]
-$ -sa 64 4 4 sort 1 2 3 4 5 6 7 8 9 10
+$ -s size=64,block=4,ways=4 sort 1 2 3 4 5 6 7 8 9 10
 C: 10 9 8 7 6 5 4 3 2 1
 Asm: 10 9 8 7 6 5 4 3 2 1
 Emu: 10 9 8 7 6 5 4 3 2 1
@@ -3293,7 +3293,7 @@ Misses (cold) = 14
 Misses (hot)  = 0
 % Used        = 87.50%
 [exit 0]
-$ -sa 64 4 4 str_to_int 1234
+$ -s size=64,block=4,ways=4 str_to_int 1234
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -3309,7 +3309,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -sa 64 4 4 str_to_int 0x1f
+$ -s size=64,block=4,ways=4 str_to_int 0x1f
 C: 31
 Asm: 31
 Emu: 31
@@ -3325,7 +3325,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -sa 64 4 4 str_to_int 0b1010
+$ -s size=64,block=4,ways=4 str_to_int 0b1010
 C: 10
 Asm: 10
 Emu: 10
@@ -3341,7 +3341,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -sa 64 4 4 str_to_int 0xdeadbee
+$ -s size=64,block=4,ways=4 str_to_int 0xdeadbee
 C: 233495534
 Asm: 233495534
 Emu: 233495534
@@ -3357,7 +3357,7 @@ Misses (cold) = 8
 Misses (hot)  = 0
 % Used        = 50.00%
 [exit 0]
-$ -sa 64 4 4 str_to_int 0
+$ -s size=64,block=4,ways=4 str_to_int 0
 C: 0
 Asm: 0
 Emu: 0
@@ -3373,7 +3373,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -sa 64 4 4 to_upper hello
+$ -s size=64,block=4,ways=4 to_upper hello
 C: HELLO
 Asm: HELLO
 Emu: HELLO
@@ -3389,7 +3389,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 64 4 4 to_upper Hello_World_123
+$ -s size=64,block=4,ways=4 to_upper Hello_World_123
 C: HELLO_WORLD_123
 Asm: HELLO_WORLD_123
 Emu: HELLO_WORLD_123
@@ -3405,7 +3405,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 64 4 4 to_upper already_UPPER
+$ -s size=64,block=4,ways=4 to_upper already_UPPER
 C: ALREADY_UPPER
 Asm: ALREADY_UPPER
 Emu: ALREADY_UPPER
@@ -3421,7 +3421,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 16 1 4 fib_rec 0
+$ -s size=16,block=1,ways=4 fib_rec 0
 C: 0
 Asm: 0
 Emu: 0
@@ -3437,7 +3437,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 16 1 4 fib_rec 1
+$ -s size=16,block=1,ways=4 fib_rec 1
 C: 1
 Asm: 1
 Emu: 1
@@ -3453,7 +3453,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 16 1 4 fib_rec 2
+$ -s size=16,block=1,ways=4 fib_rec 2
 C: 1
 Asm: 1
 Emu: 1
@@ -3469,7 +3469,7 @@ Misses (cold) = 16
 Misses (hot)  = 1
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 fib_rec 10
+$ -s size=16,block=1,ways=4 fib_rec 10
 C: 55
 Asm: 55
 Emu: 55
@@ -3485,7 +3485,7 @@ Misses (cold) = 16
 Misses (hot)  = 100
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 fib_rec 20
+$ -s size=16,block=1,ways=4 fib_rec 20
 C: 6765
 Asm: 6765
 Emu: 6765
@@ -3501,7 +3501,7 @@ Misses (cold) = 16
 Misses (hot)  = 12541
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 get_bitseq 94116 12 15
+$ -s size=16,block=1,ways=4 get_bitseq 94116 12 15
 C: 6
 Asm: 6
 Emu: 6
@@ -3517,7 +3517,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
-$ -sa 16 1 4 get_bitseq 1023 4 7
+$ -s size=16,block=1,ways=4 get_bitseq 1023 4 7
 C: 15
 Asm: 15
 Emu: 15
@@ -3533,7 +3533,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
-$ -sa 16 1 4 get_bitseq 305419896 8 15
+$ -s size=16,block=1,ways=4 get_bitseq 305419896 8 15
 C: 86
 Asm: 86
 Emu: 86
@@ -3549,7 +3549,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
-$ -sa 16 1 4 get_bitseq -1 0 31
+$ -s size=16,block=1,ways=4 get_bitseq -1 0 31
 C: -1
 Asm: -1
 Emu: -1
@@ -3565,7 +3565,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 62.50%
 [exit 0]
-$ -sa 16 1 4 int_to_str 1234 -o 10
+$ -s size=16,block=1,ways=4 int_to_str 1234 -o 10
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -3581,7 +3581,7 @@ Misses (cold) = 16
 Misses (hot)  = 13
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 int_to_str 1234 -o 16
+$ -s size=16,block=1,ways=4 int_to_str 1234 -o 16
 C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
@@ -3597,7 +3597,7 @@ Misses (cold) = 16
 Misses (hot)  = 19
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 int_to_str 255 -o 2
+$ -s size=16,block=1,ways=4 int_to_str 255 -o 2
 C: 0b11111111
 Asm: 0b11111111
 Emu: 0b11111111
@@ -3613,7 +3613,7 @@ Misses (cold) = 16
 Misses (hot)  = 18
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 int_to_str -42 -o 10
+$ -s size=16,block=1,ways=4 int_to_str -42 -o 10
 C: 4294967254
 Asm: 4294967254
 Emu: 4294967254
@@ -3629,7 +3629,7 @@ Misses (cold) = 16
 Misses (hot)  = 13
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 int_to_str 0 -o 10
+$ -s size=16,block=1,ways=4 int_to_str 0 -o 10
 C: 0
 Asm: 0
 Emu: 0
@@ -3645,7 +3645,7 @@ Misses (cold) = 16
 Misses (hot)  = 7
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 is_pal racecar
+$ -s size=16,block=1,ways=4 is_pal racecar
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -3661,7 +3661,7 @@ Misses (cold) = 16
 Misses (hot)  = 0
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 is_pal abba
+$ -s size=16,block=1,ways=4 is_pal abba
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -3677,7 +3677,7 @@ Misses (cold) = 16
 Misses (hot)  = 0
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 is_pal abcd
+$ -s size=16,block=1,ways=4 is_pal abcd
 C: is not a palindrome
 Asm: is not a palindrome
 Emu: is not a palindrome
@@ -3693,7 +3693,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -sa 16 1 4 is_pal a
+$ -s size=16,block=1,ways=4 is_pal a
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -3709,7 +3709,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 16 1 4 max3 1 2 3
+$ -s size=16,block=1,ways=4 max3 1 2 3
 C: 3
 Asm: 3
 Emu: 3
@@ -3725,7 +3725,7 @@ Misses (cold) = 12
 Misses (hot)  = 0
 % Used        = 75.00%
 [exit 0]
-$ -sa 16 1 4 max3 3 2 1
+$ -s size=16,block=1,ways=4 max3 3 2 1
 C: 3
 Asm: 3
 Emu: 3
@@ -3741,7 +3741,7 @@ Misses (cold) = 12
 Misses (hot)  = 0
 % Used        = 75.00%
 [exit 0]
-$ -sa 16 1 4 max3 -5 -2 -9
+$ -s size=16,block=1,ways=4 max3 -5 -2 -9
 C: -2
 Asm: -2
 Emu: -2
@@ -3757,7 +3757,7 @@ Misses (cold) = 12
 Misses (hot)  = 0
 % Used        = 75.00%
 [exit 0]
-$ -sa 16 1 4 max3 7 7 7
+$ -s size=16,block=1,ways=4 max3 7 7 7
 C: 7
 Asm: 7
 Emu: 7
@@ -3773,7 +3773,7 @@ Misses (cold) = 11
 Misses (hot)  = 0
 % Used        = 68.75%
 [exit 0]
-$ -sa 16 1 4 midpoint 2 8
+$ -s size=16,block=1,ways=4 midpoint 2 8
 C: 5
 Asm: 5
 Emu: 5
@@ -3789,7 +3789,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 16 1 4 midpoint 0 0
+$ -s size=16,block=1,ways=4 midpoint 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -3805,7 +3805,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 16 1 4 midpoint -10 10
+$ -s size=16,block=1,ways=4 midpoint -10 10
 C: 0
 Asm: 0
 Emu: 0
@@ -3821,7 +3821,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 16 1 4 midpoint 3 4
+$ -s size=16,block=1,ways=4 midpoint 3 4
 C: 3
 Asm: 3
 Emu: 3
@@ -3837,7 +3837,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 16 1 4 quadratic 2 3 4 5
+$ -s size=16,block=1,ways=4 quadratic 2 3 4 5
 C: 25
 Asm: 25
 Emu: 25
@@ -3853,7 +3853,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -sa 16 1 4 quadratic -3 1 -2 7
+$ -s size=16,block=1,ways=4 quadratic -3 1 -2 7
 C: 22
 Asm: 22
 Emu: 22
@@ -3869,7 +3869,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -sa 16 1 4 quadratic 0 0 0 0
+$ -s size=16,block=1,ways=4 quadratic 0 0 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -3885,7 +3885,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -sa 16 1 4 sort 5 3 9 1 7
+$ -s size=16,block=1,ways=4 sort 5 3 9 1 7
 C: 9 7 5 3 1
 Asm: 9 7 5 3 1
 Emu: 9 7 5 3 1
@@ -3901,7 +3901,7 @@ Misses (cold) = 16
 Misses (hot)  = 199
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 sort 1
+$ -s size=16,block=1,ways=4 sort 1
 C: 1
 Asm: 1
 Emu: 1
@@ -3917,7 +3917,7 @@ Misses (cold) = 16
 Misses (hot)  = 35
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 sort -3 10 0 -7 22 4 4 8
+$ -s size=16,block=1,ways=4 sort -3 10 0 -7 22 4 4 8
 C: 22 10 8 4 4 0 -3 -7
 Asm: 22 10 8 4 4 0 -3 -7
 Emu: 22 10 8 4 4 0 -3 -7
@@ -3933,7 +3933,7 @@ Misses (cold) = 16
 Misses (hot)  = 322
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 sort 1 2 3 4 5 6 7 8 9 10
+$ -s size=16,block=1,ways=4 sort 1 2 3 4 5 6 7 8 9 10
 C: 10 9 8 7 6 5 4 3 2 1
 Asm: 10 9 8 7 6 5 4 3 2 1
 Emu: 10 9 8 7 6 5 4 3 2 1
@@ -3949,7 +3949,7 @@ Misses (cold) = 16
 Misses (hot)  = 404
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 str_to_int 1234
+$ -s size=16,block=1,ways=4 str_to_int 1234
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -3965,7 +3965,7 @@ Misses (cold) = 16
 Misses (hot)  = 14
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 str_to_int 0x1f
+$ -s size=16,block=1,ways=4 str_to_int 0x1f
 C: 31
 Asm: 31
 Emu: 31
@@ -3981,7 +3981,7 @@ Misses (cold) = 16
 Misses (hot)  = 16
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 str_to_int 0b1010
+$ -s size=16,block=1,ways=4 str_to_int 0b1010
 C: 10
 Asm: 10
 Emu: 10
@@ -3997,7 +3997,7 @@ Misses (cold) = 16
 Misses (hot)  = 14
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 str_to_int 0xdeadbee
+$ -s size=16,block=1,ways=4 str_to_int 0xdeadbee
 C: 233495534
 Asm: 233495534
 Emu: 233495534
@@ -4013,7 +4013,7 @@ Misses (cold) = 16
 Misses (hot)  = 13
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 str_to_int 0
+$ -s size=16,block=1,ways=4 str_to_int 0
 C: 0
 Asm: 0
 Emu: 0
@@ -4029,7 +4029,7 @@ Misses (cold) = 16
 Misses (hot)  = 14
 % Used        = 100.00%
 [exit 0]
-$ -sa 16 1 4 to_upper hello
+$ -s size=16,block=1,ways=4 to_upper hello
 C: HELLO
 Asm: HELLO
 Emu: HELLO
@@ -4045,7 +4045,7 @@ Misses (cold) = 13
 Misses (hot)  = 0
 % Used        = 81.25%
 [exit 0]
-$ -sa 16 1 4 to_upper Hello_World_123
+$ -s size=16,block=1,ways=4 to_upper Hello_World_123
 C: HELLO_WORLD_123
 Asm: HELLO_WORLD_123
 Emu: HELLO_WORLD_123
@@ -4061,7 +4061,7 @@ Misses (cold) = 13
 Misses (hot)  = 0
 % Used        = 81.25%
 [exit 0]
-$ -sa 16 1 4 to_upper already_UPPER
+$ -s size=16,block=1,ways=4 to_upper already_UPPER
 C: ALREADY_UPPER
 Asm: ALREADY_UPPER
 Emu: ALREADY_UPPER
@@ -4077,7 +4077,7 @@ Misses (cold) = 13
 Misses (hot)  = 0
 % Used        = 81.25%
 [exit 0]
-$ -sa 32 2 2 fib_rec 0
+$ -s size=32,block=2,ways=2 fib_rec 0
 C: 0
 Asm: 0
 Emu: 0
@@ -4093,7 +4093,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -sa 32 2 2 fib_rec 1
+$ -s size=32,block=2,ways=2 fib_rec 1
 C: 1
 Asm: 1
 Emu: 1
@@ -4109,7 +4109,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -sa 32 2 2 fib_rec 2
+$ -s size=32,block=2,ways=2 fib_rec 2
 C: 1
 Asm: 1
 Emu: 1
@@ -4125,7 +4125,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -sa 32 2 2 fib_rec 10
+$ -s size=32,block=2,ways=2 fib_rec 10
 C: 55
 Asm: 55
 Emu: 55
@@ -4141,7 +4141,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -sa 32 2 2 fib_rec 20
+$ -s size=32,block=2,ways=2 fib_rec 20
 C: 6765
 Asm: 6765
 Emu: 6765
@@ -4157,7 +4157,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 56.25%
 [exit 0]
-$ -sa 32 2 2 get_bitseq 94116 12 15
+$ -s size=32,block=2,ways=2 get_bitseq 94116 12 15
 C: 6
 Asm: 6
 Emu: 6
@@ -4173,7 +4173,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -sa 32 2 2 get_bitseq 1023 4 7
+$ -s size=32,block=2,ways=2 get_bitseq 1023 4 7
 C: 15
 Asm: 15
 Emu: 15
@@ -4189,7 +4189,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -sa 32 2 2 get_bitseq 305419896 8 15
+$ -s size=32,block=2,ways=2 get_bitseq 305419896 8 15
 C: 86
 Asm: 86
 Emu: 86
@@ -4205,7 +4205,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -sa 32 2 2 get_bitseq -1 0 31
+$ -s size=32,block=2,ways=2 get_bitseq -1 0 31
 C: -1
 Asm: -1
 Emu: -1
@@ -4221,7 +4221,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -sa 32 2 2 int_to_str 1234 -o 10
+$ -s size=32,block=2,ways=2 int_to_str 1234 -o 10
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -4237,7 +4237,7 @@ Misses (cold) = 14
 Misses (hot)  = 3
 % Used        = 87.50%
 [exit 0]
-$ -sa 32 2 2 int_to_str 1234 -o 16
+$ -s size=32,block=2,ways=2 int_to_str 1234 -o 16
 C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
@@ -4253,7 +4253,7 @@ Misses (cold) = 16
 Misses (hot)  = 3
 % Used        = 100.00%
 [exit 0]
-$ -sa 32 2 2 int_to_str 255 -o 2
+$ -s size=32,block=2,ways=2 int_to_str 255 -o 2
 C: 0b11111111
 Asm: 0b11111111
 Emu: 0b11111111
@@ -4269,7 +4269,7 @@ Misses (cold) = 14
 Misses (hot)  = 5
 % Used        = 87.50%
 [exit 0]
-$ -sa 32 2 2 int_to_str -42 -o 10
+$ -s size=32,block=2,ways=2 int_to_str -42 -o 10
 C: 4294967254
 Asm: 4294967254
 Emu: 4294967254
@@ -4285,7 +4285,7 @@ Misses (cold) = 14
 Misses (hot)  = 3
 % Used        = 87.50%
 [exit 0]
-$ -sa 32 2 2 int_to_str 0 -o 10
+$ -s size=32,block=2,ways=2 int_to_str 0 -o 10
 C: 0
 Asm: 0
 Emu: 0
@@ -4301,7 +4301,7 @@ Misses (cold) = 11
 Misses (hot)  = 2
 % Used        = 68.75%
 [exit 0]
-$ -sa 32 2 2 is_pal racecar
+$ -s size=32,block=2,ways=2 is_pal racecar
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -4317,7 +4317,7 @@ Misses (cold) = 8
 Misses (hot)  = 0
 % Used        = 50.00%
 [exit 0]
-$ -sa 32 2 2 is_pal abba
+$ -s size=32,block=2,ways=2 is_pal abba
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -4333,7 +4333,7 @@ Misses (cold) = 8
 Misses (hot)  = 0
 % Used        = 50.00%
 [exit 0]
-$ -sa 32 2 2 is_pal abcd
+$ -s size=32,block=2,ways=2 is_pal abcd
 C: is not a palindrome
 Asm: is not a palindrome
 Emu: is not a palindrome
@@ -4349,7 +4349,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -sa 32 2 2 is_pal a
+$ -s size=32,block=2,ways=2 is_pal a
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -4365,7 +4365,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 32 2 2 max3 1 2 3
+$ -s size=32,block=2,ways=2 max3 1 2 3
 C: 3
 Asm: 3
 Emu: 3
@@ -4381,7 +4381,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -sa 32 2 2 max3 3 2 1
+$ -s size=32,block=2,ways=2 max3 3 2 1
 C: 3
 Asm: 3
 Emu: 3
@@ -4397,7 +4397,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -sa 32 2 2 max3 -5 -2 -9
+$ -s size=32,block=2,ways=2 max3 -5 -2 -9
 C: -2
 Asm: -2
 Emu: -2
@@ -4413,7 +4413,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -sa 32 2 2 max3 7 7 7
+$ -s size=32,block=2,ways=2 max3 7 7 7
 C: 7
 Asm: 7
 Emu: 7
@@ -4429,7 +4429,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 37.50%
 [exit 0]
-$ -sa 32 2 2 midpoint 2 8
+$ -s size=32,block=2,ways=2 midpoint 2 8
 C: 5
 Asm: 5
 Emu: 5
@@ -4445,7 +4445,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -sa 32 2 2 midpoint 0 0
+$ -s size=32,block=2,ways=2 midpoint 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -4461,7 +4461,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -sa 32 2 2 midpoint -10 10
+$ -s size=32,block=2,ways=2 midpoint -10 10
 C: 0
 Asm: 0
 Emu: 0
@@ -4477,7 +4477,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -sa 32 2 2 midpoint 3 4
+$ -s size=32,block=2,ways=2 midpoint 3 4
 C: 3
 Asm: 3
 Emu: 3
@@ -4493,7 +4493,7 @@ Misses (cold) = 2
 Misses (hot)  = 0
 % Used        = 12.50%
 [exit 0]
-$ -sa 32 2 2 quadratic 2 3 4 5
+$ -s size=32,block=2,ways=2 quadratic 2 3 4 5
 C: 25
 Asm: 25
 Emu: 25
@@ -4509,7 +4509,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 32 2 2 quadratic -3 1 -2 7
+$ -s size=32,block=2,ways=2 quadratic -3 1 -2 7
 C: 22
 Asm: 22
 Emu: 22
@@ -4525,7 +4525,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 32 2 2 quadratic 0 0 0 0
+$ -s size=32,block=2,ways=2 quadratic 0 0 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -4541,7 +4541,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 32 2 2 sort 5 3 9 1 7
+$ -s size=32,block=2,ways=2 sort 5 3 9 1 7
 C: 9 7 5 3 1
 Asm: 9 7 5 3 1
 Emu: 9 7 5 3 1
@@ -4557,7 +4557,7 @@ Misses (cold) = 16
 Misses (hot)  = 71
 % Used        = 100.00%
 [exit 0]
-$ -sa 32 2 2 sort 1
+$ -s size=32,block=2,ways=2 sort 1
 C: 1
 Asm: 1
 Emu: 1
@@ -4573,7 +4573,7 @@ Misses (cold) = 16
 Misses (hot)  = 11
 % Used        = 100.00%
 [exit 0]
-$ -sa 32 2 2 sort -3 10 0 -7 22 4 4 8
+$ -s size=32,block=2,ways=2 sort -3 10 0 -7 22 4 4 8
 C: 22 10 8 4 4 0 -3 -7
 Asm: 22 10 8 4 4 0 -3 -7
 Emu: 22 10 8 4 4 0 -3 -7
@@ -4589,7 +4589,7 @@ Misses (cold) = 16
 Misses (hot)  = 116
 % Used        = 100.00%
 [exit 0]
-$ -sa 32 2 2 sort 1 2 3 4 5 6 7 8 9 10
+$ -s size=32,block=2,ways=2 sort 1 2 3 4 5 6 7 8 9 10
 C: 10 9 8 7 6 5 4 3 2 1
 Asm: 10 9 8 7 6 5 4 3 2 1
 Emu: 10 9 8 7 6 5 4 3 2 1
@@ -4605,7 +4605,7 @@ Misses (cold) = 16
 Misses (hot)  = 146
 % Used        = 100.00%
 [exit 0]
-$ -sa 32 2 2 str_to_int 1234
+$ -s size=32,block=2,ways=2 str_to_int 1234
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -4621,7 +4621,7 @@ Misses (cold) = 14
 Misses (hot)  = 1
 % Used        = 87.50%
 [exit 0]
-$ -sa 32 2 2 str_to_int 0x1f
+$ -s size=32,block=2,ways=2 str_to_int 0x1f
 C: 31
 Asm: 31
 Emu: 31
@@ -4637,7 +4637,7 @@ Misses (cold) = 15
 Misses (hot)  = 1
 % Used        = 93.75%
 [exit 0]
-$ -sa 32 2 2 str_to_int 0b1010
+$ -s size=32,block=2,ways=2 str_to_int 0b1010
 C: 10
 Asm: 10
 Emu: 10
@@ -4653,7 +4653,7 @@ Misses (cold) = 14
 Misses (hot)  = 1
 % Used        = 87.50%
 [exit 0]
-$ -sa 32 2 2 str_to_int 0xdeadbee
+$ -s size=32,block=2,ways=2 str_to_int 0xdeadbee
 C: 233495534
 Asm: 233495534
 Emu: 233495534
@@ -4669,7 +4669,7 @@ Misses (cold) = 14
 Misses (hot)  = 1
 % Used        = 87.50%
 [exit 0]
-$ -sa 32 2 2 str_to_int 0
+$ -s size=32,block=2,ways=2 str_to_int 0
 C: 0
 Asm: 0
 Emu: 0
@@ -4685,7 +4685,7 @@ Misses (cold) = 14
 Misses (hot)  = 1
 % Used        = 87.50%
 [exit 0]
-$ -sa 32 2 2 to_upper hello
+$ -s size=32,block=2,ways=2 to_upper hello
 C: HELLO
 Asm: HELLO
 Emu: HELLO
@@ -4701,7 +4701,7 @@ Misses (cold) = 7
 Misses (hot)  = 0
 % Used        = 43.75%
 [exit 0]
-$ -sa 32 2 2 to_upper Hello_World_123
+$ -s size=32,block=2,ways=2 to_upper Hello_World_123
 C: HELLO_WORLD_123
 Asm: HELLO_WORLD_123
 Emu: HELLO_WORLD_123
@@ -4717,7 +4717,7 @@ Misses (cold) = 7
 Misses (hot)  = 0
 % Used        = 43.75%
 [exit 0]
-$ -sa 32 2 2 to_upper already_UPPER
+$ -s size=32,block=2,ways=2 to_upper already_UPPER
 C: ALREADY_UPPER
 Asm: ALREADY_UPPER
 Emu: ALREADY_UPPER
@@ -4733,7 +4733,7 @@ Misses (cold) = 7
 Misses (hot)  = 0
 % Used        = 43.75%
 [exit 0]
-$ -sa 64 1 8 fib_rec 0
+$ -s size=64,block=1,ways=8 fib_rec 0
 C: 0
 Asm: 0
 Emu: 0
@@ -4749,7 +4749,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 4.69%
 [exit 0]
-$ -sa 64 1 8 fib_rec 1
+$ -s size=64,block=1,ways=8 fib_rec 1
 C: 1
 Asm: 1
 Emu: 1
@@ -4765,7 +4765,7 @@ Misses (cold) = 3
 Misses (hot)  = 0
 % Used        = 4.69%
 [exit 0]
-$ -sa 64 1 8 fib_rec 2
+$ -s size=64,block=1,ways=8 fib_rec 2
 C: 1
 Asm: 1
 Emu: 1
@@ -4781,7 +4781,7 @@ Misses (cold) = 17
 Misses (hot)  = 0
 % Used        = 26.56%
 [exit 0]
-$ -sa 64 1 8 fib_rec 10
+$ -s size=64,block=1,ways=8 fib_rec 10
 C: 55
 Asm: 55
 Emu: 55
@@ -4797,7 +4797,7 @@ Misses (cold) = 17
 Misses (hot)  = 0
 % Used        = 26.56%
 [exit 0]
-$ -sa 64 1 8 fib_rec 20
+$ -s size=64,block=1,ways=8 fib_rec 20
 C: 6765
 Asm: 6765
 Emu: 6765
@@ -4813,7 +4813,7 @@ Misses (cold) = 17
 Misses (hot)  = 0
 % Used        = 26.56%
 [exit 0]
-$ -sa 64 1 8 get_bitseq 94116 12 15
+$ -s size=64,block=1,ways=8 get_bitseq 94116 12 15
 C: 6
 Asm: 6
 Emu: 6
@@ -4829,7 +4829,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 15.62%
 [exit 0]
-$ -sa 64 1 8 get_bitseq 1023 4 7
+$ -s size=64,block=1,ways=8 get_bitseq 1023 4 7
 C: 15
 Asm: 15
 Emu: 15
@@ -4845,7 +4845,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 15.62%
 [exit 0]
-$ -sa 64 1 8 get_bitseq 305419896 8 15
+$ -s size=64,block=1,ways=8 get_bitseq 305419896 8 15
 C: 86
 Asm: 86
 Emu: 86
@@ -4861,7 +4861,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 15.62%
 [exit 0]
-$ -sa 64 1 8 get_bitseq -1 0 31
+$ -s size=64,block=1,ways=8 get_bitseq -1 0 31
 C: -1
 Asm: -1
 Emu: -1
@@ -4877,7 +4877,7 @@ Misses (cold) = 10
 Misses (hot)  = 0
 % Used        = 15.62%
 [exit 0]
-$ -sa 64 1 8 int_to_str 1234 -o 10
+$ -s size=64,block=1,ways=8 int_to_str 1234 -o 10
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -4893,7 +4893,7 @@ Misses (cold) = 29
 Misses (hot)  = 0
 % Used        = 45.31%
 [exit 0]
-$ -sa 64 1 8 int_to_str 1234 -o 16
+$ -s size=64,block=1,ways=8 int_to_str 1234 -o 16
 C: 0x4D2
 Asm: 0x4D2
 Emu: 0x4D2
@@ -4909,7 +4909,7 @@ Misses (cold) = 35
 Misses (hot)  = 0
 % Used        = 54.69%
 [exit 0]
-$ -sa 64 1 8 int_to_str 255 -o 2
+$ -s size=64,block=1,ways=8 int_to_str 255 -o 2
 C: 0b11111111
 Asm: 0b11111111
 Emu: 0b11111111
@@ -4925,7 +4925,7 @@ Misses (cold) = 34
 Misses (hot)  = 0
 % Used        = 53.12%
 [exit 0]
-$ -sa 64 1 8 int_to_str -42 -o 10
+$ -s size=64,block=1,ways=8 int_to_str -42 -o 10
 C: 4294967254
 Asm: 4294967254
 Emu: 4294967254
@@ -4941,7 +4941,7 @@ Misses (cold) = 29
 Misses (hot)  = 0
 % Used        = 45.31%
 [exit 0]
-$ -sa 64 1 8 int_to_str 0 -o 10
+$ -s size=64,block=1,ways=8 int_to_str 0 -o 10
 C: 0
 Asm: 0
 Emu: 0
@@ -4957,7 +4957,7 @@ Misses (cold) = 23
 Misses (hot)  = 0
 % Used        = 35.94%
 [exit 0]
-$ -sa 64 1 8 is_pal racecar
+$ -s size=64,block=1,ways=8 is_pal racecar
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -4973,7 +4973,7 @@ Misses (cold) = 16
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 64 1 8 is_pal abba
+$ -s size=64,block=1,ways=8 is_pal abba
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -4989,7 +4989,7 @@ Misses (cold) = 16
 Misses (hot)  = 0
 % Used        = 25.00%
 [exit 0]
-$ -sa 64 1 8 is_pal abcd
+$ -s size=64,block=1,ways=8 is_pal abcd
 C: is not a palindrome
 Asm: is not a palindrome
 Emu: is not a palindrome
@@ -5005,7 +5005,7 @@ Misses (cold) = 9
 Misses (hot)  = 0
 % Used        = 14.06%
 [exit 0]
-$ -sa 64 1 8 is_pal a
+$ -s size=64,block=1,ways=8 is_pal a
 C: is a palindrome
 Asm: is a palindrome
 Emu: is a palindrome
@@ -5021,7 +5021,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -sa 64 1 8 max3 1 2 3
+$ -s size=64,block=1,ways=8 max3 1 2 3
 C: 3
 Asm: 3
 Emu: 3
@@ -5037,7 +5037,7 @@ Misses (cold) = 12
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 64 1 8 max3 3 2 1
+$ -s size=64,block=1,ways=8 max3 3 2 1
 C: 3
 Asm: 3
 Emu: 3
@@ -5053,7 +5053,7 @@ Misses (cold) = 12
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 64 1 8 max3 -5 -2 -9
+$ -s size=64,block=1,ways=8 max3 -5 -2 -9
 C: -2
 Asm: -2
 Emu: -2
@@ -5069,7 +5069,7 @@ Misses (cold) = 12
 Misses (hot)  = 0
 % Used        = 18.75%
 [exit 0]
-$ -sa 64 1 8 max3 7 7 7
+$ -s size=64,block=1,ways=8 max3 7 7 7
 C: 7
 Asm: 7
 Emu: 7
@@ -5085,7 +5085,7 @@ Misses (cold) = 11
 Misses (hot)  = 0
 % Used        = 17.19%
 [exit 0]
-$ -sa 64 1 8 midpoint 2 8
+$ -s size=64,block=1,ways=8 midpoint 2 8
 C: 5
 Asm: 5
 Emu: 5
@@ -5101,7 +5101,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -sa 64 1 8 midpoint 0 0
+$ -s size=64,block=1,ways=8 midpoint 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -5117,7 +5117,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -sa 64 1 8 midpoint -10 10
+$ -s size=64,block=1,ways=8 midpoint -10 10
 C: 0
 Asm: 0
 Emu: 0
@@ -5133,7 +5133,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -sa 64 1 8 midpoint 3 4
+$ -s size=64,block=1,ways=8 midpoint 3 4
 C: 3
 Asm: 3
 Emu: 3
@@ -5149,7 +5149,7 @@ Misses (cold) = 4
 Misses (hot)  = 0
 % Used        = 6.25%
 [exit 0]
-$ -sa 64 1 8 quadratic 2 3 4 5
+$ -s size=64,block=1,ways=8 quadratic 2 3 4 5
 C: 25
 Asm: 25
 Emu: 25
@@ -5165,7 +5165,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 9.38%
 [exit 0]
-$ -sa 64 1 8 quadratic -3 1 -2 7
+$ -s size=64,block=1,ways=8 quadratic -3 1 -2 7
 C: 22
 Asm: 22
 Emu: 22
@@ -5181,7 +5181,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 9.38%
 [exit 0]
-$ -sa 64 1 8 quadratic 0 0 0 0
+$ -s size=64,block=1,ways=8 quadratic 0 0 0 0
 C: 0
 Asm: 0
 Emu: 0
@@ -5197,7 +5197,7 @@ Misses (cold) = 6
 Misses (hot)  = 0
 % Used        = 9.38%
 [exit 0]
-$ -sa 64 1 8 sort 5 3 9 1 7
+$ -s size=64,block=1,ways=8 sort 5 3 9 1 7
 C: 9 7 5 3 1
 Asm: 9 7 5 3 1
 Emu: 9 7 5 3 1
@@ -5213,7 +5213,7 @@ Misses (cold) = 50
 Misses (hot)  = 0
 % Used        = 78.12%
 [exit 0]
-$ -sa 64 1 8 sort 1
+$ -s size=64,block=1,ways=8 sort 1
 C: 1
 Asm: 1
 Emu: 1
@@ -5229,7 +5229,7 @@ Misses (cold) = 50
 Misses (hot)  = 0
 % Used        = 78.12%
 [exit 0]
-$ -sa 64 1 8 sort -3 10 0 -7 22 4 4 8
+$ -s size=64,block=1,ways=8 sort -3 10 0 -7 22 4 4 8
 C: 22 10 8 4 4 0 -3 -7
 Asm: 22 10 8 4 4 0 -3 -7
 Emu: 22 10 8 4 4 0 -3 -7
@@ -5245,7 +5245,7 @@ Misses (cold) = 50
 Misses (hot)  = 0
 % Used        = 78.12%
 [exit 0]
-$ -sa 64 1 8 sort 1 2 3 4 5 6 7 8 9 10
+$ -s size=64,block=1,ways=8 sort 1 2 3 4 5 6 7 8 9 10
 C: 10 9 8 7 6 5 4 3 2 1
 Asm: 10 9 8 7 6 5 4 3 2 1
 Emu: 10 9 8 7 6 5 4 3 2 1
@@ -5261,7 +5261,7 @@ Misses (cold) = 50
 Misses (hot)  = 0
 % Used        = 78.12%
 [exit 0]
-$ -sa 64 1 8 str_to_int 1234
+$ -s size=64,block=1,ways=8 str_to_int 1234
 C: 1234
 Asm: 1234
 Emu: 1234
@@ -5277,7 +5277,7 @@ Misses (cold) = 30
 Misses (hot)  = 0
 % Used        = 46.88%
 [exit 0]
-$ -sa 64 1 8 str_to_int 0x1f
+$ -s size=64,block=1,ways=8 str_to_int 0x1f
 C: 31
 Asm: 31
 Emu: 31
@@ -5293,7 +5293,7 @@ Misses (cold) = 32
 Misses (hot)  = 0
 % Used        = 50.00%
 [exit 0]
-$ -sa 64 1 8 str_to_int 0b1010
+$ -s size=64,block=1,ways=8 str_to_int 0b1010
 C: 10
 Asm: 10
 Emu: 10
@@ -5309,7 +5309,7 @@ Misses (cold) = 30
 Misses (hot)  = 0
 % Used        = 46.88%
 [exit 0]
-$ -sa 64 1 8 str_to_int 0xdeadbee
+$ -s size=64,block=1,ways=8 str_to_int 0xdeadbee
 C: 233495534
 Asm: 233495534
 Emu: 233495534
@@ -5325,7 +5325,7 @@ Misses (cold) = 29
 Misses (hot)  = 0
 % Used        = 45.31%
 [exit 0]
-$ -sa 64 1 8 str_to_int 0
+$ -s size=64,block=1,ways=8 str_to_int 0
 C: 0
 Asm: 0
 Emu: 0
@@ -5341,7 +5341,7 @@ Misses (cold) = 30
 Misses (hot)  = 0
 % Used        = 46.88%
 [exit 0]
-$ -sa 64 1 8 to_upper hello
+$ -s size=64,block=1,ways=8 to_upper hello
 C: HELLO
 Asm: HELLO
 Emu: HELLO
@@ -5357,7 +5357,7 @@ Misses (cold) = 13
 Misses (hot)  = 0
 % Used        = 20.31%
 [exit 0]
-$ -sa 64 1 8 to_upper Hello_World_123
+$ -s size=64,block=1,ways=8 to_upper Hello_World_123
 C: HELLO_WORLD_123
 Asm: HELLO_WORLD_123
 Emu: HELLO_WORLD_123
@@ -5373,7 +5373,7 @@ Misses (cold) = 13
 Misses (hot)  = 0
 % Used        = 20.31%
 [exit 0]
-$ -sa 64 1 8 to_upper already_UPPER
+$ -s size=64,block=1,ways=8 to_upper already_UPPER
 C: ALREADY_UPPER
 Asm: ALREADY_UPPER
 Emu: ALREADY_UPPER
@@ -5406,7 +5406,7 @@ Conditional branches   = 4 (4.88%)
   Branches taken       = 2 (50.00%)
   Branches not taken   = 2 (50.00%)
 [exit 0]
-$ -dm 16 1 insn
+$ -d size=16,block=1 insn
 Asm: fffffffffffffb2e ffffffffffffffb3 fffffffffffffffb fffffffffffffb2e 4 8 30000000000 6 c 3 c ffffffffffffffff 7 8000000000000000 0 fffffffffffffffd ffffffffffffffff 0 0
 Emu: fffffffffffffb2e ffffffffffffffb3 fffffffffffffffb fffffffffffffb2e 4 8 30000000000 6 c 3 c ffffffffffffffff 7 8000000000000000 0 fffffffffffffffd ffffffffffffffff 0 0
 === Cache (I)
@@ -5421,7 +5421,7 @@ Misses (cold) = 16
 Misses (hot)  = 66
 % Used        = 100.00%
 [exit 0]
-$ -sa 32 2 2 insn
+$ -s size=32,block=2,ways=2 insn
 Asm: fffffffffffffb2e ffffffffffffffb3 fffffffffffffffb fffffffffffffb2e 4 8 30000000000 6 c 3 c ffffffffffffffff 7 8000000000000000 0 fffffffffffffffd ffffffffffffffff 0 0
 Emu: fffffffffffffb2e ffffffffffffffb3 fffffffffffffffb fffffffffffffb2e 4 8 30000000000 6 c 3 c ffffffffffffffff 7 8000000000000000 0 fffffffffffffffd ffffffffffffffff 0 0
 === Cache (I)
@@ -5437,7 +5437,8 @@ Misses (hot)  = 27
 % Used        = 100.00%
 [exit 0]
 $ 
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5454,7 +5455,8 @@ programs:
   to_upper   <string>
 [exit 1]
 $ bogus 1 2
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5471,7 +5473,8 @@ programs:
   to_upper   <string>
 [exit 1]
 $ -a
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5488,7 +5491,8 @@ programs:
   to_upper   <string>
 [exit 1]
 $ fib_rec
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5505,7 +5509,8 @@ programs:
   to_upper   <string>
 [exit 1]
 $ fib_rec 1 2
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5521,8 +5526,9 @@ programs:
   str_to_int <string>
   to_upper   <string>
 [exit 1]
-$ -dm 16
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+$ -d size=16
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5539,7 +5545,8 @@ programs:
   to_upper   <string>
 [exit 1]
 $ -x fib_rec 3
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5561,7 +5568,8 @@ Asm: 255
 Emu: 255
 [exit 0]
 $ int_to_str 255 -x 2
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5582,31 +5590,31 @@ C:
 Asm:
 Emu:
 [exit 0]
-$ -dm 64 3 fib_rec 5
+$ -d size=64,block=3 fib_rec 5
 rv64_emu: cannot simulate a 1-way cache of 64 words in 3-word blocks
 [exit 1]
-$ -dm 64 8 fib_rec 5
+$ -d size=64,block=8 fib_rec 5
 rv64_emu: cannot simulate a 1-way cache of 64 words in 8-word blocks
 [exit 1]
-$ -dm 48 4 fib_rec 5
+$ -d size=48,block=4 fib_rec 5
 rv64_emu: cannot simulate a 1-way cache of 48 words in 4-word blocks
 [exit 1]
-$ -dm 2 4 fib_rec 5
+$ -d size=2,block=4 fib_rec 5
 rv64_emu: cannot simulate a 1-way cache of 2 words in 4-word blocks
 [exit 1]
-$ -dm 65536 4 fib_rec 5
+$ -d size=65536,block=4 fib_rec 5
 rv64_emu: cannot simulate a 1-way cache of 65536 words in 4-word blocks
 [exit 1]
-$ -sa 64 4 0 fib_rec 5
+$ -s size=64,block=4,ways=0 fib_rec 5
 rv64_emu: cannot simulate a 0-way cache of 64 words in 4-word blocks
 [exit 1]
-$ -sa 64 4 3 fib_rec 5
+$ -s size=64,block=4,ways=3 fib_rec 5
 rv64_emu: cannot simulate a 3-way cache of 64 words in 4-word blocks
 [exit 1]
-$ -sa 64 4 32 fib_rec 5
+$ -s size=64,block=4,ways=32 fib_rec 5
 rv64_emu: cannot simulate a 32-way cache of 64 words in 4-word blocks
 [exit 1]
-$ -dm 16384 4 fib_rec 5
+$ -d size=16384,block=4 fib_rec 5
 C: 5
 Asm: 5
 Emu: 5
@@ -5623,7 +5631,8 @@ Misses (hot)  = 0
 % Used        = 0.12%
 [exit 0]
 $ int_to_str 5 -o 1
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5640,7 +5649,8 @@ programs:
   to_upper   <string>
 [exit 1]
 $ int_to_str 5 -o 8
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5675,7 +5685,8 @@ Asm: is a palindrome
 rv64_emu: emulated stack overflow
 [exit 1]
 $ str_to_int 0b12
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5692,7 +5703,8 @@ programs:
   to_upper   <string>
 [exit 1]
 $ str_to_int 1z
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5709,7 +5721,8 @@ programs:
   to_upper   <string>
 [exit 1]
 $ str_to_int -17
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5726,7 +5739,8 @@ programs:
   to_upper   <string>
 [exit 1]
 $ str_to_int 0x
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5753,7 +5767,8 @@ Asm: 2147483647
 Emu: 2147483647
 [exit 0]
 $ get_bitseq 94116 10 3
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
@@ -5770,7 +5785,8 @@ programs:
   to_upper   <string>
 [exit 1]
 $ get_bitseq 94116 12 32
-usage: rv64_emu [-a] [-v] [-dm <size> <block>] [-sa <size> <block> <ways>]
+usage: rv64_emu [-av] [-d size=<words>,block=<words>]
+                [-s size=<words>,block=<words>,ways=<n>]
                 <prog> [<arg> ...]
 
 programs:
